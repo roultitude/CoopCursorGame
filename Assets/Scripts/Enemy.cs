@@ -8,7 +8,10 @@ public class Enemy : NetworkBehaviour
     private float moveSpeed, rotationSpeed;
 
     [SerializeField]
-    private NetworkVariable<int> health = new NetworkVariable<int>(3);
+    private int baseHealth;
+
+    [SerializeField]
+    private NetworkVariable<int> health;
 
     [SerializeField]
     private Animator animator;
@@ -17,6 +20,7 @@ public class Enemy : NetworkBehaviour
     private bool isFacingPlayer;
 
     private Rigidbody2D rb;
+    private bool isVulnerable = true;
 
     private void Awake()
     {
@@ -25,6 +29,7 @@ public class Enemy : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        if (IsServer) health.Value = baseHealth;
         health.OnValueChanged += OnHealthChange;
     }
 
@@ -66,7 +71,7 @@ public class Enemy : NetworkBehaviour
         {
             NetworkObject no = col.GetComponent<NetworkObject>();
 
-            if (!no.IsOwner) return; // if collided player is not owned by local client, ignore
+            if (!no.IsOwner || !isVulnerable) return; // if collided player is not owned by local client or invuln, ignore
 
             ChangeHealthRPC(-1); //affect dmg
 
@@ -137,4 +142,9 @@ public class Enemy : NetworkBehaviour
         return (closestPlayer, closestVec);
     }
 
+
+    public void ChangeVulnerable(bool isVuln)
+    {
+        isVulnerable = isVuln;
+    }
 }

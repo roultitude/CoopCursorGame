@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3022567726
+  GlobalObjectIdHash: 1165712198
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -253,9 +253,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 1
+  moveSpeed: 0.5
+  rotationSpeed: 0
+  baseHealth: 5
   health:
-    m_InternalValue: 10
+    m_InternalValue: 5
   animator: {fileID: 8480468972754706179}
   isFacingPlayer: 0
 --- !u!114 &4838654388662224516

@@ -98,7 +98,7 @@ public class Player : NetworkBehaviour
         canMove = false;
     }
 
-    private void OnHit()
+    public void OnHit()
     {
         if (!IsOwner) return; //clientside hit
         Debug.Log("local player hit");

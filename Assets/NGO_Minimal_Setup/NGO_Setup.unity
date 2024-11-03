@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  Players: []
+  players: []
   playerUIPrefab: {fileID: 331211185729768678, guid: 911b3f4581fa04e4f9f8375b65efd40f, type: 3}
   playerUIHolder: {fileID: 158506543}
 --- !u!4 &1783869820

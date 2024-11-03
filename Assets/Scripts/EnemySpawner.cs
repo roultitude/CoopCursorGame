@@ -44,6 +44,6 @@ public class EnemySpawner : NetworkBehaviour
             spawnTransforms[Random.Range(0, spawnTransforms.Length)].position, 
             Quaternion.identity);
         //call spawn to propagate spawn to clients
-        netObj.Spawn();
+        netObj.Spawn(true);
     }
 }

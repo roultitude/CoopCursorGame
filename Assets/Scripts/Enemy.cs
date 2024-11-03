@@ -71,7 +71,7 @@ public class Enemy : NetworkBehaviour
         {
             NetworkObject no = col.GetComponent<NetworkObject>();
 
-            if (!no.IsOwner || !isVulnerable) return; // if collided player is not owned by local client or invuln, ignore
+            if (!no || !no.IsOwner || !isVulnerable) return; // if collided player is not owned by local client or invuln, ignore
 
             ChangeHealthRPC(-1); //affect dmg
 
@@ -102,8 +102,8 @@ public class Enemy : NetworkBehaviour
     {
         if(isFacingPlayer)
         {
-            Debug.Log(rb.rotation);
-            Debug.Log(new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)));
+            //Debug.Log(rb.rotation);
+            //Debug.Log(new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)));
             transform.position += new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad))* moveSpeed * Time.fixedDeltaTime;
         } else
         {
@@ -116,7 +116,7 @@ public class Enemy : NetworkBehaviour
     {
         Player closestPlayer = null;
         Vector2 closestVec = Vector2.zero;
-        foreach (Player player in PlayerManager.Instance.Players)
+        foreach (Player player in PlayerManager.Instance.players)
         {
             if (player.health.Value == 0) continue;
             if (!closestPlayer) // if first alive player

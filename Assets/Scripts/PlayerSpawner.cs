@@ -18,6 +18,7 @@ public class PlayerSpawner : NetworkBehaviour
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         SpawnPlayerRPC();
+        NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
     }
 
     /*
@@ -33,6 +34,6 @@ public class PlayerSpawner : NetworkBehaviour
     private void SpawnPlayerRPC(RpcParams rpcParams = default)
     {
         Player player = Instantiate(playerPrefab);
-        player.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
+        player.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId,true);
     }
 }

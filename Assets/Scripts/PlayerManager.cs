@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance;
-    public List<Player> Players;
+    public List<Player> players;
     public PlayerUI playerUIPrefab;
     public Transform playerUIHolder;
 
@@ -17,14 +17,14 @@ public class PlayerManager : NetworkBehaviour
             return;
         }
         Instance = this;
-        Players = new List<Player>();
+        players = new List<Player>();
         Debug.Log("Awake PlayerManager");
     }
 
     public void AddPlayer(Player player)
     {
-        if(!Players.Contains(player)) {
-            Players.Add(player);
+        if(!players.Contains(player)) {
+            players.Add(player);
         }
         PlayerUI ui = Instantiate(playerUIPrefab, playerUIHolder);
 
@@ -32,5 +32,24 @@ public class PlayerManager : NetworkBehaviour
         player.Setup(ui);
     }
 
+    public void CheckGameOver()
+    {
+        if (!IsServer) return;
+
+        bool areAllPlayersDead = true;
+        foreach (Player player in players)
+        {
+            if (!player.isDead.Value)
+            {
+                areAllPlayersDead = false;
+                break;
+            }
+        }
+        if (areAllPlayersDead)
+        {
+            NetworkManager.SceneManager.LoadScene("NGO_Setup", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            // end game
+        }
+    }
 
 }

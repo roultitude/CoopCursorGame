@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using System.Collections;
+using TMPro;
 
 public class Player : NetworkBehaviour
 {
@@ -12,7 +13,7 @@ public class Player : NetworkBehaviour
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [SerializeField]
-    float hitInvulnTime, reviveTime;
+    float hitInvulnTime, reviveTime, moveSpeed;
     [SerializeField]
     SpriteRenderer spriteRenderer, reviveSpriteRenderer;
     [SerializeField]
@@ -21,12 +22,13 @@ public class Player : NetworkBehaviour
     Collider2D playerCollider, reviveCollider;
     [SerializeField]
     Animator animator;
+    private Vector2 targetPos;
     
     private PlayerUI ui;
     private bool canMove = true;
     private float reviveTimer = 0;
     private Coroutine InvulnVisualCoroutine;
-
+    private float[] playerBounds = new float[4];
     public void Setup(PlayerUI ui)
     {
         this.ui = ui;
@@ -39,6 +41,18 @@ public class Player : NetworkBehaviour
         PlayerManager.Instance.AddPlayer(this);
         health.OnValueChanged += OnHealthChanged;
         isDead.OnValueChanged += OnDeathStatusChanged;
+        if (IsOwner)
+        {
+            Vector2 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
+            Vector2 topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            playerBounds[0] = bottomLeft.x;
+            playerBounds[2] = bottomLeft.y;
+            playerBounds[1] = topRight.x;
+            playerBounds[3] = topRight.y;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false; // Hide the real cursor
+            targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
     }
     
     public override void OnNetworkDespawn()
@@ -50,9 +64,32 @@ public class Player : NetworkBehaviour
     void Update()
     {
         if (!canMove || !IsOwner || !IsSpawned) return;
+        Move();
+    }
+
+    private void Move()
+    {
+        /*
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
         transform.position = mouseWorldPos;
+        */
+
+        // Get mouse movement delta LOOK TO CHANGE TO NEW INPUT SYSTEM EVENTUALLY??
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        targetPos = new Vector2(
+            Mathf.Clamp(targetPos.x + mouseX * moveSpeed, playerBounds[0], playerBounds[1]), 
+            Mathf.Clamp(targetPos.y + mouseY * moveSpeed, playerBounds[2], playerBounds[3]));
+        
+
+        // Calculate the new position based on the mouse delta
+        Vector3 newPosition =
+                transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime*20);
+
+        // Apply the new position to the game object
+        transform.position = newPosition;
     }
 
     private void OnParticleCollision(GameObject other)

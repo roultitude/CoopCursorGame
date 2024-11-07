@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 288074966
+  GlobalObjectIdHash: 1189621492
   InScenePlacedSourceGlobalObjectIdHash: 1189621492
   DeferredDespawnTick: 0
   Ownership: 1
@@ -365,8 +365,11 @@ MonoBehaviour:
   health:
     m_InternalValue: 3
   isVulnerable: 1
+  isDead:
+    m_InternalValue: 0
   hitInvulnTime: 1
   reviveTime: 5
+  moveSpeed: 0.25
   spriteRenderer: {fileID: 4936676581645826088}
   reviveSpriteRenderer: {fileID: 6505100243759953126}
   aliveSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

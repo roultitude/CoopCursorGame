@@ -11,6 +11,8 @@ public class Player : NetworkBehaviour
     public bool isVulnerable = true;
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false,
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public float playerDamage = 1;
+
 
     [SerializeField]
     float hitInvulnTime, reviveTime, moveSpeed;
@@ -143,6 +145,19 @@ public class Player : NetworkBehaviour
             canMove = true;
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(!IsOwner) return;
+        if (col.CompareTag("Enemy"))
+        {
+            Enemy enemy = col.GetComponentInParent<Enemy>();
+
+            if (!enemy) return;
+
+            enemy.OnDamage(playerDamage); //affect dmg
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

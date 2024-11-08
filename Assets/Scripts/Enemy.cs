@@ -11,7 +11,7 @@ public class Enemy : NetworkBehaviour
     private int baseHealth;
 
     [SerializeField]
-    private NetworkVariable<int> health;
+    private NetworkVariable<float> health;
 
     [SerializeField]
     private Animator animator;
@@ -20,7 +20,7 @@ public class Enemy : NetworkBehaviour
     private bool isFacingPlayer;
 
     private Rigidbody2D rb;
-    private bool isVulnerable = true;
+    public bool isVulnerable = true;
 
     private void Awake()
     {
@@ -55,45 +55,40 @@ public class Enemy : NetworkBehaviour
         rb.SetRotation(Mathf.LerpAngle(rb.rotation, rad * Mathf.Rad2Deg,Time.fixedDeltaTime * rotationSpeed));
     }
 
-    private void OnHealthChange(int prev, int curr)
+    private void OnHealthChange(float prev, float curr)
     {
         Debug.Log($"{NetworkObjectId} Enemy health: {curr}");
         if(prev > curr)
         {
-            DynamicTextManager.CreateText2D(transform.position, "-1", DynamicTextManager.defaultData);
+            DynamicTextManager.CreateText2D(transform.position, $"{(curr-prev)}", DynamicTextManager.defaultData);
             animator.CrossFade("OnHitEnemy", 0);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    public void OnDamage(float num)
     {
-        if (col.CompareTag("Player"))
-        {
-            NetworkObject no = col.GetComponent<NetworkObject>();
-
-            if (!no || !no.IsOwner || !isVulnerable) return; // if collided player is not owned by local client or invuln, ignore
-
-            ChangeHealthRPC(-1); //affect dmg
-
-            Debug.Log($"{name} hit by Player {col.GetComponent<NetworkObject>().OwnerClientId}");
-
-        }
+        ChangeHealthRPC(-num);
     }
 
     [Rpc(SendTo.Server)]
-    private void ChangeHealthRPC(int amt)
+    private void ChangeHealthRPC(float amt)
     {
-        health.Value = Mathf.Clamp(health.Value + amt, 0, 3); // rmb change max hp
-        if (health.Value == 0)
+        if (amt < 0 && !isVulnerable) return;
+
+        if (health.Value + amt <= 0) //network variable cannot sync on same frame as despawn, so pass the last hit in onDeath.
         {
-            OnDeathRPC();
+            OnDeathRPC(amt);
             NetworkObject.Despawn();
+            return;
         }
+        health.Value += amt;
+
     }
 
     [Rpc(SendTo.Everyone)]
-    private void OnDeathRPC()
+    private void OnDeathRPC(float lastHpChangeAmt)
     {
+        DynamicTextManager.CreateText2D(transform.position, $"{lastHpChangeAmt}", DynamicTextManager.defaultData);
         Debug.Log($"{NetworkObjectId} Enemy DeathRPC");
     }
 

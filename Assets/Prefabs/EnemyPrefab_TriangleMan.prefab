@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6584647916240711015}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 8480468972754706179}
   m_Layer: 0
   m_Name: EnemyPrefab_TriangleMan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1101084848
+  GlobalObjectIdHash: 720896825
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -252,11 +252,12 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 1
   rotationSpeed: 3
-  baseHealth: 3
+  baseHealth: 12
   health:
     m_InternalValue: 3
   animator: {fileID: 8480468972754706179}
   isFacingPlayer: 1
+  isVulnerable: 1
 --- !u!50 &620560943497894892
 Rigidbody2D:
   serializedVersion: 5

@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 620560943497894892}
   - component: {fileID: 8480468972754706179}
   m_Layer: 0
-  m_Name: EnemyPrefab_HexagonMan
+  m_Name: EnemyPrefab_Base
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

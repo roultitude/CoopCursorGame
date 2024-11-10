@@ -11,6 +11,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     Transform healthIconHolder;
 
+    [SerializeField]
+    GameObject abilityIcon;
+
     private int currentDisplayHealth = 0;
 
     public void Setup(string playerName, int initialHealth)
@@ -35,5 +38,10 @@ public class PlayerUI : MonoBehaviour
             
             currentDisplayHealth--;
         }
+    }
+
+    public void ShowAbilityCooldown(bool isShowing)
+    {
+        abilityIcon.SetActive(isShowing);
     }
 }

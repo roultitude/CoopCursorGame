@@ -11,15 +11,22 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     public float maxAngleDeviation = 15f;   // Maximum allowed angle deviation (in degrees) for a swipe to be considered straight
     public float maxSwipeDuration = 0.5f;
     public float swipeFadeTime = 1f;
+    public float swipeCooldown = 5f;
+
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private AnimationCurve swipeVisualCurve;
+    [SerializeField] private PlayerUI ui; // Change this later to assign in setup when player spawns the component
+
+
     private List<Vector2> swipeTrail = new List<Vector2>(); // To store recent positions
     private Vector2 lastPosition;
-    private float currentSwipeDamageCooldown = 0.1f;
+    private float swipeCooldownTimer = 0;
     private float fadeTimer = 0;
     private bool isSwiping = false;
     private Color color;
     private Gradient lineRendererGradient = new Gradient();
+    
+
     public void StartSwipe()
     {
         if (!IsOwner) return;
@@ -33,7 +40,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && swipeCooldownTimer > swipeCooldown)
         {
             StartSwipe();
             Debug.Log("Swipe on");
@@ -50,12 +57,25 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     }
     private void FixedUpdate()
     {
+        //tick timers
         fadeTimer += Time.fixedDeltaTime;
+        swipeCooldownTimer += Time.fixedDeltaTime;
 
-        if (!isSwiping) {
+        //update UI cooldown
+        if (!ui)
+        {
+            ui = GetComponentInParent<Player>().ui;
+        } else
+        {
+            ui.ShowAbilityCooldown(swipeCooldownTimer > swipeCooldown);
+        }
+        
+
+        if (!isSwiping) { //if not currently swiping fade visual
             UpdateLineRendererAlpha(1 - fadeTimer / swipeFadeTime);
             return;
         }
+
         TrackSwipePath();
         UpdateLineRenderer();
 
@@ -73,6 +93,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         DamageEnemiesInSwipePath();
         SyncVisualsRPC(swipeTrail.ToArray());
         fadeTimer = 0;
+        swipeCooldownTimer = 0;
     }
     private void TrackSwipePath()
     {

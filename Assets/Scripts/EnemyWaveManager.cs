@@ -1,20 +1,89 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static WaveSO;
 
 public class EnemyWaveManager : NetworkBehaviour
 {
+    [SerializeField] bool debugSceneBool;
     [SerializeField] EnemySpawner spawner;
-    [SerializeField]
-    WaveSO[] waves;
+    [SerializeField] WaveSO[] waves;
+    [SerializeField] float timeBetweenGroups, timeBetweenWaves;
+    [SerializeField] ObjectiveUI objectiveUI;
+    [SerializeField] int countdownLength;
 
+   
+    private NetworkVariable<int> currentWave = new NetworkVariable<int>(0);
 
-    private int currentWave = 0;
-
-    public void SpawnNextWave()
+    public void Awake()
     {
-        foreach(WaveSO.EnemyGroup enemyGroup in waves[currentWave].groups)
+        if (debugSceneBool) return;
+        NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        currentWave.OnValueChanged += UpdateUI;
+        if (!debugSceneBool) return;
+
+        StartCoroutine(WaveSpawningCoroutine());
+    }
+
+    private void UpdateUI(int previousValue, int newValue)
+    {
+        if(newValue == waves.Length)
         {
-            //foreach()
+            objectiveUI.UpdateObjectiveText($"Clear all enemies to progress!");
+        } else
+        {
+            objectiveUI.UpdateObjectiveText($"Wave {newValue} / {waves.Length}");
+        }
+    }
+
+    private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
+
+        if (!IsServer) return;
+        StartCoroutine(WaveSpawningCoroutine());
+    }
+
+    IEnumerator WaveSpawningCoroutine()
+    {
+
+        int countdown = countdownLength;
+        while (countdown > 0)
+        {
+            objectiveUI.UpdateObjectiveText(countdown.ToString());
+            countdown--;
+            yield return new WaitForSeconds(1);
+        }
+        objectiveUI.UpdateObjectiveText($"Wave {currentWave.Value} / {waves.Length}");
+        
+        if (!IsServer) yield break;
+
+        while (currentWave.Value < waves.Length)
+        {
+            currentWave.Value++; //early increment to update ui
+            foreach (EnemyGroup enemyGroup in waves[currentWave.Value-1].groups) //-1 here 
+            {
+                SpawnGroup(enemyGroup);
+                yield return new WaitForSeconds(timeBetweenGroups);
+            }
+            yield return new WaitForSeconds(timeBetweenWaves);
+        }
+    }
+
+    public void SpawnGroup(EnemyGroup group)
+    {
+        foreach (Enemy enemy in group.enemies)
+        {
+            spawner.CreateEnemy(enemy);
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class EnemyBulletSpawner : MonoBehaviour
@@ -12,6 +13,9 @@ public class EnemyBulletSpawner : MonoBehaviour
     public Material material;
     public LayerMask collisionLayer;
 
+    [SerializeField]
+    AnimationCurve velocityOverLifetimeCurve;
+    
     private float _emitTimer;
 
     public List<ParticleSystem> _particleSystems;
@@ -47,6 +51,7 @@ public class EnemyBulletSpawner : MonoBehaviour
             ParticleSystem.EmissionModule emission = system.emission;
             ParticleSystem.ShapeModule shape = system.shape;
             ParticleSystem.CollisionModule collision = system.collision;
+            ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = system.velocityOverLifetime;
                 
             collision.type = ParticleSystemCollisionType.World;
             collision.mode = ParticleSystemCollisionMode.Collision2D;
@@ -54,13 +59,16 @@ public class EnemyBulletSpawner : MonoBehaviour
             collision.collidesWith = collisionLayer;
             collision.sendCollisionMessages = true;
 
+            velocityOverLifetime.speedModifier = new ParticleSystem.MinMaxCurve(1, velocityOverLifetimeCurve);
             shape.shapeType = ParticleSystemShapeType.Sprite;
             shape.sprite = null;
             tsam.mode = ParticleSystemAnimationMode.Sprites;
             tsam.AddSprite(sprite);
             renderer.sortingLayerName = "Bullet";
 
+
             emission.enabled = false; //disabled we manually emit
+            velocityOverLifetime.enabled = true;
             shape.enabled = true;
             tsam.enabled = true;
             collision.enabled = true;

@@ -119,7 +119,7 @@ public class LobbyReadyManager : NetworkBehaviour
     public void StartGame()
     {
         if(!IsServer) return;
-        NetworkManager.SceneManager.LoadScene("NGO_Setup",UnityEngine.SceneManagement.LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene("GameScene",UnityEngine.SceneManagement.LoadSceneMode.Single);
         Debug.Log("Start Game");
     }
 }

@@ -13,6 +13,7 @@ public class Player : NetworkBehaviour
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public float playerDamage = 1;
 
+    public PlayerUI ui;
 
     [SerializeField]
     float hitInvulnTime, reviveTime, moveSpeed;
@@ -26,7 +27,7 @@ public class Player : NetworkBehaviour
     Animator animator;
     private Vector2 targetPos;
     
-    private PlayerUI ui;
+
     private bool canMove = true;
     private float reviveTimer = 0;
     private Coroutine InvulnVisualCoroutine;
@@ -100,10 +101,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
-        if (isVulnerable)
-        {
-            OnHit();
-        }
+        OnHit();
     }
 
     private void OnHealthChanged(int prev, int curr)
@@ -214,7 +212,7 @@ public class Player : NetworkBehaviour
 
     public void OnHit()
     {
-        if (!IsOwner) return; //clientside hit
+        if (!IsOwner || !isVulnerable) return; //clientside hit
         Debug.Log("local player hit");
         
         isVulnerable = false;

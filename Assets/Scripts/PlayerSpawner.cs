@@ -7,28 +7,26 @@ using UnityEngine.SceneManagement;
 public class PlayerSpawner : NetworkBehaviour
 {
     [SerializeField]
+    bool isDebugScene;
+    [SerializeField]
     Player playerPrefab;
 
 
     private void Awake()
     {
-        NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
+        if (!isDebugScene) NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        SpawnPlayerRPC();
         NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
+        SpawnPlayerRPC();
     }
 
-    /*
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-        SpawnPlayerRPC();
-        
+        if(isDebugScene) SpawnPlayerRPC();
     }
-    */
 
     [Rpc(SendTo.Server)]
     private void SpawnPlayerRPC(RpcParams rpcParams = default)

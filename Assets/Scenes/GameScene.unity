@@ -528,10 +528,14 @@ MonoBehaviour:
   spawner: {fileID: 496247459}
   waves:
   - {fileID: 11400000, guid: 2ca179f2a5d2293409440ed25da28be9, type: 2}
-  - {fileID: 11400000, guid: 2ca179f2a5d2293409440ed25da28be9, type: 2}
-  - {fileID: 11400000, guid: 2ca179f2a5d2293409440ed25da28be9, type: 2}
+  - {fileID: 11400000, guid: 63bb1ff6e2561e44bacc07112b0fad8f, type: 2}
+  - {fileID: 11400000, guid: 0342c001d128e184cb1a9e99e2cee7ec, type: 2}
+  - {fileID: 11400000, guid: 22a0aa296a2fd5046b64016eac7e547c, type: 2}
+  - {fileID: 11400000, guid: dc656004e02b2d54083c17203e06773b, type: 2}
+  - {fileID: 11400000, guid: ded1cedb866f3ce4ca182dd24a4b0c3f, type: 2}
+  - {fileID: 11400000, guid: ed7d8aac0adede147a2a3f936064dd47, type: 2}
   timeBetweenGroups: 1
-  timeBetweenWaves: 5
+  timeBetweenWaves: 100
   objectiveUI: {fileID: 2132977000}
   countdownLength: 5
 --- !u!114 &494329127
@@ -981,6 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  isDebugScene: 0
   playerPrefab: {fileID: 6456224423942767243, guid: 82346ac0e6709f1419273cda5031ea94, type: 3}
 --- !u!1 &1400761477
 GameObject:

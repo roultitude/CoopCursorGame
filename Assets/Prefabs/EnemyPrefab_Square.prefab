@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3116807365
+      value: 2921823362
       objectReference: {fileID: 0}
     - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.x
@@ -75,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 9021092716756533808, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Name
       value: EnemyPrefab_Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: moveSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 201495738574744566, guid: 8606de464e3c01944b3cee9d07990274, type: 3}

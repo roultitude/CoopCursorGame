@@ -1,6 +1,8 @@
 using System;
+using System.Drawing;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -29,6 +31,12 @@ public class PlayerUI : MonoBehaviour
         player.health.OnValueChanged += OnPlayerHealthChanged;
         playerAbility = player.playerAbility;
         player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
+
+        UnityEngine.Random.InitState((int) player.OwnerClientId);
+        
+        UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+        color.a = GetComponent<Image>().color.a;
+        GetComponent<Image>().color = color;
     }
 
     private void OnPlayerAbilityIsAvailable(bool previousValue, bool newValue)

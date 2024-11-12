@@ -20,25 +20,31 @@ public class EnemySpawner : NetworkBehaviour
     public void TrackEnemy(bool isTracking, Enemy enemy)
     {
         if (isTracking && !activeEnemies.Contains(enemy))
-        {
+        { //enemy spawned
             activeEnemies.Add(enemy);
         }
         else if (activeEnemies.Contains(enemy))
         {
-            activeEnemies.Remove(enemy);
-            if(IsServer && waveManager.AreAllWavesSpawned() && activeEnemies.Count == 0)
+            activeEnemies.Remove(enemy); //enemy died
+            if(IsServer && activeEnemies.Count == 0)
             {
-                Debug.Log("Scene Finished");
-                foreach(Player player in PlayerManager.Instance.players)
+                if (waveManager.AreAllWavesSpawned()) //done
                 {
-                    if (player.isDead.Value)
+                    foreach (Player player in PlayerManager.Instance.players)
                     {
-                        Debug.Log($"Autorevived player {player.OwnerClientId}");
-                        player.ReviveRPC();
-                        
+                        if (player.isDead.Value)
+                        {
+                            Debug.Log($"Autorevived player {player.OwnerClientId}");
+                            player.ReviveRPC();
+
+                        }
                     }
+                    Invoke(nameof(EndScreen), 5);
+                } else
+                {
+                    waveManager.EndWaveEarly();
                 }
-                Invoke(nameof(EndScreen),5);
+                
             }
         }
         //Debug.Log($"Changing Enemy List {enemy}, length after: {activeEnemies.Count}");
@@ -54,10 +60,9 @@ public class EnemySpawner : NetworkBehaviour
         esi.Setup(spawnTime);
     }
     
-    public void CreateEnemy(Enemy enemy)
+    public void CreateEnemy(Enemy enemy, Vector2 loc)
     {
         if (!IsServer) return; // only server can spawn enemies
-        Vector2 loc = new Vector2(Random.Range(-8.5f, 8.5f), Random.Range(-5, 5));
         CreateEnemySpawnIndicatorRPC(loc.x,loc.y, spawnIndicatorTime);
 
         spawnQueue.Enqueue((loc, enemy));

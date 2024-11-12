@@ -69,7 +69,7 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
-    public void RestartGame()
+    public void RestartGame() //move this functionality to a gamemanager please!!!!
     {
         NetworkManager.SceneManager.LoadScene("PreGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }

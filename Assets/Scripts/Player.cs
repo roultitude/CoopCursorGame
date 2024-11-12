@@ -58,6 +58,7 @@ public class Player : NetworkBehaviour
     {
         health.OnValueChanged -= OnHealthChanged;
         isDead.OnValueChanged -= OnDeathStatusChanged;
+        PlayerManager.Instance.RemovePlayer(this);
         Debug.Log($"Cleaning Up Player {OwnerClientId} obj");
         Destroy(gameObject);
     }
@@ -128,8 +129,11 @@ public class Player : NetworkBehaviour
             reviveSpriteRenderer.enabled = true;
             canMove = false;
 
+            Debug.Log($"Received death of {OwnerClientId}");
+            Debug.Log($"i am server: {IsServer}");
             if (IsServer) // trigger check for death
             {
+                Debug.Log("Checking PlayerManager for game over");
                 PlayerManager.Instance.CheckGameOver();
             }
         } else // affect revive

@@ -149,7 +149,7 @@ public class Enemy : NetworkBehaviour
 
         if (!closestPlayer) // if all players dead
         {
-            Debug.Log("enemy cannot find alive player");
+            //Debug.Log("enemy cannot find alive player");
         }
         return (closestPlayer, closestVec);
     }

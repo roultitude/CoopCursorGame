@@ -4,19 +4,49 @@ using UnityEngine;
 
 public class EnemySpawner : NetworkBehaviour
 {
+    [SerializeField] EnemyWaveManager waveManager;
     [SerializeField] NetworkObject[] enemyPrefabs;
     [SerializeField] EnemySpawnIndicator enemySpawnIndicatorPrefab;
     [SerializeField] float spawnIndicatorTime;
+    [SerializeField] List<Enemy> activeEnemies; // locally maintained list by enemy SetupRPC and DeathRPC
 
     private Queue<(Vector2 location, Enemy enemyPrefab)> spawnQueue 
         = new Queue<(Vector2 location, Enemy enemyPrefab)>();
-    
-
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
     }
 
+    public void TrackEnemy(bool isTracking, Enemy enemy)
+    {
+        if (isTracking && !activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Add(enemy);
+        }
+        else if (activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Remove(enemy);
+            if(IsServer && waveManager.AreAllWavesSpawned() && activeEnemies.Count == 0)
+            {
+                Debug.Log("Scene Finished");
+                foreach(Player player in PlayerManager.Instance.players)
+                {
+                    if (player.isDead.Value)
+                    {
+                        Debug.Log($"Autorevived player {player.OwnerClientId}");
+                        player.ReviveRPC();
+                        
+                    }
+                }
+                Invoke(nameof(EndScreen),5);
+            }
+        }
+        //Debug.Log($"Changing Enemy List {enemy}, length after: {activeEnemies.Count}");
+    }
+    private void EndScreen()
+    {
+       NetworkManager.SceneManager.LoadScene("InterimScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+    }
     [Rpc(SendTo.Everyone)]
     public void CreateEnemySpawnIndicatorRPC(float x, float y, float spawnTime)
     {
@@ -37,11 +67,12 @@ public class EnemySpawner : NetworkBehaviour
 
     public void SpawnEnemy()
     {
-        Debug.Log("Attempting to Spawn Enemy");
+        //Debug.Log("Attempting to Spawn Enemy");
         //server instantiates
         (Vector2 loc, Enemy enemyPrefab) = spawnQueue.Dequeue();
         Enemy enemy = Instantiate(enemyPrefab, loc, Quaternion.identity);
         //call spawn to propagate spawn to clients
         enemy.NetworkObject.Spawn(true);
+        enemy.SetupRPC(this);
     }
 }

@@ -9,6 +9,7 @@ using static WaveSO;
 
 public class EnemyWaveManager : NetworkBehaviour
 {
+    public bool AreAllWavesSpawned() => currentWave.Value == (waves.Length);
     [SerializeField] bool debugSceneBool;
     [SerializeField] EnemySpawner spawner;
     [SerializeField] WaveSO[] waves;
@@ -49,7 +50,6 @@ public class EnemyWaveManager : NetworkBehaviour
     {
         NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
 
-        if (!IsServer) return;
         StartCoroutine(WaveSpawningCoroutine());
     }
 
@@ -69,12 +69,13 @@ public class EnemyWaveManager : NetworkBehaviour
 
         while (currentWave.Value < waves.Length)
         {
-            currentWave.Value++; //early increment to update ui
-            foreach (EnemyGroup enemyGroup in waves[currentWave.Value-1].groups) //-1 here 
+            
+            foreach (EnemyGroup enemyGroup in waves[currentWave.Value].groups) //-1 here 
             {
                 SpawnGroup(enemyGroup);
                 yield return new WaitForSeconds(timeBetweenGroups);
             }
+            currentWave.Value++;
             yield return new WaitForSeconds(timeBetweenWaves);
         }
     }

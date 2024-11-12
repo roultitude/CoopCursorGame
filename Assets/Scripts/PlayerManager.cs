@@ -5,20 +5,23 @@ using UnityEngine;
 public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance;
-    public List<Player> players;
-    public PlayerUI playerUIPrefab;
-    public Transform playerUIHolder;
 
+    public List<Player> players;
+
+    public delegate void PlayerListChange();
+    public static event PlayerListChange OnPlayerListChangeEvent;
     public void Awake()
     {
         if (Instance)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             return;
         }
         Instance = this;
         players = new List<Player>();
-        Debug.Log("Awake PlayerManager");
+        DontDestroyOnLoad(gameObject);
+        Debug.Log("Awake PlayerManager, added to DDOL");
+
     }
 
     public void AddPlayer(Player player)
@@ -26,10 +29,7 @@ public class PlayerManager : NetworkBehaviour
         if(!players.Contains(player)) {
             players.Add(player);
         }
-        PlayerUI ui = Instantiate(playerUIPrefab, playerUIHolder);
-
-        ui.Setup($"Player {player.OwnerClientId}", player.health.Value);
-        player.Setup(ui);
+        OnPlayerListChangeEvent?.Invoke();
     }
 
     public void CheckGameOver()
@@ -47,8 +47,13 @@ public class PlayerManager : NetworkBehaviour
         }
         if (areAllPlayersDead)
         {
-            NetworkManager.SceneManager.LoadScene("NGO_Setup", UnityEngine.SceneManagement.LoadSceneMode.Single);
-            // end game
+            Debug.Log("All players dead, restarting game");
+            foreach(Player player in players)
+            {
+                player.NetworkObject.Despawn();
+            }
+            NetworkManager.SceneManager.LoadScene("PreGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            // restart game
         }
     }
 

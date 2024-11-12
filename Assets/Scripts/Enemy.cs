@@ -20,11 +20,27 @@ public class Enemy : NetworkBehaviour
     private bool isFacingPlayer;
 
     private Rigidbody2D rb;
+    private EnemySpawner spawner;
     public bool isVulnerable = true;
+
+  
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void SetupRPC(NetworkBehaviourReference enemySpawnerRef)
+    {
+        if (enemySpawnerRef.TryGet(out EnemySpawner enemySpawner))
+        {
+           
+            spawner = enemySpawner;
+            spawner.TrackEnemy(true, this);
+        }
+        
+        
     }
     public override void OnNetworkSpawn()
     {
@@ -90,6 +106,7 @@ public class Enemy : NetworkBehaviour
     {
         DynamicTextManager.CreateText2D(transform.position, $"{lastHpChangeAmt}", DynamicTextManager.defaultData);
         Debug.Log($"{NetworkObjectId} Enemy DeathRPC");
+        spawner.TrackEnemy(false, this);
     }
 
 

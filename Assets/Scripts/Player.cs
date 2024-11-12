@@ -12,8 +12,8 @@ public class Player : NetworkBehaviour
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false,
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public float playerDamage = 1;
+    public PlayerAbilitySwipe playerAbility; //create an interface for this??? rmb to assign somehow
 
-    public PlayerUI ui;
 
     [SerializeField]
     float hitInvulnTime, reviveTime, moveSpeed;
@@ -22,7 +22,7 @@ public class Player : NetworkBehaviour
     [SerializeField]
     Sprite aliveSprite, deadSprite, invulnSprite;
     [SerializeField]
-    Collider2D playerCollider, reviveCollider;
+    public Collider2D playerCollider, reviveCollider;
     [SerializeField]
     Animator animator;
     private Vector2 targetPos;
@@ -32,10 +32,6 @@ public class Player : NetworkBehaviour
     private float reviveTimer = 0;
     private Coroutine InvulnVisualCoroutine;
     private float[] playerBounds = new float[4];
-    public void Setup(PlayerUI ui)
-    {
-        this.ui = ui;
-    }
 
     public override void OnNetworkSpawn()
     {
@@ -62,6 +58,8 @@ public class Player : NetworkBehaviour
     {
         health.OnValueChanged -= OnHealthChanged;
         isDead.OnValueChanged -= OnDeathStatusChanged;
+        Debug.Log($"Cleaning Up Player {OwnerClientId} obj");
+        Destroy(gameObject);
     }
 
     void Update()
@@ -106,7 +104,7 @@ public class Player : NetworkBehaviour
 
     private void OnHealthChanged(int prev, int curr)
     {
-        ui.ShowHP(curr);
+
         if(curr == 0)
         {
             return; //let death networkvar handle
@@ -197,7 +195,7 @@ public class Player : NetworkBehaviour
     */
 
     [Rpc(SendTo.Owner)] //send to owner since isDead & health are owner auth
-    private void ReviveRPC(RpcParams rpcParams = default)
+    public void ReviveRPC(RpcParams rpcParams = default)
     {
         if (!isDead.Value)
         {

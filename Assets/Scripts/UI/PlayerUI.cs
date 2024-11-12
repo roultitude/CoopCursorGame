@@ -1,3 +1,5 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
@@ -14,12 +16,35 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     GameObject abilityIcon;
 
+    private Player player;
+    private PlayerAbilitySwipe playerAbility;
     private int currentDisplayHealth = 0;
 
-    public void Setup(string playerName, int initialHealth)
+    public void Setup(string playerName, Player player)
     {
         playerNameText.text = playerName;
-        ShowHP(initialHealth);
+        this.player = player;
+        ShowHP(player.health.Value);
+        ShowAbilityIcon(player.playerAbility.isAbilityAvailable.Value);
+        player.health.OnValueChanged += OnPlayerHealthChanged;
+        playerAbility = player.playerAbility;
+        player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
+    }
+
+    private void OnPlayerAbilityIsAvailable(bool previousValue, bool newValue)
+    {
+        ShowAbilityIcon(newValue);
+    }
+
+    private void OnPlayerHealthChanged(int previousValue, int newValue)
+    {
+        ShowHP(newValue);
+    }
+
+    public void OnDisable()
+    {
+        player.health.OnValueChanged -= OnPlayerHealthChanged;
+        playerAbility.isAbilityAvailable.OnValueChanged -= OnPlayerAbilityIsAvailable;
     }
 
     public void ShowHP(int hp)
@@ -40,7 +65,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void ShowAbilityCooldown(bool isShowing)
+    public void ShowAbilityIcon(bool isShowing)
     {
         abilityIcon.SetActive(isShowing);
     }

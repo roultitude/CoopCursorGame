@@ -212,11 +212,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  abilityOffCooldown:
+    m_InternalValue: 0
   swipeSpeedThreshold: 10
   swipeDamage: 10
   maxSwipeTrailLength: 5
   maxAngleDeviation: 15
   maxSwipeDuration: 0.5
+  swipeFadeTime: 1
+  swipeCooldown: 5
   lineRenderer: {fileID: 4443332243117531601}
   swipeVisualCurve:
     serializedVersion: 2
@@ -514,7 +518,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!114 &2838142281059328485
@@ -561,6 +565,7 @@ MonoBehaviour:
   isDead:
     m_InternalValue: 0
   playerDamage: 1
+  playerAbility: {fileID: 1703900081795872480}
   hitInvulnTime: 1
   reviveTime: 5
   moveSpeed: 0.25

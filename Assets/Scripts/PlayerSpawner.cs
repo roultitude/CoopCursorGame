@@ -34,6 +34,6 @@ public class PlayerSpawner : NetworkBehaviour
     private void SpawnPlayerRPC(RpcParams rpcParams = default)
     {
         Player player = Instantiate(playerPrefab);
-        player.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId,true);
+        player.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
     }
 }

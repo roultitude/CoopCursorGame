@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAbilitySwipe : NetworkBehaviour
 {
+    public NetworkVariable<bool> isAbilityAvailable = new NetworkVariable<bool>(false, 
+        NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
     [Header("Swipe Settings")]
     public float swipeSpeedThreshold = 5f;  // Minimum speed for a swipe to register
     public float swipeDamage = 10f;         // Damage dealt by the swipe
@@ -15,7 +17,6 @@ public class PlayerAbilitySwipe : NetworkBehaviour
 
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private AnimationCurve swipeVisualCurve;
-    [SerializeField] private PlayerUI ui; // Change this later to assign in setup when player spawns the component
 
 
     private List<Vector2> swipeTrail = new List<Vector2>(); // To store recent positions
@@ -54,6 +55,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         color = Random.ColorHSV();
         lineRenderer.startColor = color;
         lineRenderer.endColor = color;
+        swipeCooldownTimer = swipeCooldown;
     }
     private void FixedUpdate()
     {
@@ -61,15 +63,10 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         fadeTimer += Time.fixedDeltaTime;
         swipeCooldownTimer += Time.fixedDeltaTime;
 
-        //update UI cooldown
-        if (!ui)
+        if (IsOwner && swipeCooldownTimer > swipeCooldown)
         {
-            ui = GetComponentInParent<Player>().ui;
-        } else
-        {
-            ui.ShowAbilityCooldown(swipeCooldownTimer > swipeCooldown);
+            isAbilityAvailable.Value = true;
         }
-        
 
         if (!isSwiping) { //if not currently swiping fade visual
             UpdateLineRendererAlpha(1 - fadeTimer / swipeFadeTime);
@@ -90,10 +87,12 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     {
         if(!isSwiping) return;
         isSwiping = false;
+        isAbilityAvailable.Value = false;
         DamageEnemiesInSwipePath();
         SyncVisualsRPC(swipeTrail.ToArray());
         fadeTimer = 0;
         swipeCooldownTimer = 0;
+
     }
     private void TrackSwipePath()
     {

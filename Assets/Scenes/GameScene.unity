@@ -530,10 +530,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ca179f2a5d2293409440ed25da28be9, type: 2}
   - {fileID: 11400000, guid: 63bb1ff6e2561e44bacc07112b0fad8f, type: 2}
   - {fileID: 11400000, guid: 0342c001d128e184cb1a9e99e2cee7ec, type: 2}
-  - {fileID: 11400000, guid: 22a0aa296a2fd5046b64016eac7e547c, type: 2}
-  - {fileID: 11400000, guid: dc656004e02b2d54083c17203e06773b, type: 2}
-  - {fileID: 11400000, guid: ded1cedb866f3ce4ca182dd24a4b0c3f, type: 2}
-  - {fileID: 11400000, guid: ed7d8aac0adede147a2a3f936064dd47, type: 2}
   timeBetweenGroups: 1
   timeBetweenWaves: 100
   objectiveUI: {fileID: 2132977000}
@@ -636,10 +632,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   waveManager: {fileID: 494329126}
-  enemyPrefabs:
-  - {fileID: 5522575006750070680, guid: 8d62ed7a6e7cdf94e8fa80679e9b7bb9, type: 3}
-  - {fileID: 6861287389987575555, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
-  - {fileID: 6901156767879645902, guid: d38087c1a34c23d4489e059c1a850cd8, type: 3}
   enemySpawnIndicatorPrefab: {fileID: 6586822696082911029, guid: 947c21eea477cae4b910c92c86b9c470, type: 3}
   spawnIndicatorTime: 2
   activeEnemies: []

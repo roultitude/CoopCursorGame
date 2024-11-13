@@ -5,17 +5,12 @@ using UnityEngine;
 public class EnemySpawner : NetworkBehaviour
 {
     [SerializeField] EnemyWaveManager waveManager;
-    [SerializeField] NetworkObject[] enemyPrefabs;
     [SerializeField] EnemySpawnIndicator enemySpawnIndicatorPrefab;
     [SerializeField] float spawnIndicatorTime;
     [SerializeField] List<Enemy> activeEnemies; // locally maintained list by enemy SetupRPC and DeathRPC
 
     private Queue<(Vector2 location, Enemy enemyPrefab)> spawnQueue 
         = new Queue<(Vector2 location, Enemy enemyPrefab)>();
-    public override void OnNetworkSpawn()
-    {
-        if (!IsServer) return;
-    }
 
     public void TrackEnemy(bool isTracking, Enemy enemy)
     {
@@ -39,7 +34,7 @@ public class EnemySpawner : NetworkBehaviour
 
                         }
                     }
-                    Invoke(nameof(EndScreen), 5);
+                    GameManager.Instance.OnScreenClear();
                 } else
                 {
                     waveManager.EndWaveEarly();
@@ -48,10 +43,6 @@ public class EnemySpawner : NetworkBehaviour
             }
         }
         //Debug.Log($"Changing Enemy List {enemy}, length after: {activeEnemies.Count}");
-    }
-    private void EndScreen()
-    {
-       NetworkManager.SceneManager.LoadScene("InterimScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
     [Rpc(SendTo.Everyone)]
     public void CreateEnemySpawnIndicatorRPC(float x, float y, float spawnTime)

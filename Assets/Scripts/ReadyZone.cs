@@ -37,7 +37,7 @@ public class ReadyZone : MonoBehaviour
     
     private void TriggerReadyZoneAction()
     {
-        if (!NetworkManager.Singleton.IsServer) return;
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        if (!GameManager.Instance) return;
+        GameManager.Instance.LoadNextGameScene();
     }
 }

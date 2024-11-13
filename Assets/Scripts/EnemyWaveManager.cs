@@ -35,6 +35,12 @@ public class EnemyWaveManager : NetworkBehaviour
         NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
     }
 
+    public void SetEnemyWaves(WaveSO[] waves)
+    {
+        Debug.Log($"Set EnemyWaveSpawner to {waves.Length} waves");
+        this.waves = waves;
+    }
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

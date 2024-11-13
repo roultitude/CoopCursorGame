@@ -14,7 +14,7 @@ public class PlayerManager : NetworkBehaviour
     {
         if (Instance)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
@@ -64,14 +64,11 @@ public class PlayerManager : NetworkBehaviour
             {
                 players[i].NetworkObject.Despawn();
             }
-            Invoke(nameof(RestartGame), 5);
+            GameManager.Instance.OnAllPlayersDead();
             // restart game in 5s, might want to display some notification here??
         }
     }
 
-    public void RestartGame() //move this functionality to a gamemanager please!!!!
-    {
-        NetworkManager.SceneManager.LoadScene("PreGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
-    }
+
 
 }

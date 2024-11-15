@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2523360501
+      value: 3577234859
       objectReference: {fileID: 0}
     - target: {fileID: 4838654388662224516, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: num_col
@@ -159,6 +159,10 @@ PrefabInstance:
     - target: {fileID: 9021092716756533808, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Name
       value: EnemyPrefab_HexagonAlt
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: baseHealth
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

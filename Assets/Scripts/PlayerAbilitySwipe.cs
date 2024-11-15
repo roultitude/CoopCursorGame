@@ -8,7 +8,8 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
     [Header("Swipe Settings")]
     public float swipeSpeedThreshold = 5f;  // Minimum speed for a swipe to register
-    public float swipeDamage = 10f;         // Damage dealt by the swipe
+    public float baseSwipeDamage = 5f;         // Damage dealt by the swipe
+    public float scalingSwipeDamageMult = 0.5f; //scaling based on AP
     public float maxSwipeTrailLength = 0.5f; // Duration to store swipe path for detecting intersections
     public float maxAngleDeviation = 15f;   // Maximum allowed angle deviation (in degrees) for a swipe to be considered straight
     public float maxSwipeDuration = 0.5f;
@@ -26,6 +27,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     private bool isSwiping = false;
     private Color color;
     private Gradient lineRendererGradient = new Gradient();
+    private Player player;
     
 
     public void StartSwipe()
@@ -56,6 +58,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         lineRenderer.startColor = color;
         lineRenderer.endColor = color;
         swipeCooldownTimer = swipeCooldown;
+        player = GetComponentInParent<Player>();
     }
     private void FixedUpdate()
     {
@@ -181,7 +184,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
                 if (IsEnemyInSwipePath(collider))
                 {
                     Debug.Log("Enemy in path");
-                    enemy.OnHit(swipeDamage);
+                    enemy.OnHit(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.AbilityDamage));
                 }
             }
         }

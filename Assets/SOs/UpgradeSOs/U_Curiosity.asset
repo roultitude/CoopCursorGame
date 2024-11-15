@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: U_Curiosity
   m_EditorClassIdentifier: 
   upgradeName: Curiosity Killed my ass
+  upgradeDesc: Curiosity+
   sprite: {fileID: 3873087697204469031, guid: 93e384e34caf36040ab163f70e00ac7b, type: 3}
   statChanges:
   - type: 0

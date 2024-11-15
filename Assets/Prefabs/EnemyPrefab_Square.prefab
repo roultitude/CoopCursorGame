@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: baseHealth
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 201495738574744566, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
     - {fileID: 4838654388662224516, guid: 8606de464e3c01944b3cee9d07990274, type: 3}

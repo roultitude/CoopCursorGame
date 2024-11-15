@@ -215,7 +215,8 @@ MonoBehaviour:
   isAbilityAvailable:
     m_InternalValue: 0
   swipeSpeedThreshold: 10
-  swipeDamage: 10
+  baseSwipeDamage: 50
+  scalingSwipeDamageMult: 0.5
   maxSwipeTrailLength: 5
   maxAngleDeviation: 15
   maxSwipeDuration: 0.5
@@ -565,7 +566,6 @@ MonoBehaviour:
   isVulnerable: 1
   isDead:
     m_InternalValue: 0
-  playerDamage: 1
   upgrades: {fileID: 157838682542005226}
   playerAbility: {fileID: 1703900081795872480}
   hitInvulnTime: 1
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   activeUpgrades: []
+  player: {fileID: 0}
 --- !u!114 &4960089773421021656
 MonoBehaviour:
   m_ObjectHideFlags: 0

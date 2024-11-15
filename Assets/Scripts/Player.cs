@@ -11,7 +11,6 @@ public class Player : NetworkBehaviour
     public bool isVulnerable = true;
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false,
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    public float playerDamage = 1;
     public PlayerStats stats = new PlayerStats();
     public PlayerUpgrades upgrades;
     public PlayerAbilitySwipe playerAbility; //create an interface for this??? rmb to assign somehow
@@ -158,7 +157,7 @@ public class Player : NetworkBehaviour
 
             if (!enemy) return;
 
-            enemy.OnHit(playerDamage); //affect dmg
+            enemy.OnHit(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
         }
     }
 

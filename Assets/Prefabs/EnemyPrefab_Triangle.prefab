@@ -55,6 +55,12 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
+  velocityOverLifetimeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems: []
 --- !u!1001 &6282161352071274796
 PrefabInstance:
@@ -114,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 9958585
+      value: 1909234279
       objectReference: {fileID: 0}
     - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.y
@@ -150,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: baseHealth
-      value: 12
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: rotationSpeed

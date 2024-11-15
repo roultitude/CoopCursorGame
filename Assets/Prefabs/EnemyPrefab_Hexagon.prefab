@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyPrefab_Hexagon
       objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: baseHealth
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

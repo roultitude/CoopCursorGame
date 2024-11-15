@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
   m_Name: U_Instakill
   m_EditorClassIdentifier: 
-  upgradeName: death
+  upgradeName: Death
+  upgradeDesc: 'Curiosity+
+
+    Chance to instakill+'
   sprite: {fileID: -1878048272300145514, guid: 8620dadb962a3b34dba30ee71273df59, type: 3}
   statChanges:
-  - type: 2
-    amt: -2
+  - type: 4
+    amt: 2
   customEffect: {fileID: 11400000, guid: 695c3c51ce7f1e04eacd5e0728f4af31, type: 2}

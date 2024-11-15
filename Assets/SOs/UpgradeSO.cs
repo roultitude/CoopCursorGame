@@ -11,6 +11,8 @@ public class UpgradeSO : ScriptableObject
         public float amt;
     }
     public string upgradeName;
+    [TextArea(1,10)]
+    public string upgradeDesc;
     public Sprite sprite;
     public PlayerStatChange[] statChanges;
     public CustomEffectSO customEffect;

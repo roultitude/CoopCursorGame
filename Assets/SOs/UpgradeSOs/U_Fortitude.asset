@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
   m_Name: U_Fortitude
   m_EditorClassIdentifier: 
-  upgradeName: Stay stronk
+  upgradeName: Onegai Muskle
+  upgradeDesc: Fortitude+
   sprite: {fileID: 782363166078189050, guid: 19329624975aaf34ca7f7c12dd56008b, type: 3}
   statChanges:
   - type: 2

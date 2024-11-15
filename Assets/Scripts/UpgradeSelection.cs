@@ -57,15 +57,24 @@ public class UpgradeSelection : NetworkBehaviour
 
     public void TriggerUpgradeSelection()
     {
-        foreach (UpgradeSelectionTile tile in upgradeTiles)
+        List<int> selectedTileIndexes = new List<int>();
+        for (int i = 0; i < upgradeTiles.Length; i++)
         {
+            UpgradeSelectionTile tile = upgradeTiles[i];
             // there should be only one player per tile touching
             List<Player> playersTouching = tile.GetPlayersTouching();
             if (playersTouching.Count == 0) continue;
+            selectedTileIndexes.Add(i);
             AcquireUpgradeRPC(upgrades.IndexOf(tile.data),playersTouching[0]);
-            tile.gameObject.SetActive(false);
         }
-
+        UpdateTileVisualRPC(selectedTileIndexes.ToArray());
+    }
+    [Rpc(SendTo.Everyone)]
+    public void UpdateTileVisualRPC(int[] tileIndexSelected)
+    {
+        foreach (int i in tileIndexSelected) {
+            upgradeTiles[i].gameObject.SetActive(false);
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -75,7 +84,7 @@ public class UpgradeSelection : NetworkBehaviour
         if (playerRef.TryGet(out Player player))
         {
             player.upgrades.AddUpgrade(upgrades[upgradeIndex]);
-            this.enabled = false; // disable this;
+            this.enabled = false; // disable this, only affects UI update since its in FixedUpdate? Might want to move this out of here.
             readyZone.gameObject.SetActive(true);
         }
     }

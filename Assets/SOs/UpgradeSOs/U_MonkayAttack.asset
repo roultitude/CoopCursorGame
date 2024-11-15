@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
   m_Name: U_MonkayAttack
   m_EditorClassIdentifier: 
-  upgradeName: gorl
+  upgradeName: Inside you there are 2
+  upgradeDesc: Contact Damage+
   sprite: {fileID: 7444046612802208997, guid: 663ec9ec29e6429479aa1d452e2400c0, type: 3}
   statChanges:
-  - type: 2
+  - type: 4
     amt: 1
   customEffect: {fileID: 0}

@@ -1,42 +1,44 @@
 using System;
-using System.Drawing;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField]
-    TMPro.TextMeshProUGUI playerNameText;
+    [SerializeField] TMPro.TextMeshProUGUI playerNameText;
 
-    [SerializeField]
-    GameObject healthIconPrefab;
+    [SerializeField] GameObject healthIconPrefab;
 
-    [SerializeField]
-    Transform healthIconHolder;
+    [SerializeField] Transform healthIconHolder;
 
-    [SerializeField]
-    GameObject abilityIcon;
+    [SerializeField] GameObject abilityIcon;
+
+    [SerializeField] float healthIconFilledAlpha = 0.4f;
+    [SerializeField] float healthIconDepletedAlpha = 0.1f;
 
     private Player player;
     private PlayerAbilitySwipe playerAbility;
-    private int currentDisplayHealth = 0;
+    private int currentDisplayHealthMax = 0;
 
     public void Setup(string playerName, Player player)
     {
         playerNameText.text = playerName;
         this.player = player;
+        playerAbility = player.playerAbility;
+
         ShowHP(player.health.Value);
         ShowAbilityIcon(player.playerAbility.isAbilityAvailable.Value);
-        player.health.OnValueChanged += OnPlayerHealthChanged;
-        playerAbility = player.playerAbility;
-        player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
 
-        UnityEngine.Random.InitState((int) player.OwnerClientId);
-        
-        UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+        player.health.OnValueChanged += OnPlayerHealthChanged;
+        player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
+        player.stats.OnPlayerStatsChangeEvent += OnStatsChange;
+        Color color = player.color;
         color.a = GetComponent<Image>().color.a;
         GetComponent<Image>().color = color;
+    }
+
+    private void OnStatsChange()
+    {
+        ShowHP(player.health.Value); //force refresh
     }
 
     private void OnPlayerAbilityIsAvailable(bool previousValue, bool newValue)
@@ -53,23 +55,31 @@ public class PlayerUI : MonoBehaviour
     {
         player.health.OnValueChanged -= OnPlayerHealthChanged;
         playerAbility.isAbilityAvailable.OnValueChanged -= OnPlayerAbilityIsAvailable;
+        player.stats.OnPlayerStatsChangeEvent -= OnStatsChange;
     }
 
     public void ShowHP(int hp)
     {
-        Debug.Log($"ShowHP: {currentDisplayHealth},{hp}");
-        while (currentDisplayHealth < hp)
+        //adjust max hp display
+        while (currentDisplayHealthMax < player.stats.GetStat(PlayerStatType.MaxHealth))
         {
             Instantiate(healthIconPrefab, healthIconHolder);
-            currentDisplayHealth++;
+            currentDisplayHealthMax++;
         }
-        while(currentDisplayHealth > hp)
+        while(currentDisplayHealthMax > player.stats.GetStat(PlayerStatType.MaxHealth))
         {
             Transform child = healthIconHolder.transform.GetChild(healthIconHolder.transform.childCount - 1);
             child.SetParent(null);
             Destroy(child.gameObject);
             
-            currentDisplayHealth--;
+            currentDisplayHealthMax--;
+        }
+        for(int i = 0; i< healthIconHolder.transform.childCount; i++)
+        {
+            Image icon = healthIconHolder.transform.GetChild(i).GetComponent<Image>();
+            Color color = player.color;
+            color.a = i < hp ? healthIconFilledAlpha : healthIconDepletedAlpha;
+            icon.color = color;
         }
     }
 

@@ -22,6 +22,9 @@ public class UpgradeSelection : NetworkBehaviour
     [SerializeField]
     ReadyZone readyZone;
 
+    [SerializeField]
+    int onEnterHealAmt = 1;
+
     float timer = 0;
 
     private void Awake()
@@ -32,8 +35,21 @@ public class UpgradeSelection : NetworkBehaviour
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
+        if (IsClient)
+        {
+            HealLocalPlayer();
+        }
         if (!IsServer) return;
         SetupUpgrades();
+
+    }
+
+    public void HealLocalPlayer()
+    {
+        foreach(Player player in PlayerManager.Instance.players)
+        {
+            if (player.IsOwner) player.ModifyHealth(onEnterHealAmt);
+        }
     }
 
 
@@ -120,8 +136,8 @@ public class UpgradeSelection : NetworkBehaviour
             Debug.LogError("Tried to setup upgrades without enough upgrades??");
             return;
         }
-        List<int> upgradeIndexes = new List<int>(new int[upgradeTiles.Length]);
-        for(int i = 0; i < upgradeTiles.Length; i++)
+        List<int> upgradeIndexes = new List<int>(new int[upgrades.Count]);
+        for(int i = 0; i < upgrades.Count; i++)
         {
             upgradeIndexes[i] = i;
         }

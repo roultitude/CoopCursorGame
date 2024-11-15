@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
-  m_Name: U_MonkayAttack
+  m_Name: U_MaxHp
   m_EditorClassIdentifier: 
-  upgradeName: Inside you there are 2
-  upgradeDesc: Contact Damage+
-  sprite: {fileID: 7444046612802208997, guid: 663ec9ec29e6429479aa1d452e2400c0, type: 3}
+  upgradeName: Holy High
+  upgradeDesc: Max Health+
+  sprite: {fileID: 7028146127667307494, guid: f84156080d6897040999b9204e43bec0, type: 3}
   statChanges:
-  - type: 4
+  - type: 3
     amt: 1
   customEffect: {fileID: 0}

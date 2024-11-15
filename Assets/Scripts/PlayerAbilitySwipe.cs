@@ -25,7 +25,6 @@ public class PlayerAbilitySwipe : NetworkBehaviour
     private float swipeCooldownTimer = 0;
     private float fadeTimer = 0;
     private bool isSwiping = false;
-    private Color color;
     private Gradient lineRendererGradient = new Gradient();
     private Player player;
     
@@ -51,14 +50,12 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         }
     }
 
-    public override void OnNetworkSpawn()
+    public void Setup(Player player, Color color)
     {
-        Random.InitState((int)OwnerClientId);
-        color = Random.ColorHSV();
+        this.player = player;
         lineRenderer.startColor = color;
         lineRenderer.endColor = color;
         swipeCooldownTimer = swipeCooldown;
-        player = GetComponentInParent<Player>();
     }
     private void FixedUpdate()
     {

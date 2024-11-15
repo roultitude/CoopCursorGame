@@ -276,6 +276,8 @@ MonoBehaviour:
   healthIconPrefab: {fileID: 1288772509334314913, guid: e107f46c7ce3168439b173cdc44b1fd8, type: 3}
   healthIconHolder: {fileID: 1842826253968759449}
   abilityIcon: {fileID: 5271584028466788197}
+  healthIconFilledAlpha: 0.5
+  healthIconDepletedAlpha: 0.15
 --- !u!114 &7447659108670029659
 MonoBehaviour:
   m_ObjectHideFlags: 0

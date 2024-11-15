@@ -5,11 +5,14 @@ public class PlayerStats
 {
     private Dictionary<PlayerStatType, float> stats;
 
+    public delegate void PlayerStatsChange();
+    public event PlayerStatsChange OnPlayerStatsChangeEvent;
     public PlayerStats()
     {
         stats = new Dictionary<PlayerStatType, float>();
         ResetStats();
         CalcPrimaryStatEffects();
+        OnPlayerStatsChangeEvent?.Invoke();
     }
 
     public void ResetStats()
@@ -35,24 +38,29 @@ public class PlayerStats
             }
         }
         CalcPrimaryStatEffects();
+        OnPlayerStatsChangeEvent?.Invoke();
     }
 
     private void CalcPrimaryStatEffects()
     {
         //Curiosity
-        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Curiosity) * 0.5f);
-        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Curiosity) * 0.5f);
+        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Curiosity) * 0.5f, false);
+        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Curiosity) * 0.5f, false);
 
         //Adaptability
-        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Adaptability) * 0.5f);
-        ModifyStat(PlayerStatType.CooldownReduction, GetStat(PlayerStatType.Adaptability) * 0.2f);
+        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Adaptability) * 0.5f,false);
+        ModifyStat(PlayerStatType.CooldownReduction, GetStat(PlayerStatType.Adaptability) * 0.2f,false);
 
         //Fortitude
-        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Fortitude) * 0.5f);
-        ModifyStat(PlayerStatType.MaxHealth, GetStat(PlayerStatType.Fortitude) * 0.2f);
+        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Fortitude) * 0.5f, false);
+        ModifyStat(PlayerStatType.MaxHealth, GetStat(PlayerStatType.Fortitude) * 0.5f,false);
     }
     public float GetStat(PlayerStatType statType)
     {
+        if(statType == PlayerStatType.MaxHealth)
+        {
+            return stats.ContainsKey(statType) ? Mathf.Floor(stats[statType]) : 0; //floor max hp 
+        }
         return stats.ContainsKey(statType) ? stats[statType] : 0;
     }
 
@@ -66,14 +74,16 @@ public class PlayerStats
         {
             stats.Add(statType, value);
         }
+        OnPlayerStatsChangeEvent?.Invoke();
     }
 
     // Methods to modify specific stats safely
-    public void ModifyStat(PlayerStatType statType, float amount)
+    public void ModifyStat(PlayerStatType statType, float amount, bool fireModifyEvent = true)
     {
         if (stats.ContainsKey(statType))
         {
             stats[statType] += amount;
+            if(fireModifyEvent) OnPlayerStatsChangeEvent?.Invoke();
         }
     }
 }

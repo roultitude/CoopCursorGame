@@ -1,8 +1,5 @@
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Services.Matchmaker.Models;
-using System.Collections;
-using TMPro;
 
 public class Player : NetworkBehaviour
 {
@@ -14,7 +11,7 @@ public class Player : NetworkBehaviour
     public PlayerStats stats = new PlayerStats();
     public PlayerUpgrades upgrades;
     public PlayerAbilitySwipe playerAbility; //create an interface for this??? rmb to assign somehow
-
+    public Color color;
 
     [SerializeField]
     float hitInvulnTime, reviveTime, moveSpeed;
@@ -38,9 +35,17 @@ public class Player : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         Debug.Log($"OnNetworkSpawn Player {OwnerClientId}");
-        PlayerManager.Instance.AddPlayer(this);
+
         health.OnValueChanged += OnHealthChanged;
         isDead.OnValueChanged += OnDeathStatusChanged;
+
+        //Setup Color
+        Random.InitState((int)OwnerClientId);
+        color = Random.ColorHSV();
+        spriteRenderer.color = color;
+        playerAbility.Setup(this, color);
+        PlayerManager.Instance.AddPlayer(this);
+
         if (IsOwner)
         {
             Vector2 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
@@ -199,6 +204,11 @@ public class Player : NetworkBehaviour
     }
     */
 
+    public void ModifyHealth(float amt)
+    {
+        health.Value = Mathf.FloorToInt(Mathf.Clamp(health.Value + amt,0,stats.GetStat(PlayerStatType.MaxHealth)));
+    }
+
     [Rpc(SendTo.Owner)] //send to owner since isDead & health are owner auth
     public void ReviveRPC(RpcParams rpcParams = default)
     {
@@ -221,7 +231,7 @@ public class Player : NetworkBehaviour
         isVulnerable = false;
 
         Invoke(nameof(HitInvuln), hitInvulnTime);
-        health.Value = Mathf.Clamp(health.Value - 1, 0, 3);
+        ModifyHealth(-1);
         if(health.Value == 0)
         {
             isDead.Value = true;

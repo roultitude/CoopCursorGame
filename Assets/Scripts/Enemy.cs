@@ -81,7 +81,7 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    public void OnDamage(float num)
+    public void OnHit(float num)
     {
         ChangeHealthRPC(-num);
     }

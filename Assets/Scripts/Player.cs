@@ -54,7 +54,7 @@ public class Player : NetworkBehaviour
             playerBounds[2] = bottomLeft.y;
             playerBounds[1] = topRight.x;
             playerBounds[3] = topRight.y;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false; // Hide the real cursor
             targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }

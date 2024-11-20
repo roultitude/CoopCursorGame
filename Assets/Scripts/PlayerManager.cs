@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance;
-
+    public Player localPlayer;
     public List<Player> players;
 
     public delegate void PlayerListChange();
@@ -28,6 +28,7 @@ public class PlayerManager : NetworkBehaviour
     public void AddPlayer(Player player)
     {
         if(!players.Contains(player)) {
+            if (player.IsOwner) localPlayer = player;
             players.Add(player);
             OnPlayerListChangeEvent?.Invoke();
         }

@@ -11,12 +11,9 @@ public class GameSceneUIManager : MonoBehaviour
 
     public void Awake()
     {
-        if(NetworkManager.Singleton.SceneManager != null) NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnSceneLoaded;        
-    }
-    public void Start() {
+        if(NetworkManager.Singleton.SceneManager != null) NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
         PlayerManager.OnPlayerListChangeEvent += Setup;
     }
-
 
     public void OnDisable()
     {
@@ -25,6 +22,7 @@ public class GameSceneUIManager : MonoBehaviour
 
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
+        Debug.Log("OnSceneLoaded GameSceneUIManager");
         Setup();
         NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
     }

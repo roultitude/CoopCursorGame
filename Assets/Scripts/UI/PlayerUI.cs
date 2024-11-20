@@ -5,10 +5,14 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI playerNameText;
-
+    [SerializeField] UpgradeIconUI upgradeIconPrefab;
     [SerializeField] GameObject healthIconPrefab;
 
     [SerializeField] Transform healthIconHolder;
+    [SerializeField] Transform upgradeIconHolder;
+    [SerializeField] GameObject upgradeTooltipObj;
+    [SerializeField] TMPro.TextMeshProUGUI upgradeTooltipTitleText;
+    [SerializeField] TMPro.TextMeshProUGUI upgradeTooltipDescriptionText;
 
     [SerializeField] GameObject abilityIcon;
 
@@ -34,11 +38,26 @@ public class PlayerUI : MonoBehaviour
         Color color = player.color;
         color.a = GetComponent<Image>().color.a;
         GetComponent<Image>().color = color;
+        PopulateUpgrades();
+    }
+
+    private void PopulateUpgrades()
+    {
+        foreach(Transform child in upgradeIconHolder)
+        {
+            Destroy(child.gameObject); // pooling prolly not req here
+        }
+        foreach(UpgradeSO upgrade in player.upgrades.GetUpgrades())
+        {
+            Instantiate(upgradeIconPrefab, upgradeIconHolder)
+                .Setup(upgrade, upgradeTooltipObj, upgradeTooltipTitleText, upgradeTooltipDescriptionText);
+        }
     }
 
     private void OnStatsChange()
     {
         ShowHP(player.health.Value); //force refresh
+        PopulateUpgrades();
     }
 
     private void OnPlayerAbilityIsAvailable(bool previousValue, bool newValue)

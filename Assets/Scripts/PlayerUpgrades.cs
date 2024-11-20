@@ -20,4 +20,9 @@ public class PlayerUpgrades : NetworkBehaviour
         Debug.Log($"Player {OwnerClientId} gets {upgrade.upgradeName}");
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
+
+    public List<UpgradeSO> GetUpgrades()
+    {
+        return activeUpgrades; // might want to format as some kind of dict eventually
+    }
 }

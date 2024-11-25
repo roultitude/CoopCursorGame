@@ -181,7 +181,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
                 if (IsEnemyInSwipePath(collider))
                 {
                     Debug.Log("Enemy in path");
-                    enemy.OnHit(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.AbilityDamage));
+                    enemy.OnHurt(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.AbilityDamage));
                 }
             }
         }

@@ -14,7 +14,7 @@ public class Player : NetworkBehaviour
     public Color color;
 
     [SerializeField]
-    float hitInvulnTime, reviveTime, moveSpeed;
+    float hurtInvulnTime, reviveTime, moveSpeed;
     [SerializeField]
     SpriteRenderer spriteRenderer, reviveSpriteRenderer;
     [SerializeField]
@@ -54,7 +54,7 @@ public class Player : NetworkBehaviour
             playerBounds[2] = bottomLeft.y;
             playerBounds[1] = topRight.x;
             playerBounds[3] = topRight.y;
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false; // Hide the real cursor
             targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
@@ -106,7 +106,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
-        OnHit();
+        OnHurt();
     }
 
     private void OnHealthChanged(int prev, int curr)
@@ -118,7 +118,7 @@ public class Player : NetworkBehaviour
         }
         else if(prev > curr)
         {
-            animator.CrossFade("OnHitPlayer", 0);
+            animator.CrossFade("OnHurtPlayer", 0);
             //InvulnVisualCoroutine = StartCoroutine(HitInvulnVisual());
         }
     }
@@ -162,7 +162,7 @@ public class Player : NetworkBehaviour
 
             if (!enemy) return;
 
-            enemy.OnHit(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
+            enemy.OnHurt(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
         }
     }
 
@@ -223,14 +223,14 @@ public class Player : NetworkBehaviour
         health.Value = 1; //revive with 1 hp
     }
 
-    public void OnHit()
+    public void OnHurt()
     {
         if (!IsOwner || !isVulnerable) return; //clientside hit
-        Debug.Log("local player hit");
+        Debug.Log("local player hurt");
         
         isVulnerable = false;
 
-        Invoke(nameof(HitInvuln), hitInvulnTime);
+        Invoke(nameof(HurtInvuln), hurtInvulnTime);
         ModifyHealth(-1);
         if(health.Value == 0)
         {
@@ -238,7 +238,7 @@ public class Player : NetworkBehaviour
         }
     }
 
-    private void HitInvuln()
+    private void HurtInvuln()
     {
         isVulnerable = true;
     }

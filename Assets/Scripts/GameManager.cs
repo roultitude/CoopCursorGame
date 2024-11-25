@@ -9,6 +9,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private StageWaves[] stageWaves;
+    [SerializeField] private bool isDebugBoss;
 
     public NetworkVariable<int> currentStage = new NetworkVariable<int>(-1);
     public void Awake()
@@ -62,8 +63,13 @@ public class GameManager : NetworkBehaviour
     {
         
         if (!IsServer) return;
-        currentStage.Value = (currentStage.Value + 1) % stageWaves.Length;
-        NetworkManager.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        if (isDebugBoss) {
+            NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        } else
+        {
+            currentStage.Value = (currentStage.Value + 1) % stageWaves.Length;
+            NetworkManager.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
     }
 
     public void LoadNextInterimScene()

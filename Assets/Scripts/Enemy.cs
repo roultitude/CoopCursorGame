@@ -21,6 +21,7 @@ public class Enemy : NetworkBehaviour
 
     private Rigidbody2D rb;
     private EnemySpawner spawner;
+    private Boss bossParent;
     public bool isVulnerable = true;
 
   
@@ -39,8 +40,12 @@ public class Enemy : NetworkBehaviour
             spawner = enemySpawner;
             spawner.TrackEnemy(true, this);
         }
-        
-        
+        if(enemySpawnerRef.TryGet(out Boss boss))
+        {
+            Debug.Log($"Spawned enemy, parent: {boss.name}");
+            bossParent = boss;
+            boss.TrackPart(true, this);
+        }
     }
     public override void OnNetworkSpawn()
     {
@@ -77,11 +82,11 @@ public class Enemy : NetworkBehaviour
         if(prev > curr)
         {
             DynamicTextManager.CreateText2D(transform.position, $"{(curr-prev)}", DynamicTextManager.defaultData);
-            animator.CrossFade("OnHitEnemy", 0);
+            animator.CrossFade("OnHurtEnemy", 0);
         }
     }
 
-    public void OnHit(float num)
+    public virtual void OnHurt(float num)
     {
         ChangeHealthRPC(-num);
     }
@@ -106,7 +111,15 @@ public class Enemy : NetworkBehaviour
     {
         DynamicTextManager.CreateText2D(transform.position, $"{lastHpChangeAmt}", DynamicTextManager.defaultData);
         Debug.Log($"{NetworkObjectId} Enemy DeathRPC");
-        spawner.TrackEnemy(false, this);
+        if (spawner)
+        {
+            spawner.TrackEnemy(false, this);
+        }
+        if (bossParent)
+        {
+            bossParent.TrackPart(false, this);
+        }
+
     }
 
 

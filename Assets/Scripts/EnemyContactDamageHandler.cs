@@ -54,7 +54,7 @@ public class EnemyContactDamageHandler : MonoBehaviour
             if (!isDamageActive || !player) return; // if not damage mode or if no player found
             
             Debug.Log($"Player {col.GetComponent<NetworkObject>().OwnerClientId} hit by {name}");
-            player.OnHit();
+            player.OnHurt();
 
         }
     }

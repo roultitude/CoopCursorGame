@@ -14,11 +14,16 @@ public class EnemyBulletSpawner : MonoBehaviour
     public LayerMask collisionLayer;
 
     [SerializeField]
+    bool usingParticleSystemOverrides, usingVelocityCurveOverride;
+    [SerializeField]
+    ParticleSystem psPrefab;
+
+    [SerializeField]
     AnimationCurve velocityOverLifetimeCurve;
     
-    private float _emitTimer;
+    private float emitTimer;
 
-    public List<ParticleSystem> _particleSystems;
+    public List<ParticleSystem> particleSystems;
     private void Start()
     {
         InitializeParticleSystems();
@@ -26,78 +31,81 @@ public class EnemyBulletSpawner : MonoBehaviour
 
     private void InitializeParticleSystems()
     {
-        _particleSystems = new List<ParticleSystem>();
+        particleSystems = new List<ParticleSystem>();
         for (float angle = 0; angle<360; angle+= 360 / num_col)
         {
             // default particle, maybe serialize it
             Material particleMat = material;
 
-            GameObject go = new GameObject("ParticleSystem");
+            ParticleSystem system = Instantiate(psPrefab, transform);
+            GameObject go = system.gameObject;
             go.tag = "Enemy";
-            go.transform.Rotate(angle, 90, 0); //default face upwards
-            go.transform.parent = transform;
+            go.transform.Rotate(angle,0,0);
             go.transform.localPosition = Vector3.zero;
-            ParticleSystem system = go.AddComponent<ParticleSystem>();
             ParticleSystemRenderer renderer = go.GetComponent<ParticleSystemRenderer>();
             go.GetComponent<ParticleSystemRenderer>().material = particleMat;
-            
-            ParticleSystem.MainModule mainModule = system.main;
-            mainModule.startColor = color;
-            mainModule.startSize = size;
-            mainModule.startSpeed = speed;
-            mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
+            if (usingParticleSystemOverrides)
+            {
+                ParticleSystem.MainModule mainModule = system.main;
+                mainModule.startColor = color;
+                mainModule.startSize = size;
+                mainModule.startSpeed = speed;
+                mainModule.startLifetime = lifetime;
+                mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
 
-            ParticleSystem.TextureSheetAnimationModule tsam = system.textureSheetAnimation;
-            ParticleSystem.EmissionModule emission = system.emission;
-            ParticleSystem.ShapeModule shape = system.shape;
-            ParticleSystem.CollisionModule collision = system.collision;
-            ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = system.velocityOverLifetime;
-                
-            collision.type = ParticleSystemCollisionType.World;
-            collision.mode = ParticleSystemCollisionMode.Collision2D;
-            collision.lifetimeLoss = 1;
-            collision.collidesWith = collisionLayer;
-            collision.sendCollisionMessages = true;
+                ParticleSystem.TextureSheetAnimationModule tsam = system.textureSheetAnimation;
+                ParticleSystem.EmissionModule emission = system.emission;
+                ParticleSystem.ShapeModule shape = system.shape;
+                ParticleSystem.CollisionModule collision = system.collision;
+                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = system.velocityOverLifetime;
 
-            velocityOverLifetime.speedModifier = new ParticleSystem.MinMaxCurve(1, velocityOverLifetimeCurve);
-            shape.shapeType = ParticleSystemShapeType.Sprite;
-            shape.sprite = null;
-            tsam.mode = ParticleSystemAnimationMode.Sprites;
-            tsam.AddSprite(sprite);
-            renderer.sortingLayerName = "Bullet";
+                collision.type = ParticleSystemCollisionType.World;
+                collision.mode = ParticleSystemCollisionMode.Collision2D;
+                collision.lifetimeLoss = 1;
+                collision.collidesWith = collisionLayer;
+                collision.sendCollisionMessages = true;
+
+                velocityOverLifetime.speedModifier = new ParticleSystem.MinMaxCurve(1, velocityOverLifetimeCurve);
+                shape.shapeType = ParticleSystemShapeType.Sprite;
+                shape.sprite = null;
+                tsam.mode = ParticleSystemAnimationMode.Sprites;
+                tsam.AddSprite(sprite);
+                renderer.sortingLayerName = "Bullet";
 
 
-            emission.enabled = false; //disabled we manually emit
-            velocityOverLifetime.enabled = true;
-            shape.enabled = true;
-            tsam.enabled = true;
-            collision.enabled = true;
-            
+                //emission.enabled = false; //disabled we manually emit
+                velocityOverLifetime.enabled = true;
+                shape.enabled = true;
+                tsam.enabled = true;
+                collision.enabled = true;
+            }
+            else if (usingVelocityCurveOverride) // we have this separate because the animation curve on PS velocity speed modifier is kinda weirdge we prefer using this
+            {
+                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = system.velocityOverLifetime;
+                velocityOverLifetime.speedModifier = new ParticleSystem.MinMaxCurve(1, velocityOverLifetimeCurve);
+                velocityOverLifetime.enabled = true;
+            }
 
-            _particleSystems.Add(system);
+            particleSystems.Add(system);
         }
         
     }
 
     private void Emit()
     {
-        foreach(ParticleSystem ps in _particleSystems)
+        foreach(ParticleSystem ps in particleSystems)
         {
-            ParticleSystem.EmitParams ep = new ParticleSystem.EmitParams();
-            ep.startColor = color;
-            ep.startSize = size;
-            ep.startLifetime = lifetime;
-            ps.Emit(ep, 1);
+            ps.Play();
         }
     }
 
     private void FixedUpdate()
     {
-        _emitTimer -= Time.fixedDeltaTime;
-        if(_emitTimer < 0 )
+        emitTimer -= Time.fixedDeltaTime;
+        if(emitTimer < 0 )
         {
             Emit();
-            _emitTimer = baseEmitTimer;
+            emitTimer = baseEmitTimer;
         }
     }
 }

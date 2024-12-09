@@ -13,7 +13,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - FLICKER_ON
-  - GLOW_ON
   - HITEFFECT_ON
   - OUTBASEPIXELPERF_ON
   m_InvalidKeywords: []
@@ -124,7 +123,7 @@ Material:
     - _GhostTransparency: 0
     - _GlitchAmount: 3
     - _GlitchSize: 1
-    - _Glow: 2.5
+    - _Glow: 0
     - _GlowGlobal: 1
     - _GradBlend: 1
     - _GradBoostX: 1.2

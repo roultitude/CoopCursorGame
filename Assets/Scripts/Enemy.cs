@@ -5,7 +5,10 @@ using UnityEngine;
 public class Enemy : NetworkBehaviour
 {
     [SerializeField]
-    private float moveSpeed, rotationSpeed;
+    protected float moveSpeed, rotationSpeed;
+
+    [SerializeField]
+    private EnemyMovementType movementType;
 
     [SerializeField]
     private int baseHealth;
@@ -18,6 +21,12 @@ public class Enemy : NetworkBehaviour
 
     [SerializeField]
     private bool isFacingPlayer;
+
+    [SerializeField]
+    private float roamChangeInterval = 2f; // Time between direction changes
+
+    private Vector2 roamDirection;
+    private float roamChangeTimer = 0f;
 
     private Rigidbody2D rb;
     private EnemySpawner spawner;
@@ -59,15 +68,9 @@ public class Enemy : NetworkBehaviour
         health.OnValueChanged -= OnHealthChange;
         base.OnNetworkDespawn();
     }
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        Vector2 vecToPlayer = FindClosestPlayer().vecToPlayer;
-        Vector2 moveDir = vecToPlayer.normalized;
-        Move(moveDir);
-        if(isFacingPlayer)
-        {
-            Rotate(moveDir);
-        }
+        MoveAndRotate(); //curently running on both client and server
     }
 
     private void Rotate(Vector2 faceDir)
@@ -123,18 +126,46 @@ public class Enemy : NetworkBehaviour
     }
 
 
-    private void Move(Vector2 dir)
+    private void MoveAndRotate()
     {
-        if(isFacingPlayer)
+        Vector2 dir = new Vector2(0,0);
+        switch (movementType)
+        {
+            case EnemyMovementType.TowardNearestPlayer:
+                Vector2 vecToPlayer = FindClosestPlayer().vecToPlayer;
+                dir = vecToPlayer.normalized;
+                if (isFacingPlayer)
+                {
+                    Rotate(dir);
+                }
+                break;
+            case EnemyMovementType.RandomRoam:
+                roamChangeTimer += Time.fixedDeltaTime;
+                if(roamChangeTimer > roamChangeInterval)
+                {
+                    roamChangeTimer = 0;
+                    roamDirection = UnityEngine.Random.insideUnitCircle.normalized;
+                }
+                dir = roamDirection; //TODO: STOP THEM FROM ROAMING OFF SCREEN
+                break;
+
+            case EnemyMovementType.Stationary:
+                return;
+                
+            default:
+                Debug.LogError("Invalid Enemy Movement Type!");
+                return;
+        }
+        if (isFacingPlayer)
         {
             //Debug.Log(rb.rotation);
             //Debug.Log(new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)));
-            transform.position += new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad))* moveSpeed * Time.fixedDeltaTime;
-        } else
+            transform.position += new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)) * moveSpeed * Time.fixedDeltaTime;
+        }
+        else
         {
             transform.position += (Vector3)dir * moveSpeed * Time.fixedDeltaTime;
         }
-        
     }
 
     private (Player closestPlayer, Vector2 vecToPlayer) FindClosestPlayer()
@@ -171,5 +202,10 @@ public class Enemy : NetworkBehaviour
     public void ChangeVulnerable(bool isVuln)
     {
         isVulnerable = isVuln;
+    }
+
+    public enum EnemyMovementType
+    {
+        TowardNearestPlayer, RandomRoam, Stationary
     }
 }

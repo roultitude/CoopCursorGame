@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 515127490}
   m_HandleRect: {fileID: 515127489}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3784,7 +3784,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1985014117}
   m_HandleRect: {fileID: 1985014116}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5454,7 +5454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 32
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0

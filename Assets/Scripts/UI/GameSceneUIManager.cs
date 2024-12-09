@@ -11,7 +11,7 @@ public class GameSceneUIManager : MonoBehaviour
 
     public void Awake()
     {
-        if(NetworkManager.Singleton.SceneManager != null) NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
+        if(NetworkManager.Singleton != null) NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
         PlayerManager.OnPlayerListChangeEvent += Setup;
     }
 

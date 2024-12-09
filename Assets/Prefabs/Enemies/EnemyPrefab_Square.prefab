@@ -17,6 +17,14 @@ PrefabInstance:
       value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -58,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2921823362
+      value: 3116807365
       objectReference: {fileID: 0}
     - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.x
@@ -71,7 +79,19 @@ PrefabInstance:
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300022, guid: f85524137d1263e44bdfe94447efb296, type: 3}
+      objectReference: {fileID: 2575625193964853341, guid: 6347ea0e68827634d8b1e211a2427a9d, type: 3}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9021092716756533808, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Name
       value: EnemyPrefab_Square
@@ -140,7 +160,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.22, y: 2.35}
+    oldSize: {x: 1.875, y: 1.15625}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

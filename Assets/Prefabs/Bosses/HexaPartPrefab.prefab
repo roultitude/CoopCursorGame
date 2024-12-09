@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1808338202
+  GlobalObjectIdHash: 2855510109
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -114,11 +114,13 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 0
   rotationSpeed: 0
+  movementType: 2
   baseHealth: 20
   health:
     m_InternalValue: 5
   animator: {fileID: 7964325434038442450}
   isFacingPlayer: 0
+  roamChangeInterval: 2
   isVulnerable: 1
 --- !u!114 &6714175825228359803
 MonoBehaviour:
@@ -132,42 +134,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d17e3447da2f84daea7006f5ba28a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num_col: 5
-  speed: 8
+  num_col: 6
+  speed: 3
   lifetime: 5
   size: 0.5
-  baseEmitTimer: 2
+  baseEmitTimer: 8
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 56f99cab152e474469d31c1b5ef288ad, type: 2}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
+  usingParticleSystemOverrides: 0
+  usingVelocityCurveOverride: 1
+  psPrefab: {fileID: 6411391967522868542, guid: 961cd1cd804ecf2419c2726547150253, type: 3}
   velocityOverLifetimeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: 17.389273
+      outSlope: 17.389273
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.15025502
+      value: 2.6128256
+      inSlope: 7.157219
+      outSlope: 7.157219
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: -3.074835
+      outSlope: -3.074835
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _particleSystems: []
+  particleSystems: []
 --- !u!50 &7855182027031621708
 Rigidbody2D:
   serializedVersion: 5
@@ -227,7 +241,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7225246210324580534}
   - component: {fileID: 3976691438268413273}
-  - component: {fileID: 7098516912694520987}
+  - component: {fileID: 8117675449501560236}
+  - component: {fileID: 4194514494222580963}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Enemy
@@ -245,7 +260,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3957311407250240260}
@@ -294,8 +309,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.3638159, g: 0.27735847, b: 1, a: 1}
+  m_Sprite: {fileID: 4017396749991456375, guid: 9a995a39b38099c43b5cb30c7fa8eb0f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -305,8 +320,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &7098516912694520987
-PolygonCollider2D:
+--- !u!61 &8117675449501560236
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -339,22 +354,70 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.026379853, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8828125, y: 1}
+    oldSize: {x: 0.78125, y: 0.90625}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.43359375, y: 0.25}
-      - {x: -0.43359375, y: -0.25}
-      - {x: 0, y: -0.5}
-      - {x: 0.43359375, y: -0.25}
-      - {x: 0.43359375, y: 0.25}
-      - {x: 0, y: 0.5}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 0.42816597, y: 0.875}
+  m_EdgeRadius: 0
+--- !u!114 &4194514494222580963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439002777124383719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9674f60eebb5674bba9e4f01f6210ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformToAffect: {fileID: 0}
+  axisToAffect: 2
+  animDuration: 0.5
+  canBeOverwritten: 0
+  playOnStart: 1
+  initialScale: 1
+  maxScale: 1.05
+  resetToInitialAfterAnim: 1
+  squashAndStretchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  looping: 1
+  loopingDelay: 0.5

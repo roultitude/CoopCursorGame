@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2956101283504874718}
   - component: {fileID: 5724936161712489731}
   - component: {fileID: 8125817457770786238}
+  - component: {fileID: 9178075700860680913}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Enemy
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.29582766, g: 0.3962264, b: 0, a: 1}
+  m_Sprite: {fileID: 4047192524548920153, guid: 9a995a39b38099c43b5cb30c7fa8eb0f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -126,7 +127,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8828125, y: 1}
+    oldSize: {x: 0.71875, y: 0.4375}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -134,13 +135,68 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.43359375, y: 0.25}
-      - {x: -0.43359375, y: -0.25}
-      - {x: 0, y: -0.5}
-      - {x: 0.43359375, y: -0.25}
-      - {x: 0.43359375, y: 0.25}
-      - {x: 0, y: 0.5}
+    - - {x: -0.20419508, y: 0.15654132}
+      - {x: -0.367475, y: -0.16351762}
+      - {x: 0.021240622, y: -0.21537563}
+      - {x: 0.37925568, y: -0.191482}
+      - {x: 0.2569847, y: 0.13369642}
+      - {x: 0.008615062, y: 0.23293269}
   m_UseDelaunayMesh: 0
+--- !u!114 &9178075700860680913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895144985065160264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9674f60eebb5674bba9e4f01f6210ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformToAffect: {fileID: 0}
+  axisToAffect: 2
+  animDuration: 0.5
+  canBeOverwritten: 0
+  playOnStart: 1
+  initialScale: 1
+  maxScale: 1.05
+  resetToInitialAfterAnim: 1
+  squashAndStretchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  looping: 0
+  loopingDelay: 0.5
 --- !u!1 &3701310821346649808
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1281630871
+  GlobalObjectIdHash: 205907435
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -253,13 +309,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 0
+  moveSpeed: 0.5
   rotationSpeed: 0
-  baseHealth: 2000
+  movementType: 1
+  baseHealth: 1000
   health:
     m_InternalValue: 0
   animator: {fileID: 6045048541503459587}
   isFacingPlayer: 0
+  roamChangeInterval: 1
   isVulnerable: 1
   parts: []
   hexaPartPrefab: {fileID: 6962135997549519593, guid: 280d57102eb6e3443aafa71e28b6e4f3, type: 3}
@@ -270,6 +328,9 @@ MonoBehaviour:
   - {x: 1.8, y: 0}
   - {x: 0.9, y: -1.56}
   - {x: -0.9, y: -1.56}
+  roamRadius: 0.5
+  noiseScale: 1
+  noiseFrequency: 0.5
 --- !u!114 &6114519321387980550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   num_col: 5
-  speed: 8
+  speed: 1
   lifetime: 5
   size: 0.5
   baseEmitTimer: 2
@@ -293,6 +354,9 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
+  usingParticleSystemOverrides: 0
+  usingVelocityCurveOverride: 0
+  psPrefab: {fileID: 0}
   velocityOverLifetimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -317,7 +381,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _particleSystems: []
+  particleSystems: []
 --- !u!50 &7427317344191762157
 Rigidbody2D:
   serializedVersion: 5

@@ -55,13 +55,16 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
+  usingParticleSystemOverrides: 1
+  usingVelocityCurveOverride: 0
+  psPrefab: {fileID: 6411391967522868542, guid: 61f2ae4a60dd4224c852957393bfc629, type: 3}
   velocityOverLifetimeCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _particleSystems: []
+  particleSystems: []
 --- !u!1001 &6282161352071274796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,7 +123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1909234279
+      value: 9958585
       objectReference: {fileID: 0}
     - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.y

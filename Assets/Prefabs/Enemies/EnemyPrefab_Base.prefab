@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 4838654388662224516}
   - component: {fileID: 620560943497894892}
   - component: {fileID: 8480468972754706179}
+  - component: {fileID: 2141433363739808858}
   m_Layer: 0
   m_Name: EnemyPrefab_Base
   m_TagString: Enemy
@@ -309,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 0.5
+  moveSpeed: 0
   rotationSpeed: 0
   movementType: 0
   baseHealth: 20
@@ -317,6 +318,7 @@ MonoBehaviour:
     m_InternalValue: 5
   animator: {fileID: 8480468972754706179}
   isFacingPlayer: 0
+  sprite: {fileID: 8087729961298417204}
   roamChangeInterval: 2
   isVulnerable: 1
 --- !u!114 &4838654388662224516
@@ -419,3 +421,40 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2141433363739808858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021092716756533808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  m_Graph: {fileID: 180709731418586685, guid: 002d233dc2f3dff4c9a7922a732a46c9, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 6091660696845812426
+  - rid: 6091660696845812495
+  NetcodeRunOnlyOnOwner: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 6091660696845812426
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 9021092716756533808}
+    - rid: 6091660696845812495
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11450970452749941155
+          m_Value1: 6482096623025746079
+        Name: Speed
+        m_Value: 8

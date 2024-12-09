@@ -6,6 +6,8 @@ public class Enemy : NetworkBehaviour
 {
     [SerializeField]
     protected float moveSpeed, rotationSpeed;
+    [SerializeField]
+    protected float maxRotAngle = 10f;
 
     [SerializeField]
     private EnemyMovementType movementType;
@@ -21,6 +23,9 @@ public class Enemy : NetworkBehaviour
 
     [SerializeField]
     private bool isFacingPlayer;
+
+    [SerializeField]
+    private SpriteRenderer sprite;
 
     [SerializeField]
     private float roamChangeInterval = 2f; // Time between direction changes
@@ -73,10 +78,15 @@ public class Enemy : NetworkBehaviour
         MoveAndRotate(); //curently running on both client and server
     }
 
-    private void Rotate(Vector2 faceDir)
+    public void Rotate(Vector2 faceDir)
     {
-        float rad = Mathf.Atan2(faceDir.y , faceDir.x);
-        rb.SetRotation(Mathf.LerpAngle(rb.rotation, rad * Mathf.Rad2Deg,Time.fixedDeltaTime * rotationSpeed));
+        sprite.flipY = faceDir.x < 0;
+        float deg = Mathf.Atan2(faceDir.y , faceDir.x) * Mathf.Rad2Deg;
+        if (deg >= maxRotAngle && deg <= 90) deg = maxRotAngle;
+        else if (deg >= 90 && deg <= 180-maxRotAngle) deg = 180-maxRotAngle;
+        else if (deg >= maxRotAngle - 180 && deg <= -90) deg = maxRotAngle - 180;
+        else if (deg <= -maxRotAngle && deg >= -90) deg = -maxRotAngle;
+        rb.SetRotation(Mathf.LerpAngle(rb.rotation, deg ,Time.deltaTime * rotationSpeed));
     }
 
     private void OnHealthChange(float prev, float curr)
@@ -132,12 +142,12 @@ public class Enemy : NetworkBehaviour
         switch (movementType)
         {
             case EnemyMovementType.TowardNearestPlayer:
-                Vector2 vecToPlayer = FindClosestPlayer().vecToPlayer;
-                dir = vecToPlayer.normalized;
-                if (isFacingPlayer)
-                {
-                    Rotate(dir);
-                }
+                //Vector2 vecToPlayer = FindClosestPlayer().vecToPlayer;
+                //dir = vecToPlayer.normalized;
+                //if (isFacingPlayer)
+                //{
+                //    Rotate(dir);
+                //}
                 break;
             case EnemyMovementType.RandomRoam:
                 roamChangeTimer += Time.fixedDeltaTime;
@@ -168,35 +178,7 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    private (Player closestPlayer, Vector2 vecToPlayer) FindClosestPlayer()
-    {
-        Player closestPlayer = null;
-        Vector2 closestVec = Vector2.zero;
-        foreach (Player player in PlayerManager.Instance.players)
-        {
-            if (player.health.Value == 0) continue;
-            if (!closestPlayer) // if first alive player
-            {
-                closestPlayer = player;
-                closestVec = player.transform.position - transform.position;
-            }
-            else //check against current closest player
-            {
-                Vector2 relPos = (player.transform.position - transform.position);
-                if (relPos.sqrMagnitude < closestVec.sqrMagnitude) //new closest
-                {
-                    closestPlayer = player;
-                    closestVec = relPos;
-                }
-            }
-        }
 
-        if (!closestPlayer) // if all players dead
-        {
-            //Debug.Log("enemy cannot find alive player");
-        }
-        return (closestPlayer, closestVec);
-    }
 
 
     public void ChangeVulnerable(bool isVuln)

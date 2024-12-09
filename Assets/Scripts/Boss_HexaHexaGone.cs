@@ -81,4 +81,9 @@ public class Boss_HexaHexaGone : Boss
             part.transform.position = partSpawnPos[i] + (Vector2)transform.position;
         }
     }
+
+    public void RadialBulletAttack()
+    {
+
+    }
 }

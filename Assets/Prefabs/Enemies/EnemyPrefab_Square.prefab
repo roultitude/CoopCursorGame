@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,13 +68,74 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3116807365
       objectReference: {fileID: 0}
-    - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'managedReferences[6091660771148955698]'
+      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[System.Boolean,
+        mscorlib]]'
       objectReference: {fileID: 0}
-    - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'managedReferences[6091660771148955700]'
+      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[Enemy, Assembly-CSharp]]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955698].Name
+      value: RotateToFacePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955700].Name
+      value: EnemyScript
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_BlackboardVariableOverridesList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660696845812495].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955698].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955700].m_Value
+      value: 
+      objectReference: {fileID: 2945273171600960885}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[2]'
+      value: 6091660771148955698
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[3]'
+      value: 6091660771148955700
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955698].GUID.m_Value0
+      value: 11870644394062944543
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955698].GUID.m_Value1
+      value: 7343501981549129618
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955700].GUID.m_Value0
+      value: 3152791344487531955
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141433363739808858, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: managedReferences[6091660771148955700].GUID.m_Value1
+      value: 15618123283185314278
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Size.y
+      value: 0.59375
       objectReference: {fileID: 0}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Sprite
@@ -98,11 +159,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: moveSpeed
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: baseHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: movementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 201495738574744566, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
@@ -160,13 +229,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.15625}
-    newSize: {x: 1, y: 0.5}
+    oldSize: {x: 0.9375, y: 0.59375}
+    newSize: {x: 0.9375, y: 0.59375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.22, y: 2.35}
+  m_Size: {x: 1, y: 0.55}
   m_EdgeRadius: 0
 --- !u!95 &2478089121697702882 stripped
 Animator:

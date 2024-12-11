@@ -5,12 +5,9 @@ using UnityEngine;
 public class Enemy : NetworkBehaviour
 {
     [SerializeField]
-    protected float moveSpeed, rotationSpeed;
+    protected float rotationSpeed;
     [SerializeField]
     protected float maxRotAngle = 10f;
-
-    [SerializeField]
-    private EnemyMovementType movementType;
 
     [SerializeField]
     private int baseHealth;
@@ -27,15 +24,9 @@ public class Enemy : NetworkBehaviour
     [SerializeField]
     private SpriteRenderer sprite;
 
-    [SerializeField]
-    private float roamChangeInterval = 2f; // Time between direction changes
-
-    private Vector2 roamDirection;
-    private float roamChangeTimer = 0f;
-
     private Rigidbody2D rb;
     private EnemySpawner spawner;
-    private Boss bossParent;
+    public Boss bossParent;
     public bool isVulnerable = true;
 
   
@@ -75,7 +66,7 @@ public class Enemy : NetworkBehaviour
     }
     protected virtual void FixedUpdate()
     {
-        MoveAndRotate(); //curently running on both client and server
+        //MoveAndRotate(); //curently running on both client and server
     }
 
     public void Rotate(Vector2 faceDir)
@@ -135,59 +126,8 @@ public class Enemy : NetworkBehaviour
 
     }
 
-
-    private void MoveAndRotate()
-    {
-        Vector2 dir = new Vector2(0,0);
-        switch (movementType)
-        {
-            case EnemyMovementType.TowardNearestPlayer:
-                //Vector2 vecToPlayer = FindClosestPlayer().vecToPlayer;
-                //dir = vecToPlayer.normalized;
-                //if (isFacingPlayer)
-                //{
-                //    Rotate(dir);
-                //}
-                break;
-            case EnemyMovementType.RandomRoam:
-                roamChangeTimer += Time.fixedDeltaTime;
-                if(roamChangeTimer > roamChangeInterval)
-                {
-                    roamChangeTimer = 0;
-                    roamDirection = UnityEngine.Random.insideUnitCircle.normalized;
-                }
-                dir = roamDirection; //TODO: STOP THEM FROM ROAMING OFF SCREEN
-                break;
-
-            case EnemyMovementType.Stationary:
-                return;
-                
-            default:
-                Debug.LogError("Invalid Enemy Movement Type!");
-                return;
-        }
-        if (isFacingPlayer)
-        {
-            //Debug.Log(rb.rotation);
-            //Debug.Log(new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)));
-            transform.position += new Vector3(Mathf.Cos(rb.rotation * Mathf.Deg2Rad), Mathf.Sin(rb.rotation * Mathf.Deg2Rad)) * moveSpeed * Time.fixedDeltaTime;
-        }
-        else
-        {
-            transform.position += (Vector3)dir * moveSpeed * Time.fixedDeltaTime;
-        }
-    }
-
-
-
-
     public void ChangeVulnerable(bool isVuln)
     {
         isVulnerable = isVuln;
-    }
-
-    public enum EnemyMovementType
-    {
-        TowardNearestPlayer, RandomRoam, Stationary
     }
 }

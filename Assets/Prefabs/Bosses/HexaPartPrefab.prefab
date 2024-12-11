@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6714175825228359803}
   - component: {fileID: 7855182027031621708}
   - component: {fileID: 7964325434038442450}
+  - component: {fileID: 3282729907572375149}
   m_Layer: 0
   m_Name: HexaPartPrefab
   m_TagString: Enemy
@@ -50,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2855510109
+  GlobalObjectIdHash: 815995933
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -112,15 +113,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 0
   rotationSpeed: 0
-  movementType: 2
+  maxRotAngle: 10
   baseHealth: 20
   health:
     m_InternalValue: 5
   animator: {fileID: 7964325434038442450}
   isFacingPlayer: 0
-  roamChangeInterval: 2
+  sprite: {fileID: 3976691438268413273}
+  bossParent: {fileID: 0}
   isVulnerable: 1
 --- !u!114 &6714175825228359803
 MonoBehaviour:
@@ -231,6 +232,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3282729907572375149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943697968993223230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  m_Graph: {fileID: 180709731418586685, guid: 6b6981976e4cd0c4f938c921db291333, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 6091660796000206934
+  - rid: 6091660796000206935
+  - rid: 6091660796000206936
+  NetcodeRunOnlyOnOwner: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6091660796000206934
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 3943697968993223230}
+    - rid: 6091660796000206935
+      type: {class: 'BlackboardVariable`1[[Enemy, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3152791344487531955
+          m_Value1: 15618123283185314278
+        Name: EnemyScript
+        m_Value: {fileID: 6962135997549519593}
+    - rid: 6091660796000206936
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11450970452749941155
+          m_Value1: 6482096623025746079
+        Name: Speed
+        m_Value: 10
 --- !u!1 &7439002777124383719
 GameObject:
   m_ObjectHideFlags: 0

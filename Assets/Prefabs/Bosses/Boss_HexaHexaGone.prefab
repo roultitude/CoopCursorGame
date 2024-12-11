@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 6114519321387980550}
   - component: {fileID: 7427317344191762157}
   - component: {fileID: 6045048541503459587}
+  - component: {fileID: 7485597277967524498}
   m_Layer: 0
   m_Name: Boss_HexaHexaGone
   m_TagString: Enemy
@@ -309,17 +310,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 0.5
   rotationSpeed: 0
-  movementType: 1
+  maxRotAngle: 10
   baseHealth: 1000
   health:
     m_InternalValue: 0
   animator: {fileID: 6045048541503459587}
   isFacingPlayer: 0
-  roamChangeInterval: 1
+  sprite: {fileID: 5724936161712489731}
+  bossParent: {fileID: 0}
   isVulnerable: 1
   parts: []
+  partPosition: []
   hexaPartPrefab: {fileID: 6962135997549519593, guid: 280d57102eb6e3443aafa71e28b6e4f3, type: 3}
   partSpawnPos:
   - {x: -1.8, y: 0}
@@ -328,9 +330,6 @@ MonoBehaviour:
   - {x: 1.8, y: 0}
   - {x: 0.9, y: -1.56}
   - {x: -0.9, y: -1.56}
-  roamRadius: 0.5
-  noiseScale: 1
-  noiseFrequency: 0.5
 --- !u!114 &6114519321387980550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,3 +430,58 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7485597277967524498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701310821346649808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  m_Graph: {fileID: 180709731418586685, guid: fa05f6e8321841f4ea2908397aafbdb4, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 6091660787532956440
+  - rid: 6091660787532956441
+  - rid: 6091660787532956442
+  - rid: 6091660796654256343
+  NetcodeRunOnlyOnOwner: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6091660787532956440
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 3701310821346649808}
+    - rid: 6091660787532956441
+      type: {class: 'BlackboardVariable`1[[Enemy, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3152791344487531955
+          m_Value1: 15618123283185314278
+        Name: EnemyScript
+        m_Value: {fileID: 6850090586908314806}
+    - rid: 6091660787532956442
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11450970452749941155
+          m_Value1: 6482096623025746079
+        Name: Speed
+        m_Value: 0.1
+    - rid: 6091660796654256343
+      type: {class: 'BlackboardVariable`1[[Boss_HexaHexaGone, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 14578991361367935931
+          m_Value1: 361413271280481491
+        Name: HexaGoneGone
+        m_Value: {fileID: 6850090586908314806}

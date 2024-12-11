@@ -31,7 +31,7 @@ public class Enemy : NetworkBehaviour
 
   
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -41,7 +41,6 @@ public class Enemy : NetworkBehaviour
     {
         if (enemySpawnerRef.TryGet(out EnemySpawner enemySpawner))
         {
-           
             spawner = enemySpawner;
             spawner.TrackEnemy(true, this);
         }

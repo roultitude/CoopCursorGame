@@ -449,7 +449,7 @@ MonoBehaviour:
   - rid: 6091660787532956441
   - rid: 6091660787532956442
   - rid: 6091660796654256343
-  NetcodeRunOnlyOnOwner: 0
+  NetcodeRunOnlyOnOwner: 1
   references:
     version: 2
     RefIds:

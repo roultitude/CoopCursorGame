@@ -1,18 +1,90 @@
 
 using System.Collections.Generic;
 using Unity.Behavior;
+using Unity.Netcode;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Boss_HexaHexaGone : Boss
 {
     [SerializeField]
     private Enemy hexaPartPrefab;
-    
+
     public Vector2[] partSpawnPos;
     private Vector2 startPosition;
-
+    private BehaviorGraphAgent agent;
+    private BlackboardVariable<AttackEvent> attackEventChannel;
     //[SerializeField]
     //private // for particlesystem for spawning effect
+    protected override void Awake()
+    {
+        base.Awake();
+        agent = GetComponent<BehaviorGraphAgent>();
+        agent.BlackboardReference.GetVariable<AttackEvent>("AttackEventChannel", out attackEventChannel);
+        /*
+        if() {
+            attackEventChannel = attackEvent;
+        } else
+        {
+            Debug.LogError($"{agent} is expecting a BlackboardVariable of type '{typeof(AttackEvent).Name}' named AttackEventChannel.");
+            return;
+        }
+        */
+    }
+
+    private void OnEnable()
+    {
+        attackEventChannel.Value.Event += AttackEventChannel_OnEvent;
+    }
+    private void OnDisable()
+    {
+        attackEventChannel.Value.Event -= AttackEventChannel_OnEvent;
+    }
+
+    private void AttackEventChannel_OnEvent(Enemy Enemy, int id)
+    {
+        Debug.Log("Received AttackChannel Event of id " + id);
+        if (id != -1) return; // listen for attack event complete
+        TriggerAttackRPC(Random.Range(0, 2));
+    }
+
+    public void TriggerRandomAttack()
+    {
+        TriggerAttackRPC(Random.Range(0, 2));
+    }
+
+    [ContextMenu("Trigger Attack 0")]
+    private void DebugTriggerAttackZero()
+    {
+        TriggerAttackRPC(0);
+    }
+    [ContextMenu("Trigger Attack 1")]
+    private void DebugTriggerAttackOne()
+    {
+        TriggerAttackRPC(1);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void TriggerAttackRPC(int id)
+    {
+        Debug.Log("Triggered AttackChannel Event of id " + id); 
+        attackEventChannel.Value.SendEventMessage(this, id); //doesnt do much lmao
+        agent.BlackboardReference.SetVariableValue("AttackId",id); //still need this....
+        
+            /*
+        switch (attackId) {
+            case 0:
+                attackEventChannel.Value.SendEventMessage(this, attackId);
+                break;
+            case 1: 
+                break;
+            default: 
+                return;
+        }
+        */
+    }
+
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

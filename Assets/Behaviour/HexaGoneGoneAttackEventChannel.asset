@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3541d9a7825f0244786073169f95b846, type: 3}
-  m_Name: HexaGoneGoneAttackChannel
+  m_Name: HexaGoneGoneAttackEventChannel
   m_EditorClassIdentifier: 

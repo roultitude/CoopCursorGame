@@ -449,6 +449,7 @@ MonoBehaviour:
   - rid: 6091660787532956441
   - rid: 6091660787532956442
   - rid: 6091660796654256343
+  - rid: 6091660821448885107
   NetcodeRunOnlyOnOwner: 1
   references:
     version: 2
@@ -485,3 +486,11 @@ MonoBehaviour:
           m_Value1: 361413271280481491
         Name: HexaGoneGone
         m_Value: {fileID: 6850090586908314806}
+    - rid: 6091660821448885107
+      type: {class: 'BlackboardVariable`1[[System.Int32, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 8071938226352880799
+          m_Value1: 16592075958399192812
+        Name: AttackId
+        m_Value: 1

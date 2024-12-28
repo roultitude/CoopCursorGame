@@ -1390,6 +1390,10 @@ PrefabInstance:
       propertyPath: ui
       value: 
       objectReference: {fileID: 760881970}
+    - target: {fileID: 24533093469321483, guid: 7bb5d0bb7afefaf459becdc0581e9aca, type: 3}
+      propertyPath: countdownTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3225666783746487228, guid: 7bb5d0bb7afefaf459becdc0581e9aca, type: 3}
       propertyPath: m_Name
       value: ReadyZonePrefab

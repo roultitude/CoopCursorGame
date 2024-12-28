@@ -14,13 +14,17 @@ public class Boss_HexaHexaGone : Boss
     private Vector2 startPosition;
     private BehaviorGraphAgent agent;
     private BlackboardVariable<AttackEvent> attackEventChannel;
+
+    public Vector2[] partPosition;
+    private List<BossMinionController> minionControllers;
     //[SerializeField]
     //private // for particlesystem for spawning effect
     protected override void Awake()
     {
         base.Awake();
         agent = GetComponent<BehaviorGraphAgent>();
-        agent.BlackboardReference.GetVariable<AttackEvent>("AttackEventChannel", out attackEventChannel);
+        minionControllers = new List<BossMinionController>();
+        partPosition = new Vector2[partSpawnPos.Length];
         /*
         if() {
             attackEventChannel = attackEvent;
@@ -34,6 +38,9 @@ public class Boss_HexaHexaGone : Boss
 
     private void OnEnable()
     {
+        AttackEvent attackEvent = ScriptableObject.CreateInstance<AttackEvent>();
+        agent.BlackboardReference.SetVariableValue<AttackEvent>("AttackEventChannel", attackEvent);
+        agent.BlackboardReference.GetVariable<AttackEvent>("AttackEventChannel", out attackEventChannel);
         attackEventChannel.Value.Event += AttackEventChannel_OnEvent;
     }
     private void OnDisable()
@@ -45,13 +52,15 @@ public class Boss_HexaHexaGone : Boss
     {
         Debug.Log("Received AttackChannel Event of id " + id);
         if (id != -1) return; // listen for attack event complete
-        TriggerAttackRPC(Random.Range(0, 2));
+        int next = Random.Range(0, 2);
+        Debug.Log($"broadcasting: {next}");
+        //TriggerAttackRPC(next);
     }
-
+    /*
     public void TriggerRandomAttack()
     {
         TriggerAttackRPC(Random.Range(0, 2));
-    }
+    }*/
 
     [ContextMenu("Trigger Attack 0")]
     private void DebugTriggerAttackZero()
@@ -67,9 +76,8 @@ public class Boss_HexaHexaGone : Boss
     [Rpc(SendTo.Everyone)]
     private void TriggerAttackRPC(int id)
     {
-        Debug.Log("Triggered AttackChannel Event of id " + id); 
-        attackEventChannel.Value.SendEventMessage(this, id); //doesnt do much lmao
-        agent.BlackboardReference.SetVariableValue("AttackId",id); //still need this....
+        //Debug.Log("Triggered AttackChannel Event of id " + id); 
+        attackEventChannel.Value.SendEventMessage(this, id); 
         
             /*
         switch (attackId) {
@@ -109,13 +117,20 @@ public class Boss_HexaHexaGone : Boss
             Enemy part = Instantiate(hexaPartPrefab, partSpawnPos[i] + (Vector2) transform.position,Quaternion.identity);
             part.NetworkObject.Spawn();
             part.SetupRPC(this);
-            part.GetComponent<BehaviorGraphAgent>().BlackboardReference.SetVariableValue<int>("PartNumber", i);
+            BossMinionController minionController = part.GetComponent<BossMinionController>();
+            minionController.Setup(i);
+            minionControllers.Add(minionController);
+            
         }
         
     }
     protected override void FixedUpdate()
     {
         if (!IsServer) return;
+        foreach (BossMinionController minionController in minionControllers)
+        {
+            minionController.SetTargetPosition(partPosition[minionController.GetMinionId()]);
+        }
         //Move();
         /*
         for (int i = 0; i < Mathf.Min(partSpawnPos.Length,partPosition.Count); i++) {

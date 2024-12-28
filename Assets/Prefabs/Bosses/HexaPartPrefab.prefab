@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6714175825228359803}
   - component: {fileID: 7855182027031621708}
   - component: {fileID: 7964325434038442450}
+  - component: {fileID: 7612014102727690897}
   - component: {fileID: 3282729907572375149}
   m_Layer: 0
   m_Name: HexaPartPrefab
@@ -51,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 815995933
+  GlobalObjectIdHash: 2855510109
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3943697968993223230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9d17e3447da2f84daea7006f5ba28a0, type: 3}
   m_Name: 
@@ -232,6 +233,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7612014102727690897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943697968993223230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b40306fe7307e4e80718b901da07d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &3282729907572375149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +264,9 @@ MonoBehaviour:
   - rid: 6091660796000206934
   - rid: 6091660796000206935
   - rid: 6091660796000206936
+  - rid: 6091661180872687866
+  m_IsInitialised: 0
+  m_IsStarted: 0
   NetcodeRunOnlyOnOwner: 0
   references:
     version: 2
@@ -278,6 +295,14 @@ MonoBehaviour:
           m_Value1: 6482096623025746079
         Name: Speed
         m_Value: 10
+    - rid: 6091661180872687866
+      type: {class: 'BlackboardVariable`1[[BossMinionController, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 14908394881429546336
+          m_Value1: 13395831304722829059
+        Name: MinionController
+        m_Value: {fileID: 7612014102727690897}
 --- !u!1 &7439002777124383719
 GameObject:
   m_ObjectHideFlags: 0

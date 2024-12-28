@@ -12,10 +12,11 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
     [SerializeReference] public BlackboardVariable<Boss_HexaHexaGone> HexaGoneGone;
     [SerializeReference] public BlackboardVariable<float> TelegraphDuration;
     [SerializeReference] public BlackboardVariable<float> AttackDuration;
+    [SerializeReference] public BlackboardVariable<float> AttackPauseDuration;
+    [SerializeReference] public BlackboardVariable<float> ReturnDuration;
+
 
     private int partNum;
-    private float returnDuration = 1f;
-    private float attackPauseDuration = 3f;
     private float telegraphTimer;
     private float telegraphPauseTimer;
     private float attackTimer;
@@ -43,7 +44,7 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
         if (telegraphTimer < TelegraphDuration)
         {
             // withdraw parts close to body
-            for (int i = 0; i < Mathf.Min(partNum,HexaGoneGone.Value.partPosition.Count); i++)
+            for (int i = 0; i < Mathf.Min(partNum,HexaGoneGone.Value.partPosition.Length); i++)
             {
                 HexaGoneGone.Value.partPosition[i] = 
                     HexaGoneGone.Value.partSpawnPos[i] * (1- easeCurve.Evaluate(telegraphTimer/TelegraphDuration) * 0.7f)
@@ -54,7 +55,7 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
 
         } else if (telegraphPauseTimer < 1f) // pause 1s
         {
-            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Count); i++)
+            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Length); i++)
             {
                 HexaGoneGone.Value.partPosition[i] = HexaGoneGone.Value.partSpawnPos[i] * (0.3f)
                     + (Vector2)Agent.Value.transform.position;
@@ -65,20 +66,20 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
         else if (attackTimer < AttackDuration)
         {
             // extend parts away
-            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Count); i++)
+            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Length); i++)
             {
-                HexaGoneGone.Value.partPosition[i] = HexaGoneGone.Value.partSpawnPos[i] * (0.3f + easeCurve.Evaluate(attackTimer / AttackDuration) * 1.7f)
+                HexaGoneGone.Value.partPosition[i] = HexaGoneGone.Value.partSpawnPos[i] * (0.3f + easeCurve.Evaluate(attackTimer / AttackDuration) * 2.2f)
                     + (Vector2)Agent.Value.transform.position;
             }
             attackTimer += Time.deltaTime;
             return Status.Running;
 
-        } else if(attackPauseTimer < attackPauseDuration)
+        } else if(attackPauseTimer < AttackPauseDuration)
         {
-            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Count); i++)
+            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Length); i++)
             {
-                Vector2 target = HexaGoneGone.Value.partSpawnPos[i] * (2f);
-                float rotAngleRad =easeCurve.Evaluate(attackPauseTimer/attackPauseDuration)*(360f / partNum * Mathf.Deg2Rad * rotSeed);
+                Vector2 target = HexaGoneGone.Value.partSpawnPos[i] * (2.5f);
+                float rotAngleRad =easeCurve.Evaluate(attackPauseTimer/AttackPauseDuration)*(360f / partNum * Mathf.Deg2Rad * rotSeed);
                 Vector2 targetOffset = new Vector2(
                     target.x * Mathf.Cos(rotAngleRad) - target.y * Mathf.Sin(rotAngleRad),
                     target.x * Mathf.Sin(rotAngleRad) + target.y * Mathf.Cos(rotAngleRad)
@@ -89,24 +90,24 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
             attackPauseTimer += Time.deltaTime;
             return Status.Running;
         } 
-        else if (returnTimer < returnDuration)
+        else if (returnTimer < ReturnDuration)
         {
             // parts come back
-            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Count); i++)
+            for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Length); i++)
             {
-                Vector2 target = HexaGoneGone.Value.partSpawnPos[i] * (2 - easeCurve.Evaluate(returnTimer / AttackDuration) * 1f);
-                float rotAngleRad = easeCurve.Evaluate(1 - returnTimer / returnDuration) * -(360f / partNum * Mathf.Deg2Rad * (partNum - rotSeed));
+                Vector2 target = HexaGoneGone.Value.partSpawnPos[i] * (2.5f - easeCurve.Evaluate(returnTimer / AttackDuration) * 1.5f);
+                float rotAngleRad = easeCurve.Evaluate(1 - returnTimer / ReturnDuration) * -(360f / partNum * Mathf.Deg2Rad * (partNum - rotSeed));
                 Vector2 targetOffset = new Vector2(
                     target.x * Mathf.Cos(rotAngleRad) - target.y * Mathf.Sin(rotAngleRad),
                     target.x * Mathf.Sin(rotAngleRad) + target.y * Mathf.Cos(rotAngleRad)
                 );
 
-                HexaGoneGone.Value.partPosition[i] = HexaGoneGone.Value.partSpawnPos[i] * (2 - easeCurve.Evaluate(returnTimer / AttackDuration) * 1f)
+                HexaGoneGone.Value.partPosition[i] = targetOffset
                     + (Vector2)Agent.Value.transform.position;
             }
         }
         // reset to default position
-        for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Count); i++)
+        for (int i = 0; i < Mathf.Min(partNum, HexaGoneGone.Value.partPosition.Length); i++)
         {
             HexaGoneGone.Value.partPosition[i] = HexaGoneGone.Value.partSpawnPos[i] * 1f + (Vector2)Agent.Value.transform.position;
         }

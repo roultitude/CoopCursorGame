@@ -1,4 +1,4 @@
-using System;
+using BulletPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ public class Enemy : NetworkBehaviour
     private EnemySpawner spawner;
     public Boss bossParent;
     public bool isVulnerable = true;
-
+    public BulletEmitter[] bulletEmitters;
   
 
     protected virtual void Awake()
@@ -68,7 +68,7 @@ public class Enemy : NetworkBehaviour
         //MoveAndRotate(); //curently running on both client and server
     }
 
-    public void Rotate(Vector2 faceDir)
+    public void Rotate(Vector2 faceDir) // MOVE
     {
         sprite.flipY = faceDir.x < 0;
         float deg = Mathf.Atan2(faceDir.y , faceDir.x) * Mathf.Rad2Deg;

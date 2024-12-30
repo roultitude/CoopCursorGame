@@ -15,6 +15,7 @@ public partial class MoveToTargetLocationAction : Action
     [SerializeReference] public BlackboardVariable<bool> RotateToFaceTarget = new BlackboardVariable<bool>(false);
     [SerializeReference] public BlackboardVariable<float> ArrivalThreshold = new BlackboardVariable<float>(0.0001f);
     [SerializeReference] public BlackboardVariable<float> LerpFraction = new BlackboardVariable<float>(0.8f);
+    [SerializeReference] public BlackboardVariable<bool> IsContinuousUpdate = new BlackboardVariable<bool>(false);
     protected override Status OnStart()
     {
         return Status.Running;
@@ -47,6 +48,10 @@ public partial class MoveToTargetLocationAction : Action
         if (((Vector2)Agent.Value.transform.position - Location).sqrMagnitude < ArrivalThreshold)
         {
             return Status.Success;
+        }
+        if (IsContinuousUpdate)
+        {
+            return Status.Success; //exit since we want to continuously update the targetPos (from other parts of behaviourgraph)
         }
         return Status.Running;
     }

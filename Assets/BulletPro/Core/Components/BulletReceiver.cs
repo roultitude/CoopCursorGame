@@ -123,8 +123,11 @@ namespace BulletPro
 				{
 					Debug.LogError("BulletPro Error: no Collision Manager found in scene. Try redoing the Scene Setup, or check if your Manager was disabled during this object's Awake.");
 					return;
+				} else if (collisionEnabled)
+				{
+					collisionManager.AddReceiverLocal(this);
 				}
-			}
+            }
 			
 			if (!collisionManager.disableComputeShaders)
 				BulletMemoryUpdate();

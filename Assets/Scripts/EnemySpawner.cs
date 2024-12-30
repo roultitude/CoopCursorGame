@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : NetworkBehaviour
 {
     [SerializeField] EnemyWaveManager waveManager;
-    [SerializeField] EnemySpawnIndicator enemySpawnIndicatorPrefab;
+    [SerializeField] DestroyAfterDelay enemySpawnIndicatorPrefab;
     [SerializeField] float spawnIndicatorTime;
     [SerializeField] List<Enemy> activeEnemies; // locally maintained list by enemy SetupRPC and DeathRPC
 
@@ -47,7 +47,7 @@ public class EnemySpawner : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void CreateEnemySpawnIndicatorRPC(float x, float y, float spawnTime)
     {
-        EnemySpawnIndicator esi = Instantiate(enemySpawnIndicatorPrefab, new Vector3(x,y),Quaternion.identity);
+        DestroyAfterDelay esi = Instantiate(enemySpawnIndicatorPrefab, new Vector3(x,y),Quaternion.identity);
         esi.Setup(spawnTime);
     }
     

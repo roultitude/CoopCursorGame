@@ -1,4 +1,5 @@
 
+using BulletPro;
 using System.Collections.Generic;
 using Unity.Behavior;
 using Unity.Netcode;
@@ -115,12 +116,12 @@ public class Boss_HexaHexaGone : Boss
         for (int i = 0; i < partSpawnPos.Length; i++)
         {
             Enemy part = Instantiate(hexaPartPrefab, partSpawnPos[i] + (Vector2) transform.position,Quaternion.identity);
-            part.NetworkObject.Spawn();
+            part.NetworkObject.Spawn(true);
             part.SetupRPC(this);
             BossMinionController minionController = part.GetComponent<BossMinionController>();
             minionController.Setup(i);
             minionControllers.Add(minionController);
-            
+            minionController.SetBossControl(true);
         }
         
     }
@@ -129,7 +130,7 @@ public class Boss_HexaHexaGone : Boss
         if (!IsServer) return;
         foreach (BossMinionController minionController in minionControllers)
         {
-            minionController.SetTargetPosition(partPosition[minionController.GetMinionId()]);
+            if(minionController != null) minionController.SetTargetPosition(partPosition[minionController.GetMinionId()]);
         }
         //Move();
         /*
@@ -138,8 +139,26 @@ public class Boss_HexaHexaGone : Boss
         }*/
     }
 
+    public void TentacleAttackChase(bool isActive)
+    {
+        foreach (BossMinionController minionController in minionControllers)
+        {
+            if (minionController == null) continue;
+            minionController.SetBossControl(!isActive);
+            minionController.SetEnemyContactDamageState(isActive);
+        }
+    }
+
     public void RadialBulletAttack()
     {
+        foreach(BossMinionController minionController in minionControllers)
+        {
+            if (minionController != null) minionController.PlayBulletEmitterRPC(0); 
+        }
+    }
 
+    public void SpinAttack(float attackYCoord, bool isFromLeft, float delay)
+    {
+        AttackIndicatorManager.Instance.SpawnLineAttackIndicatorRPC(true, 5, attackYCoord, delay);
     }
 }

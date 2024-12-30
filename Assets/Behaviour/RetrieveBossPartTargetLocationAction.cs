@@ -14,13 +14,14 @@ public partial class RetrieveBossPartTargetLocationAction : Action
 
     protected override Status OnStart()
     {
-        return Status.Running;
+        TargetLocation.Value = MinionController.Value.GetTargetPosition();
+        return Status.Success;
     }
 
     protected override Status OnUpdate()
     {
-        TargetLocation.Value = MinionController.Value.GetTargetPosition();
-        return Status.Success;
+        return Status.Failure; //should never fire.
+        
     }
 
     protected override void OnEnd()

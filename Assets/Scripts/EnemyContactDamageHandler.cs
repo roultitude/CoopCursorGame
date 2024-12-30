@@ -6,9 +6,10 @@ public class EnemyContactDamageHandler : MonoBehaviour
 {
     [SerializeField]
     Animator animator;
-
     [SerializeField]
-    float contactDamage, cooldown, windupDuration, damageModeDuration;
+    bool isManuallyControlled =false;
+    [SerializeField]
+    float cooldown, windupDuration, damageModeDuration;
 
     [SerializeField]
     Enemy enemy;
@@ -17,7 +18,22 @@ public class EnemyContactDamageHandler : MonoBehaviour
     bool isDamageActive = false;
     public void Start()
     {
-        StartCoroutine(StartCycle());
+        if(!isManuallyControlled) StartCoroutine(StartCycle());
+    }
+
+    public void SetContactDamageState(bool isEnabled)
+    {
+        if (isEnabled)
+        {
+            animator.CrossFade("ContactDamageMode", 0);
+            isDamageActive = true;
+            if (enemy) enemy.ChangeVulnerable(false);
+        } else
+        {
+            animator.CrossFade("IdleBase", 0);
+            isDamageActive = false;
+            if (enemy) enemy.ChangeVulnerable(true);
+        }
     }
 
     private IEnumerator StartCycle()
@@ -32,15 +48,11 @@ public class EnemyContactDamageHandler : MonoBehaviour
             yield return new WaitForSeconds(windupDuration);
 
             Debug.Log($"{name} 3: damage active , waiting for {damageModeDuration}");
-            animator.CrossFade("ContactDamageMode", 0);
-            isDamageActive = true;
-            if (enemy) enemy.ChangeVulnerable(false);
+            SetContactDamageState(true);
             yield return new WaitForSeconds(damageModeDuration);
 
             Debug.Log($"{name} 4: done, resetting animator");
-            animator.CrossFade("IdleBase", 0);
-            isDamageActive = false;
-            if (enemy) enemy.ChangeVulnerable(true);
+            SetContactDamageState(false);
         }
         
     }

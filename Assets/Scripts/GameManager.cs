@@ -67,8 +67,15 @@ public class GameManager : NetworkBehaviour
             NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
         } else
         {
-            currentStage.Value = (currentStage.Value + 1) % stageWaves.Length;
-            NetworkManager.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            currentStage.Value = currentStage.Value + 1;
+            if (currentStage.Value >= stageWaves.Length) {
+                NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+                currentStage.Value = -1;
+            } else
+            {
+                NetworkManager.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            }
+            
         }
     }
 

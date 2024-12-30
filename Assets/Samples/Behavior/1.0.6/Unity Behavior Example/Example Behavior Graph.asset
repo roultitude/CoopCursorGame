@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: Example Behavior Graph Blackboard Editor
+  m_Name: Example Behavior Graph Blackboard
   m_EditorClassIdentifier: 
   AssetID:
     m_Value0: 17587613593590248676
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: Example Behavior Graph Blackboard Editor
+  m_Name: Example Behavior Graph Blackboard
   m_EditorClassIdentifier: 
   VersionTimestamp: 638611503350493900
   AssetID:
@@ -74,14 +74,14 @@ MonoBehaviour:
     m_Value1: 8698131712478596169
   m_Blackboard:
     m_Variables:
-    - rid: 6091660812797608328
-    - rid: 6091660812797608329
-    - rid: 6091660812797608330
+    - rid: 6091661212054192357
+    - rid: 6091661212054192358
+    - rid: 6091661212054192359
   m_SharedBlackboardVariableGuids: []
   references:
     version: 2
     RefIds:
-    - rid: 6091660812797608328
+    - rid: 6091661212054192357
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -89,7 +89,7 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 0}
-    - rid: 6091660812797608329
+    - rid: 6091661212054192358
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -97,7 +97,7 @@ MonoBehaviour:
           m_Value1: 11916315464332283951
         Name: Target
         m_Value: {fileID: 0}
-    - rid: 6091660812797608330
+    - rid: 6091661212054192359
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -165,7 +165,7 @@ MonoBehaviour:
         AuthoringAssetID:
           m_Value0: 17587613593590248676
           m_Value1: 8698131712478596169
-        m_DebugInfo: {fileID: 0}
+        m_DebugInfo: {fileID: 5466819837287597676}
         Root:
           rid: 6091660812797608603
         BlackboardReference:
@@ -333,6 +333,7 @@ MonoBehaviour:
   - rid: 6091660812797608317
   m_VersionTimestamp: 638618199078414686
   m_DebugInfo: {fileID: 5466819837287597676}
+  m_RuntimeGraph: {fileID: 0}
   AssetID:
     m_Value0: 17587613593590248676
     m_Value1: 8698131712478596169
@@ -405,6 +406,7 @@ MonoBehaviour:
       Tooltip: 
     NamedChildren: []
   m_Blackboards: []
+  m_MainBlackboardAuthoringAsset: {fileID: -8377800716306679248}
   m_CommandBuffer:
     m_Commands: []
   references:

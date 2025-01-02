@@ -233,6 +233,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2956101283504874718}
+  - {fileID: 8126098327007398291}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7348755157664605224
@@ -247,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 205202611
+  GlobalObjectIdHash: 205907435
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -319,9 +320,12 @@ MonoBehaviour:
   sprite: {fileID: 5724936161712489731}
   bossParent: {fileID: 0}
   isVulnerable: 1
-  bulletEmitters: []
+  bulletEmitters:
+  - {fileID: 6727601869235956659}
   parts: []
   hexaPartPrefab: {fileID: 6962135997549519593, guid: 280d57102eb6e3443aafa71e28b6e4f3, type: 3}
+  spinBulletLeftProfile: {fileID: 11400000, guid: 48b7e4ca3f3f4a54daf333c76bbd40b8, type: 2}
+  spinBulletRightProfile: {fileID: 11400000, guid: 93f38ca8adf30d04eb3343118de96d29, type: 2}
   partSpawnPos:
   - {x: -1.8, y: 0}
   - {x: -0.9, y: 1.56}
@@ -399,6 +403,7 @@ MonoBehaviour:
   - rid: 6091660787532956442
   - rid: 6091660796654256343
   - rid: 6091660821448885107
+  - rid: 6091661243384070606
   m_IsInitialised: 0
   m_IsStarted: 0
   NetcodeRunOnlyOnOwner: 1
@@ -445,3 +450,61 @@ MonoBehaviour:
           m_Value1: 16592075958399192812
         Name: AttackId
         m_Value: 1
+    - rid: 6091661243384070606
+      type: {class: 'BlackboardVariable`1[[AttackEvent, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 9643680464635370672
+          m_Value1: 15533271443960030749
+        Name: AttackEventChannel
+        m_Value: {fileID: 11400000, guid: ed8bce6290de42e4088d5ef6c7cca058, type: 2}
+--- !u!1 &8817183108643691320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8126098327007398291}
+  - component: {fileID: 6727601869235956659}
+  m_Layer: 0
+  m_Name: SpinBulletEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8126098327007398291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817183108643691320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5607964358742890778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6727601869235956659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817183108643691320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a676b285f069c3c4884c27e78d0fc696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterProfile: {fileID: 11400000, guid: 48b7e4ca3f3f4a54daf333c76bbd40b8, type: 2}
+  patternOrigin: {fileID: 8126098327007398291}
+  playAtStart: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmoSize: 0.5

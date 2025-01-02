@@ -10,12 +10,13 @@ public class Boss_HexaHexaGone : Boss
 {
     [SerializeField]
     private Enemy hexaPartPrefab;
-
+    [SerializeField]
+    private EmitterProfile spinBulletLeftProfile, spinBulletRightProfile;
     public Vector2[] partSpawnPos;
     private Vector2 startPosition;
     private BehaviorGraphAgent agent;
     private BlackboardVariable<AttackEvent> attackEventChannel;
-
+    
     public Vector2[] partPosition;
     private List<BossMinionController> minionControllers;
     //[SerializeField]
@@ -52,10 +53,7 @@ public class Boss_HexaHexaGone : Boss
     private void AttackEventChannel_OnEvent(Enemy Enemy, int id)
     {
         Debug.Log("Received AttackChannel Event of id " + id);
-        if (id != -1) return; // listen for attack event complete
-        int next = Random.Range(0, 2);
-        Debug.Log($"broadcasting: {next}");
-        //TriggerAttackRPC(next);
+        //just for debug
     }
     /*
     public void TriggerRandomAttack()
@@ -160,5 +158,13 @@ public class Boss_HexaHexaGone : Boss
     public void SpinAttack(float attackYCoord, bool isFromLeft, float delay)
     {
         AttackIndicatorManager.Instance.SpawnLineAttackIndicatorRPC(true, 5, attackYCoord, delay);
+        EmitSpinBulletRPC(attackYCoord, isFromLeft);
+    }
+    [Rpc(SendTo.Everyone)]
+    public void EmitSpinBulletRPC(float attackYCoord, bool isFromLeft)
+    {
+        bulletEmitters[0].transform.position = new Vector2(0, attackYCoord);
+        bulletEmitters[0].SwitchProfile(isFromLeft? spinBulletLeftProfile:spinBulletRightProfile);
+        bulletEmitters[0].Boot(PlayOptions.RootOnly);
     }
 }

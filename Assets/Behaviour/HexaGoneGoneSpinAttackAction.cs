@@ -58,11 +58,22 @@ public partial class HexaGoneGoneSpinAttackAction : Action
         if (numCompletedAttacks < NumAttacks)
         {
             //set indicator and prep attack
-            HexaGoneGone.Value.SpinAttack(numCompletedAttacks, (numCompletedAttacks % 2) == 0, LineIndicatorDelay);
+            float yCoord = 0;
+            switch (numCompletedAttacks) //hardcoded for ease
+            {
+                case 1:
+                    yCoord = 4;
+                    break;
+                case 2:
+                    yCoord = -4;
+                    break;
+            }
+                
+            HexaGoneGone.Value.SpinAttack(yCoord, (numCompletedAttacks % 2) == 0, LineIndicatorDelay - 0.5f);
             numCompletedAttacks++;
             return Status.Running;
         }
-        float totalDuration =  UpwardMovementDuration * 2 + numCompletedAttacks * LineIndicatorDelay;
+        float totalDuration =  UpwardMovementDuration * 2 + numCompletedAttacks * LineIndicatorDelay + LineIndicatorDelay; //add extra upwardmovementduration and lineindicatordelay worth of time
         if (timer < totalDuration) //done with all attacks
         {
             //move back to origin

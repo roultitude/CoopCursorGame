@@ -10,6 +10,7 @@ public class Boss : Enemy
     {
         base.OnNetworkSpawn();
         parts = new List<Enemy>();
+        BossUI.Instance.Setup(this);
     }
 
     public void TrackPart(bool isTracking, Enemy part)

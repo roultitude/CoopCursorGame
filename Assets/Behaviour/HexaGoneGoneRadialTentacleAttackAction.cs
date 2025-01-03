@@ -26,6 +26,11 @@ public partial class HexaGoneGoneRadialTentacleAttackAction : Action
     private AnimationCurve easeCurve;
     protected override Status OnStart()
     {
+        if (!HexaGoneGone.Value.HasActiveParts())
+        {
+            Debug.Log("Tried to execute TentacleAttack without tentacles! rerolling attack");
+            return Status.Failure;
+        }
         numParts = HexaGoneGone.Value.partSpawnPos.Length;
         telegraphTimer = 0;
         telegraphPauseTimer = 0;

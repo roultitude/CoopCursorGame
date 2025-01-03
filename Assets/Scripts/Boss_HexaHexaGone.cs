@@ -9,16 +9,34 @@ using UnityEngine;
 public class Boss_HexaHexaGone : Boss
 {
     [SerializeField]
-    private Enemy hexaPartPrefab;
+    private Enemy hexaPartPrefabPhaseOne, hexaPartPrefabPhaseTwo;
     [SerializeField]
-    private EmitterProfile spinBulletLeftProfile, spinBulletRightProfile;
+    private EmitterProfile spinBulletLeftProfile, spinBulletRightProfile,coreBulletProfileP2;
+
+    [SerializeField]
+    BehaviorGraph phaseTwoGraph;
+    [SerializeField]
+    Sprite phaseTwoSprite;
+
     public Vector2[] partSpawnPos;
+    public Vector2[] partPosition;
+
+    public bool IsReadyForPhaseTwo() 
+    { 
+        if(phaseTwoDebug) return true;
+        return GetHealthFraction() < 0.5 && parts.Count == 0;
+    }
+    public bool HasActiveParts()
+    {
+        return parts.Count != 0;
+    }
+
     private Vector2 startPosition;
     private BehaviorGraphAgent agent;
     private BlackboardVariable<AttackEvent> attackEventChannel;
-    
-    public Vector2[] partPosition;
     private List<BossMinionController> minionControllers;
+
+    private bool phaseTwoDebug = false;
     //[SerializeField]
     //private // for particlesystem for spawning effect
     protected override void Awake()
@@ -98,7 +116,7 @@ public class Boss_HexaHexaGone : Boss
         if (IsServer)
         {
             transform.position = startPosition;
-            Invoke(nameof(SpawnParts),1f); 
+            Invoke(nameof(SpawnPartsPhaseOne),1f); 
             // we need the main body to have spawned on all clients else SetupRPC on parts will not register to the parts list
         }
     }
@@ -109,11 +127,11 @@ public class Boss_HexaHexaGone : Boss
         base.OnHurt(num);
     }
 
-    public void SpawnParts()
+    public void SpawnPartsPhaseOne()
     {
         for (int i = 0; i < partSpawnPos.Length; i++)
         {
-            Enemy part = Instantiate(hexaPartPrefab, partSpawnPos[i] + (Vector2) transform.position,Quaternion.identity);
+            Enemy part = Instantiate(hexaPartPrefabPhaseOne, partSpawnPos[i] + (Vector2) transform.position,Quaternion.identity);
             part.NetworkObject.Spawn(true);
             part.SetupRPC(this);
             BossMinionController minionController = part.GetComponent<BossMinionController>();
@@ -122,6 +140,20 @@ public class Boss_HexaHexaGone : Boss
             minionController.SetBossControl(true);
         }
         
+    }
+    public void SpawnPartsPhaseTwo()
+    {
+        for (int i = 0; i < partSpawnPos.Length; i++)
+        {
+            Enemy part = Instantiate( hexaPartPrefabPhaseTwo, partSpawnPos[i] + (Vector2)transform.position, Quaternion.identity);
+            part.NetworkObject.Spawn(true);
+            part.SetupRPC(this);
+            BossMinionController minionController = part.GetComponent<BossMinionController>();
+            minionController.Setup(i);
+            minionControllers.Add(minionController);
+            minionController.SetBossControl(true);
+        }
+
     }
     protected override void FixedUpdate()
     {
@@ -154,7 +186,13 @@ public class Boss_HexaHexaGone : Boss
             if (minionController != null) minionController.PlayBulletEmitterRPC(0); 
         }
     }
+    [Rpc(SendTo.Everyone)]
+    public void EmitCoreBulletRPC(bool toEmit)
+    {
+        if (toEmit) bulletEmitters[2].Play();
+        else bulletEmitters[2].Stop();
 
+    }
     public void SpinAttack(float attackYCoord, bool isFromLeft, float delay)
     {
         AttackIndicatorManager.Instance.SpawnLineAttackIndicatorRPC(true, 5, attackYCoord, delay);
@@ -166,5 +204,27 @@ public class Boss_HexaHexaGone : Boss
         bulletEmitters[0].transform.position = new Vector2(0, attackYCoord);
         bulletEmitters[0].SwitchProfile(isFromLeft? spinBulletLeftProfile:spinBulletRightProfile);
         bulletEmitters[0].Boot(PlayOptions.RootOnly);
+    }
+
+    [ContextMenu("Trigger Phase 2")]
+    private void PhaseTwoDebugTrigger()
+    {
+        phaseTwoDebug = true;
+    }
+    public void StartPhaseTwo()
+    {
+        agent.Graph = phaseTwoGraph;
+        SpawnPartsPhaseOne();
+        StartPhaseTwoRPC();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void StartPhaseTwoRPC()
+    {
+        bulletEmitters[1].transform.parent = null;
+        bulletEmitters[1].transform.position = new Vector2(0, 0);
+        bulletEmitters[1].Play();
+        sprite.sprite = phaseTwoSprite;
+        bulletEmitters[2].SwitchProfile(coreBulletProfileP2);
     }
 }

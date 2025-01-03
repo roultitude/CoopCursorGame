@@ -22,7 +22,7 @@ public class Enemy : NetworkBehaviour
     private bool isFacingPlayer;
 
     [SerializeField]
-    private SpriteRenderer sprite;
+    protected SpriteRenderer sprite;
 
     private Rigidbody2D rb;
     private EnemySpawner spawner;
@@ -108,6 +108,12 @@ public class Enemy : NetworkBehaviour
         health.Value += amt;
 
     }
+
+    public float GetHealthFraction() //change to getStat?
+    {
+        return health.Value/baseHealth;
+    }
+
 
     [Rpc(SendTo.Everyone)]
     private void OnDeathRPC(float lastHpChangeAmt)

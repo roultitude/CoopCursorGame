@@ -11,6 +11,7 @@ public partial class RandomlySetIntFromRangeAction : Action
     [SerializeReference] public BlackboardVariable<int> Int;
     [SerializeReference] public BlackboardVariable<Vector2> Range;
     [SerializeReference] public BlackboardVariable<int> PrevInt;
+    [SerializeReference] public BlackboardVariable<bool> AllowRepeat;
 
     protected override Status OnStart()
     {
@@ -20,7 +21,11 @@ public partial class RandomlySetIntFromRangeAction : Action
     protected override Status OnUpdate()
     {
         int nextAtk = UnityEngine.Random.Range((int)Range.Value.x, (int)Range.Value.y + 1);
-        while (PrevInt != null && nextAtk == PrevInt) { nextAtk = UnityEngine.Random.Range((int)Range.Value.x, (int)Range.Value.y + 1);}
+        if (!AllowRepeat)
+        {
+            while (nextAtk == PrevInt) { nextAtk = UnityEngine.Random.Range((int)Range.Value.x, (int)Range.Value.y + 1); }
+        }
+        
         Int.Value = nextAtk;
         return Status.Success;
     }

@@ -234,6 +234,8 @@ Transform:
   m_Children:
   - {fileID: 2956101283504874718}
   - {fileID: 8126098327007398291}
+  - {fileID: 2932743760357601901}
+  - {fileID: 3537247320746244520}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7348755157664605224
@@ -322,10 +324,16 @@ MonoBehaviour:
   isVulnerable: 1
   bulletEmitters:
   - {fileID: 6727601869235956659}
+  - {fileID: 662357421021213481}
+  - {fileID: 6043333247806916514}
   parts: []
-  hexaPartPrefab: {fileID: 6962135997549519593, guid: 280d57102eb6e3443aafa71e28b6e4f3, type: 3}
+  hexaPartPrefabPhaseOne: {fileID: 6962135997549519593, guid: 280d57102eb6e3443aafa71e28b6e4f3, type: 3}
+  hexaPartPrefabPhaseTwo: {fileID: 1417229353624831927, guid: f35fb4b6305b0734ebe2e7a663e64434, type: 3}
   spinBulletLeftProfile: {fileID: 11400000, guid: 48b7e4ca3f3f4a54daf333c76bbd40b8, type: 2}
   spinBulletRightProfile: {fileID: 11400000, guid: 93f38ca8adf30d04eb3343118de96d29, type: 2}
+  coreBulletProfileP2: {fileID: 0}
+  phaseTwoGraph: {fileID: 180709731418586685, guid: d645d466f6c29de4da6c7db55e97a377, type: 2}
+  phaseTwoSprite: {fileID: -4669830502055730876, guid: 9a995a39b38099c43b5cb30c7fa8eb0f, type: 3}
   partSpawnPos:
   - {x: -1.8, y: 0}
   - {x: -0.9, y: 1.56}
@@ -458,6 +466,106 @@ MonoBehaviour:
           m_Value1: 15533271443960030749
         Name: AttackEventChannel
         m_Value: {fileID: 11400000, guid: ed8bce6290de42e4088d5ef6c7cca058, type: 2}
+--- !u!1 &3981250659598291715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2932743760357601901}
+  - component: {fileID: 6043333247806916514}
+  m_Layer: 0
+  m_Name: CoreBulletEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2932743760357601901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3981250659598291715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5607964358742890778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6043333247806916514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3981250659598291715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a676b285f069c3c4884c27e78d0fc696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterProfile: {fileID: 11400000, guid: 66d8eb937aa92ff4fb993ae710db16ee, type: 2}
+  patternOrigin: {fileID: 2932743760357601901}
+  playAtStart: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmoSize: 0.5
+--- !u!1 &8444784074212827861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3537247320746244520}
+  - component: {fileID: 662357421021213481}
+  m_Layer: 0
+  m_Name: Phase2WavesEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3537247320746244520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444784074212827861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5607964358742890778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &662357421021213481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444784074212827861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a676b285f069c3c4884c27e78d0fc696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterProfile: {fileID: 11400000, guid: 38b09f84f925d2a4395d5e80689af461, type: 2}
+  patternOrigin: {fileID: 3537247320746244520}
+  playAtStart: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmoSize: 0.5
 --- !u!1 &8817183108643691320
 GameObject:
   m_ObjectHideFlags: 0

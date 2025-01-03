@@ -26,6 +26,7 @@ public partial class HexaGoneGoneRadialTentacleBulletAction : Action
             new Keyframe(0f, 0f),
             new Keyframe(1f, 1f));
         HexaGoneGone.Value.RadialBulletAttack();
+        HexaGoneGone.Value.EmitCoreBulletRPC(true);
         return Status.Running;
     }
 
@@ -78,7 +79,7 @@ public partial class HexaGoneGoneRadialTentacleBulletAction : Action
 
     protected override void OnEnd()
     {
-        Debug.Log("End Attack 1");
+        HexaGoneGone.Value.EmitCoreBulletRPC(false);
     }
 }
 

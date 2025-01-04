@@ -21,6 +21,12 @@ public class PlayerUpgrades : NetworkBehaviour
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
 
+    public void DebugClearUpgrades()
+    {
+        activeUpgrades.Clear();
+        player.stats.ApplyStatUpgrades(activeUpgrades);
+    }
+
     public void TriggerUpgradeEnemyHitEffects(Enemy enemy)
     {
         foreach (UpgradeSO upgrade in activeUpgrades)

@@ -21,6 +21,17 @@ public class PlayerUpgrades : NetworkBehaviour
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
 
+    public void TriggerUpgradeEnemyHitEffects(Enemy enemy)
+    {
+        foreach (UpgradeSO upgrade in activeUpgrades)
+        {
+            if (upgrade.customEffect)
+            {
+                upgrade.customEffect.OnHitEnemy(enemy);
+            }
+        }
+    }
+
     public List<UpgradeSO> GetUpgrades()
     {
         return activeUpgrades; // might want to format as some kind of dict eventually

@@ -162,8 +162,15 @@ public class Player : NetworkBehaviour
 
             if (!enemy) return;
 
-            enemy.OnHurt(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
+            OnHitEnemy(enemy);
+            
         }
+    }
+
+    private void OnHitEnemy(Enemy enemy)
+    {
+        enemy.TakeDamage(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
+        upgrades.TriggerUpgradeEnemyHitEffects(enemy);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

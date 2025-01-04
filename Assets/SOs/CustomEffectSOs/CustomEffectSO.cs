@@ -4,8 +4,13 @@ using UnityEngine;
 
 public abstract class CustomEffectSO : ScriptableObject
 {
-    public virtual void OnApply()
+    public virtual void OnHitEnemy(Enemy enemy)
     {
-        Debug.Log("Base.OnApply");
+        Debug.Log("Base.OnHitEnemy");
+    }
+
+    public virtual void OnAdded()
+    {
+
     }
 }

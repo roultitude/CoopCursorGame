@@ -89,7 +89,7 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    public virtual void OnHurt(float num)
+    public virtual void TakeDamage(float num)
     {
         ChangeHealthRPC(-num);
     }

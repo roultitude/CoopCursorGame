@@ -121,10 +121,10 @@ public class Boss_HexaHexaGone : Boss
         }
     }
 
-    public override void OnHurt(float num)
+    public override void TakeDamage(float num)
     {
         if (parts.Count != 0) return;
-        base.OnHurt(num);
+        base.TakeDamage(num);
     }
 
     public void SpawnPartsPhaseOne()

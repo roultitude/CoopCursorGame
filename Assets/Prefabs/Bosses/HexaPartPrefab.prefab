@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2855510109
+  GlobalObjectIdHash: 815995933
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -316,6 +316,8 @@ MonoBehaviour:
   cooldown: 0
   windupDuration: 0
   damageModeDuration: 0
+  dmgModeColor: {r: 1, g: 0, b: 0, a: 1}
+  windupModeColor: {r: 1, g: 0.9880878, b: 0, a: 1}
   enemy: {fileID: 6962135997549519593}
 --- !u!1 &7439002777124383719
 GameObject:

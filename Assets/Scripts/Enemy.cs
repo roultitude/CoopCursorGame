@@ -22,7 +22,7 @@ public class Enemy : NetworkBehaviour
     private bool isFacingPlayer;
 
     [SerializeField]
-    protected SpriteRenderer sprite;
+    public SpriteRenderer sprite;
 
     private Rigidbody2D rb;
     private EnemySpawner spawner;

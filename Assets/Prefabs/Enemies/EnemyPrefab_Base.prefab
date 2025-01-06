@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1863349842
+  GlobalObjectIdHash: 672123298
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -310,17 +310,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 0
   rotationSpeed: 0
-  movementType: 0
+  maxRotAngle: 10
   baseHealth: 20
   health:
     m_InternalValue: 5
   animator: {fileID: 8480468972754706179}
   isFacingPlayer: 0
   sprite: {fileID: 8087729961298417204}
-  roamChangeInterval: 2
+  bossParent: {fileID: 0}
   isVulnerable: 1
+  bulletEmitters: []
 --- !u!114 &4838654388662224516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +438,8 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 6091660696845812426
   - rid: 6091660696845812495
+  m_IsInitialised: 0
+  m_IsStarted: 0
   NetcodeRunOnlyOnOwner: 1
   references:
     version: 2

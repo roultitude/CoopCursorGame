@@ -23,8 +23,8 @@ public class PlayerStats
         stats[PlayerStatType.MaxHealth] = 3;
         stats[PlayerStatType.ContactDamage] = 4;
         stats[PlayerStatType.CooldownReduction] = 0;
-        stats[PlayerStatType.CriticalChance] = 5;
-        stats[PlayerStatType.CriticalDamage] = 50;
+        stats[PlayerStatType.CriticalChance] = 0.05f;
+        stats[PlayerStatType.CriticalDamageMult] = 2;
         stats[PlayerStatType.ComboMultiplier] = 1;
         stats[PlayerStatType.AbilityDamage] = 0;
     }
@@ -97,7 +97,7 @@ public enum PlayerStatType
     ContactDamage,
     CooldownReduction,
     CriticalChance,
-    CriticalDamage,
+    CriticalDamageMult,
     ComboMultiplier,
     AbilityDamage
 }

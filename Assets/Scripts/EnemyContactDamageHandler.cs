@@ -10,27 +10,35 @@ public class EnemyContactDamageHandler : MonoBehaviour
     bool isManuallyControlled =false;
     [SerializeField]
     float cooldown, windupDuration, damageModeDuration;
+    [SerializeField]
+    Color dmgModeColor, windupModeColor;
 
     [SerializeField]
     Enemy enemy;
 
     bool isCycleActive = true;
     bool isDamageActive = false;
+    Material mat;
     public void Start()
     {
         if(!isManuallyControlled) StartCoroutine(StartCycle());
+        mat = GetComponent<Enemy>().sprite.material;
+        Debug.Log(mat.name);
     }
 
     public void SetContactDamageState(bool isEnabled)
     {
         if (isEnabled)
         {
-            animator.CrossFade("ContactDamageMode", 0);
+            //animator.CrossFade("ContactDamageMode", 0);
+            mat.SetColor("_HologramStripeColor", dmgModeColor);
+            mat.SetFloat("_HologramBlend", 1f);
             isDamageActive = true;
             if (enemy) enemy.ChangeVulnerable(false);
         } else
         {
-            animator.CrossFade("IdleBase", 0);
+            //animator.CrossFade("IdleBase", 0);
+            mat.SetFloat("_HologramBlend", 0f);
             isDamageActive = false;
             if (enemy) enemy.ChangeVulnerable(true);
         }
@@ -44,7 +52,10 @@ public class EnemyContactDamageHandler : MonoBehaviour
             yield return new WaitForSeconds(cooldown);
 
             Debug.Log($"{name} 2: windup , waiting for {windupDuration}");
-            animator.CrossFade("ContactDamageWindup", windupDuration);
+            
+            mat.SetColor("_HologramStripeColor", windupModeColor);
+            mat.SetFloat("_HologramBlend", 1f);
+            //animator.CrossFade("ContactDamageWindup", windupDuration);
             yield return new WaitForSeconds(windupDuration);
 
             Debug.Log($"{name} 3: damage active , waiting for {damageModeDuration}");

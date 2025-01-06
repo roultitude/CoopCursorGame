@@ -5,19 +5,19 @@ public class Effect_Instakill : CustomEffectSO
 {
     [SerializeField]
     float chance;
-    public override void OnHitEnemy(Enemy e)
+    public override void OnHitEnemy(Player player, Enemy enemy, bool isCrit)
     {
-        base.OnHitEnemy(e);
+        base.OnHitEnemy(player,enemy,isCrit);
         if(Random.Range(0f, 1f) < chance)
         {
-            if (e.GetComponent<BossMinionController>() || e is Boss)
+            if (enemy.GetComponent<BossMinionController>() || enemy is Boss)
             {
-                Debug.Log($"Cant Instakill Boss / BossMinion {e.gameObject.name}");
+                Debug.Log($"Cant Instakill Boss / BossMinion {enemy.gameObject.name}");
             }
             else
             {
-                Debug.Log($"Instakill: {e.gameObject.name}");
-                e.TakeDamage(9999);
+                Debug.Log($"Instakill: {enemy.gameObject.name}");
+                enemy.TakeDamage(9999);
             }
             
         }

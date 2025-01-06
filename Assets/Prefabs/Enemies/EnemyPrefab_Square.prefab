@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8480468972754706179, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9021092716756533808, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Name
       value: EnemyPrefab_Square
@@ -271,8 +275,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2478089121697702882}
-  contactDamage: 1
+  isManuallyControlled: 0
   cooldown: 5
   windupDuration: 3
   damageModeDuration: 2
+  dmgModeColor: {r: 1, g: 0, b: 0, a: 1}
+  windupModeColor: {r: 1, g: 0.9282037, b: 0, a: 1}
   enemy: {fileID: 2945273171600960885}

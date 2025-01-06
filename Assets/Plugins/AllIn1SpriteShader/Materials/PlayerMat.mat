@@ -15,6 +15,7 @@ Material:
   - FLICKER_ON
   - HITEFFECT_ON
   - OUTBASEPIXELPERF_ON
+  - OUTBASE_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -115,9 +116,9 @@ Material:
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
     - _FishEyeUvAmount: 0.35
-    - _FlickerAlpha: 0
+    - _FlickerAlpha: 1
     - _FlickerFreq: 0
-    - _FlickerPercent: 0.261
+    - _FlickerPercent: 0
     - _GhostBlend: 1
     - _GhostColorBoost: 1
     - _GhostTransparency: 0
@@ -138,7 +139,7 @@ Material:
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
     - _HandDrawnAmount: 10
-    - _HandDrawnSpeed: 5
+    - _HandDrawnSpeed: 1
     - _HitEffectBlend: 0
     - _HitEffectGlow: 5
     - _HologramBlend: 1
@@ -170,7 +171,7 @@ Material:
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
-    - _OutlineGlow: 1.5
+    - _OutlineGlow: 1
     - _OutlinePixelWidth: 1
     - _OutlineTexXSpeed: 10
     - _OutlineTexYSpeed: 0

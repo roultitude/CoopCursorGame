@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class CustomEffectSO : ScriptableObject
 {
-    public virtual void OnHitEnemy(Enemy enemy)
+    public virtual void OnHitEnemy(Player player, Enemy enemy, bool isCrit)
     {
         Debug.Log("Base.OnHitEnemy");
     }

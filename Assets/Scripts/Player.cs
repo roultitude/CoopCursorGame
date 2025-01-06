@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
@@ -16,7 +17,11 @@ public class Player : NetworkBehaviour
     [SerializeField]
     float hurtInvulnTime, reviveTime, moveSpeed;
     [SerializeField]
-    SpriteRenderer spriteRenderer, reviveSpriteRenderer;
+    SpriteRenderer spriteRenderer;
+    [SerializeField]
+    Canvas reviveCanvas;
+    [SerializeField]
+    Image reviveImage;
     [SerializeField]
     Sprite aliveSprite, deadSprite, invulnSprite;
     [SerializeField]
@@ -40,7 +45,7 @@ public class Player : NetworkBehaviour
         isDead.OnValueChanged += OnDeathStatusChanged;
 
         //Setup Color
-        Random.InitState((int)OwnerClientId);
+        Random.InitState((int)OwnerClientId+2);
         color = Random.ColorHSV();
         spriteRenderer.color = color;
         playerAbility.Setup(this, color);
@@ -132,7 +137,7 @@ public class Player : NetworkBehaviour
             spriteRenderer.sprite = deadSprite;
             playerCollider.enabled = false;
             reviveCollider.enabled = true;
-            reviveSpriteRenderer.enabled = true;
+            reviveCanvas.gameObject.SetActive(true);
             canMove = false;
 
             Debug.Log($"Received death of {OwnerClientId}");
@@ -147,7 +152,7 @@ public class Player : NetworkBehaviour
             spriteRenderer.sprite = aliveSprite;
             playerCollider.enabled = true;
             reviveCollider.enabled = false;
-            reviveSpriteRenderer.enabled = false;
+            reviveCanvas.gameObject.SetActive(false);
             canMove = true;
         }
 
@@ -169,8 +174,10 @@ public class Player : NetworkBehaviour
 
     private void OnHitEnemy(Enemy enemy)
     {
-        enemy.TakeDamage(stats.GetStat(PlayerStatType.ContactDamage)); //affect dmg
-        upgrades.TriggerUpgradeEnemyHitEffects(enemy);
+        bool isCrit = Random.Range(0, 1) > stats.GetStat(PlayerStatType.CriticalChance);
+        float damage = stats.GetStat(PlayerStatType.ContactDamage) * (isCrit ? stats.GetStat(PlayerStatType.CriticalDamageMult) : 1);
+        enemy.TakeDamage(damage); //affect dmg
+        upgrades.TriggerUpgradeEnemyHitEffects(enemy, isCrit);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -194,7 +201,7 @@ public class Player : NetworkBehaviour
         {
             //Debug.Log($"{OwnerClientId} ReviveTimer: {reviveTimer}");
             reviveTimer = Mathf.Clamp(reviveTimer - (Time.fixedDeltaTime * 0.5f), 0, reviveTime);
-            reviveSpriteRenderer.transform.localScale = Vector3.one * reviveTimer / reviveTime;
+            reviveImage.fillAmount = reviveTimer / reviveTime;
         }
     }
     /*

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
+using BulletPro;
 
 public class Player : NetworkBehaviour
 {
@@ -28,6 +29,8 @@ public class Player : NetworkBehaviour
     public Collider2D playerCollider, reviveCollider;
     [SerializeField]
     Animator animator;
+    [SerializeField]
+    BulletReceiver bulletReceiver;
     private Vector2 targetPos;
     
 
@@ -139,6 +142,7 @@ public class Player : NetworkBehaviour
             reviveCollider.enabled = true;
             reviveCanvas.gameObject.SetActive(true);
             canMove = false;
+            bulletReceiver.enabled = false;
 
             Debug.Log($"Received death of {OwnerClientId}");
             Debug.Log($"i am server: {IsServer}");
@@ -154,6 +158,7 @@ public class Player : NetworkBehaviour
             reviveCollider.enabled = false;
             reviveCanvas.gameObject.SetActive(false);
             canMove = true;
+            bulletReceiver.enabled = true;
         }
 
     }
@@ -161,6 +166,7 @@ public class Player : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(!IsOwner) return;
+        if (isDead.Value) return; //dont attack when dead
         if (col.CompareTag("Enemy"))
         {
             Enemy enemy = col.GetComponentInParent<Enemy>();
@@ -182,8 +188,10 @@ public class Player : NetworkBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!isDead.Value || !collision.gameObject.CompareTag("Player") || !collision.GetComponentInParent<NetworkObject>().IsOwner) return; 
+        if (!isDead.Value || !collision.gameObject.CompareTag("Player") || !collision.GetComponentInParent<NetworkObject>().IsOwner) return;
         // check death n check player collision. only local player can revive a dead
+
+        if (collision.gameObject.GetComponent<Player>().isDead.Value) return; //dead player cannot revive another dead player
 
         reviveTimer += Time.fixedDeltaTime * 1.5f;
 

@@ -3,7 +3,6 @@ using BulletPro;
 using System.Collections.Generic;
 using Unity.Behavior;
 using Unity.Netcode;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Boss_HexaHexaGone : Boss

@@ -11,6 +11,10 @@ public class ReadyZone : MonoBehaviour
     float timer = 0;
     private void FixedUpdate()
     {
+        if ((PlayerManager.Instance.players.Count == 0))
+        {
+            return;
+        }
         int numReady = 0;
         foreach(Player player in PlayerManager.Instance.players)
         {

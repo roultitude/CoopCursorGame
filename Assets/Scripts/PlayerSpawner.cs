@@ -14,11 +14,13 @@ public class PlayerSpawner : NetworkBehaviour
 
     private void Awake()
     {
+        Debug.Log("PlayerSpawner Awake");
         if (!isDebugScene) NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
+        Debug.Log("PlayerSpawner OnSceneLoaded Awake");
         NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
         SpawnPlayerRPC();
     }
@@ -31,6 +33,7 @@ public class PlayerSpawner : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void SpawnPlayerRPC(RpcParams rpcParams = default)
     {
+        Debug.Log($"PlayerSpawner SpawnRPC sent from {rpcParams.Receive.SenderClientId}");
         Player player = Instantiate(playerPrefab);
         player.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
     }

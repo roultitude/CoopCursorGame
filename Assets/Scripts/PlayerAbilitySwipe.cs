@@ -39,6 +39,11 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         UpdateLineRendererAlpha(1);
     }
 
+    public void ModifyCooldownTimer(float amt)
+    {
+        swipeCooldownTimer += amt;
+    }
+
     private void Update()
     {
         if (!IsOwner) return;
@@ -181,7 +186,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
                 if (IsEnemyInSwipePath(collider))
                 {
                     Debug.Log("Enemy in path");
-                    enemy.TakeDamage(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.AbilityDamage));
+                    enemy.TakeDamage(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.SkillPower));
                 }
             }
         }
@@ -203,6 +208,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         return false;
     }
 
+    //MOVE TO HELPER CLASS
     bool LineIntersectsCircle(Vector2 lineStart, Vector2 lineEnd, Vector2 circleCenter, float circleRadius)
     {
         Vector2 closestPoint = ClosestPointOnLine(lineStart, lineEnd, circleCenter);

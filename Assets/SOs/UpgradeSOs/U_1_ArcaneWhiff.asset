@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
+  m_Name: U_1_ArcaneWhiff
+  m_EditorClassIdentifier: 
+  upgradeName: Arcane Whiff
+  upgradeDesc: 'Inhale the arcane!
+
+    +Elemental Mastery!'
+  sprite: {fileID: 7444046612802208997, guid: 663ec9ec29e6429479aa1d452e2400c0, type: 3}
+  statChanges:
+  - type: 7
+    amt: 5
+  customEffect: {fileID: 0}

@@ -17,16 +17,24 @@ public class PlayerStats
 
     public void ResetStats()
     {
-        stats[PlayerStatType.Curiosity] = 1;
-        stats[PlayerStatType.Adaptability] = 1;
-        stats[PlayerStatType.Fortitude] = 1;
+        stats[PlayerStatType.Squash] = 1;
+        stats[PlayerStatType.Scamper] = 1;
+        stats[PlayerStatType.Squeal] = 1;
+        stats[PlayerStatType.MouseDamage] = 4;
+        stats[PlayerStatType.MouseDamageMult] = 1;
+        stats[PlayerStatType.AttackSpeed] = 0.5f;
+        stats[PlayerStatType.AttackSpeedMult] = 1;
+        stats[PlayerStatType.ElementalMastery] = 0;
+        stats[PlayerStatType.ElementalCritChance] = 0;
+        stats[PlayerStatType.SkillPower] = 0;
         stats[PlayerStatType.MaxHealth] = 3;
-        stats[PlayerStatType.ContactDamage] = 4;
         stats[PlayerStatType.CooldownReduction] = 0;
         stats[PlayerStatType.CriticalChance] = 0.05f;
         stats[PlayerStatType.CriticalDamageMult] = 2;
-        stats[PlayerStatType.ComboMultiplier] = 1;
-        stats[PlayerStatType.AbilityDamage] = 0;
+        stats[PlayerStatType.ComboGainMultiplier] = 1;
+        stats[PlayerStatType.DodgeChance] = 0;
+        stats[PlayerStatType.SizeMult] = 1;
+
     }
     public void ApplyStatUpgrades(List<UpgradeSO> upgrades)
     {
@@ -43,17 +51,16 @@ public class PlayerStats
 
     private void CalcPrimaryStatEffects()
     {
-        //Curiosity
-        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Curiosity) * 0.5f, false);
-        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Curiosity) * 0.5f, false);
+        //Squash
+        ModifyStat(PlayerStatType.MouseDamage, GetStat(PlayerStatType.Squash) * 1f, false);
 
-        //Adaptability
-        ModifyStat(PlayerStatType.AbilityDamage, GetStat(PlayerStatType.Adaptability) * 0.5f,false);
-        ModifyStat(PlayerStatType.CooldownReduction, GetStat(PlayerStatType.Adaptability) * 0.2f,false);
+        //Scamper
+        ModifyStat(PlayerStatType.SkillPower, GetStat(PlayerStatType.Scamper) * 10f,false);
+        ModifyStat(PlayerStatType.AttackSpeed, GetStat(PlayerStatType.Scamper) * 0.5f,false);
 
-        //Fortitude
-        ModifyStat(PlayerStatType.ContactDamage, GetStat(PlayerStatType.Fortitude) * 0.5f, false);
-        ModifyStat(PlayerStatType.MaxHealth, GetStat(PlayerStatType.Fortitude) * 0.5f,false);
+        //Squeak
+        ModifyStat(PlayerStatType.ElementalMastery, GetStat(PlayerStatType.Squeal) * 10f, false);
+        ModifyStat(PlayerStatType.CooldownReduction, GetStat(PlayerStatType.Squeal) * 0.01f,false);
     }
     public float GetStat(PlayerStatType statType)
     {
@@ -90,14 +97,21 @@ public class PlayerStats
 
 public enum PlayerStatType
 {
-    Curiosity,
-    Adaptability,
-    Fortitude,
-    MaxHealth,
-    ContactDamage,
-    CooldownReduction,
-    CriticalChance,
-    CriticalDamageMult,
-    ComboMultiplier,
-    AbilityDamage
+    Squash = 0,
+    Scamper = 1,
+    Squeal = 2,
+    MouseDamage = 3,
+    MouseDamageMult = 4,
+    AttackSpeed = 5,
+    AttackSpeedMult = 6,
+    ElementalMastery =7 ,
+    ElementalCritChance = 8,
+    SkillPower = 9,
+    MaxHealth = 10,
+    CooldownReduction = 11,
+    CriticalChance = 12,
+    CriticalDamageMult = 13,
+    ComboGainMultiplier = 14,
+    DodgeChance = 15,
+    SizeMult =16
 }

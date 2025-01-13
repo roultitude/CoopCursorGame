@@ -181,9 +181,9 @@ public class Player : NetworkBehaviour
     private void OnHitEnemy(Enemy enemy)
     {
         bool isCrit = Random.Range(0, 1) > stats.GetStat(PlayerStatType.CriticalChance);
-        float damage = stats.GetStat(PlayerStatType.ContactDamage) * (isCrit ? stats.GetStat(PlayerStatType.CriticalDamageMult) : 1);
+        float damage = stats.GetStat(PlayerStatType.MouseDamage) * (isCrit ? stats.GetStat(PlayerStatType.CriticalDamageMult) : 1);
         enemy.TakeDamage(damage); //affect dmg
-        upgrades.TriggerUpgradeEnemyHitEffects(enemy, isCrit);
+        upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, isCrit);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

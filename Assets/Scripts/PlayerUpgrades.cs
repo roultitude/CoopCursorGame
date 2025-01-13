@@ -27,7 +27,7 @@ public class PlayerUpgrades : NetworkBehaviour
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
 
-    public void TriggerUpgradeEnemyHitEffects(Enemy enemy, bool isCrit)
+    public void TriggerUpgradeOnHitEnemyEffects(Enemy enemy, bool isCrit)
     {
         foreach (UpgradeSO upgrade in activeUpgrades)
         {

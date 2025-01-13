@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
+  m_Name: U_2_PredatoryInstinct
+  m_EditorClassIdentifier: 
+  upgradeName: Predatory Instinct
+  upgradeDesc: 'On the hunt for yum!
+
+    +Crit Chance
+
+    Increased Critical Damage
+    below 1/2 HP'
+  sprite: {fileID: 8001894037912489551, guid: beb7cbea8c0e5e5438b4dab8de11c2cf, type: 3}
+  statChanges:
+  - type: 12
+    amt: 0.05
+  customEffect: {fileID: 0}

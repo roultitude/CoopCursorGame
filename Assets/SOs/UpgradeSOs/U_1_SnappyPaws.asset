@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad3b6d987146f34fb32ccafce5d888a, type: 3}
+  m_Name: U_1_SnappyPaws
+  m_EditorClassIdentifier: 
+  upgradeName: Snappy Paws
+  upgradeDesc: 'Quick and deft, smack em!
+
+    +Cooldown Reduction'
+  sprite: {fileID: 782363166078189050, guid: 19329624975aaf34ca7f7c12dd56008b, type: 3}
+  statChanges:
+  - type: 11
+    amt: 0.1
+  customEffect: {fileID: 0}

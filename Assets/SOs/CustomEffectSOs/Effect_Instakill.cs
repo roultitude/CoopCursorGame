@@ -5,7 +5,7 @@ public class Effect_Instakill : CustomEffectSO
 {
     [SerializeField]
     float chance;
-    public override HitInfo OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, HitInfo hit)
+    public override bool OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, ref HitInfo hit)
     {
         if(Random.Range(0f, 1f) < chance)
         {
@@ -20,6 +20,6 @@ public class Effect_Instakill : CustomEffectSO
             }
         }
 
-        return hit;
+        return false;
     }
 }

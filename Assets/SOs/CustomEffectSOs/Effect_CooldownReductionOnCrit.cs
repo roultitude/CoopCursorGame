@@ -7,14 +7,15 @@ public class Effect_CooldownReductionOnCrit : CustomEffectSO
     float reductionTime;
     [SerializeField]
     float cooldownBetweenProcs;
-    public override HitInfo OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, HitInfo hit)
+    public override bool OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, ref HitInfo hit)
     {
         if (hit.isCrit && timer.isTimerComplete)
         {
             player.playerAbility.ModifyCooldownTimer(-reductionTime);
+            return true;
             //player.customEffectsHandler.ModifyStat();
         }
-        return hit;
+        return false;
     }
 
     public override void OnRPCTriggerTimer(TickableTimer timer)

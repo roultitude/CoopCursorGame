@@ -1,15 +1,25 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class DebugTestUpgrades : MonoBehaviour
 {
     [SerializeField]
     UpgradeSO[] upgrades;
+    [SerializeField]
+    int playerIndex;
 
     [ContextMenu("Add Upgrades")]
     public void ApplyUpgrades()
     {
-        foreach (UpgradeSO upgrade in upgrades) {
-            PlayerManager.Instance.localPlayer.upgrades.AddUpgrade(upgrade);
+        ApplyUpgradesRPC(playerIndex);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void ApplyUpgradesRPC(int playerIndex)
+    {
+        foreach (UpgradeSO upgrade in upgrades)
+        {
+            PlayerManager.Instance.players[playerIndex].upgrades.AddUpgrade(upgrade);
         }
     }
 

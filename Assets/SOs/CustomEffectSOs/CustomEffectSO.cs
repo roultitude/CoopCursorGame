@@ -5,14 +5,18 @@ using UnityEngine;
 public abstract class CustomEffectSO : ScriptableObject
 {
     public bool hasTimer;
-    public virtual HitInfo OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, HitInfo hit)
+
+    /// <summary>
+    /// Returns bool indicating whether to trigger timer reset (cooldown usually)
+    /// </summary>
+    public virtual bool OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, ref HitInfo hit)
     {
-        return hit;
+        return false;
     }
 
-    public virtual void OnAdded(TickableTimer timer)
+    public virtual bool OnAdded(TickableTimer timer)
     {
-
+        return false;
     }
 
     public virtual void OnRPCTriggerTimer(TickableTimer timer)

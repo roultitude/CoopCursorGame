@@ -8,21 +8,24 @@ public class UpgradeIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     Image iconImage;
     private GameObject upgradeTooltip;   
     private TMPro.TextMeshProUGUI upgradeTitleText, upgradeDescText;
-    private UpgradeSO data;
-    public void Setup(UpgradeSO data, GameObject tooltipObj, TMPro.TextMeshProUGUI titleText, TMPro.TextMeshProUGUI descText)
+    private Upgrade upg;
+    public void Setup(Upgrade upg, GameObject tooltipObj, TMPro.TextMeshProUGUI titleText, TMPro.TextMeshProUGUI descText)
     {
-        this.data = data;
+        this.upg = upg;
         upgradeTooltip = tooltipObj;
         upgradeTitleText = titleText;
         upgradeDescText = descText;
-        iconImage.sprite = data.sprite;
+        iconImage.sprite = upg.GetData().sprite;
     }
-
+    public void FixedUpdate()
+    {
+        if (upg != null) Debug.Log($"{upg.GetData().name}: {upg.GetTimerFraction()}");
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         upgradeTooltip.SetActive(true);
-        upgradeTitleText.text = data.upgradeName;
-        upgradeDescText.text = data.upgradeDesc;
+        upgradeTitleText.text = upg.GetData().upgradeName;
+        upgradeDescText.text = upg.GetData().upgradeDesc;
     }
 
     public void OnPointerExit(PointerEventData eventData)

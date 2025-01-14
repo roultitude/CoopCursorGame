@@ -50,7 +50,7 @@ public class PlayerUI : MonoBehaviour
         foreach(Upgrade upgrade in player.upgrades.GetUpgrades())
         {
             Instantiate(upgradeIconPrefab, upgradeIconHolder)
-                .Setup(upgrade.GetData(), upgradeTooltipObj, upgradeTooltipTitleText, upgradeTooltipDescriptionText);
+                .Setup(upgrade, upgradeTooltipObj, upgradeTooltipTitleText, upgradeTooltipDescriptionText);
         }
     }
 

@@ -41,9 +41,21 @@ public class PlayerUpgrades : NetworkBehaviour
     {
         foreach (Upgrade upgrade in activeUpgrades)
         {
-            hit = upgrade.OnHitCustomEffect(player, enemy, hit);
+            if (upgrade.OnHitCustomEffect(player, enemy, ref hit)) 
+                ResetUpgradeTimerRPC(UpgradeToIndex(upgrade)); //sync reset timer
         }
         return hit;
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void ResetUpgradeTimerRPC(int idx)
+    {
+        activeUpgrades[idx].ResetTimer();
+    }
+
+    private int UpgradeToIndex(Upgrade upgrade)
+    {
+        return activeUpgrades.FindIndex(u => u == upgrade);
     }
 
     public List<Upgrade> GetUpgrades()

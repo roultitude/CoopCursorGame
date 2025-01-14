@@ -12,7 +12,7 @@ public class Player : NetworkBehaviour
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public PlayerStats stats = new PlayerStats();
     public PlayerUpgrades upgrades;
-    public PlayerAbilitySwipe playerAbility; //create an interface for this??? rmb to assign somehow
+    public PlayerAbility playerAbility; //create an interface for this??? rmb to assign somehow
     public Color color;
 
     [SerializeField]

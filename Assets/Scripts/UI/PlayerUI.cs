@@ -20,7 +20,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] float healthIconDepletedAlpha = 0.1f;
 
     private Player player;
-    private PlayerAbilitySwipe playerAbility;
+    private PlayerAbility playerAbility;
     private int currentDisplayHealthMax = 0;
 
     public void Setup(string playerName, Player player)

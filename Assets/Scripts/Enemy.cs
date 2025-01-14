@@ -84,13 +84,14 @@ public class Enemy : NetworkBehaviour
         Debug.Log($"{NetworkObjectId} Enemy health: {curr}");
         if(prev > curr)
         {
-            DynamicTextManager.CreateText2D(transform.position, $"{(curr-prev)}", DynamicTextManager.defaultData);
+            
             animator.CrossFade("OnHurtEnemy", 0);
         }
     }
 
     public virtual void TakeDamage(float num)
     {
+        NetworkedDynamicTextManager.Instance.CreateText2DSynced(transform.position, $"{num}");
         ChangeHealthRPC(-num);
     }
 
@@ -118,7 +119,6 @@ public class Enemy : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void OnDeathRPC(float lastHpChangeAmt)
     {
-        DynamicTextManager.CreateText2D(transform.position, $"{lastHpChangeAmt}", DynamicTextManager.defaultData);
         Debug.Log($"{NetworkObjectId} Enemy DeathRPC");
         if (spawner)
         {

@@ -24,5 +24,12 @@ public abstract class TickableTimer
     public virtual void Tick(float amt)
     {
         timerTime += amt;
+        //Debug.Log($"{timerTime}, {timerLength}");
+    }
+
+    public virtual float GetCompletionFraction()
+    {
+        if (timerLength == 0) return 1;
+        return Mathf.Clamp(timerTime / timerLength,0,1);
     }
 }

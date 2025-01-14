@@ -2,19 +2,16 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerAbilitySwipe : NetworkBehaviour
+public class PlayerAbilitySwipe : PlayerAbility
 {
-    public NetworkVariable<bool> isAbilityAvailable = new NetworkVariable<bool>(false, 
-        NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
     [Header("Swipe Settings")]
-    public float swipeSpeedThreshold = 5f;  // Minimum speed for a swipe to register
-    public float baseSwipeDamage = 5f;         // Damage dealt by the swipe
-    public float scalingSwipeDamageMult = 0.5f; //scaling based on AP
-    public float maxSwipeTrailLength = 0.5f; // Duration to store swipe path for detecting intersections
-    public float maxAngleDeviation = 15f;   // Maximum allowed angle deviation (in degrees) for a swipe to be considered straight
-    public float maxSwipeDuration = 0.5f;
-    public float swipeFadeTime = 1f;
-    public float swipeCooldown = 5f;
+    [SerializeField] float swipeSpeedThreshold = 5f;  // Minimum speed for a swipe to register
+    [SerializeField] float baseSwipeDamage = 5f;         // Damage dealt by the swipe
+    [SerializeField] float scalingSwipeDamageMult = 0.5f; //scaling based on AP
+    [SerializeField] float maxSwipeTrailLength = 0.5f; // Duration to store swipe path for detecting intersections
+    [SerializeField] float maxAngleDeviation = 15f;   // Maximum allowed angle deviation (in degrees) for a swipe to be considered straight
+    [SerializeField] float maxSwipeDuration = 0.5f;
+    [SerializeField] float swipeFadeTime = 1f;
 
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private AnimationCurve swipeVisualCurve;
@@ -22,13 +19,24 @@ public class PlayerAbilitySwipe : NetworkBehaviour
 
     private List<Vector2> swipeTrail = new List<Vector2>(); // To store recent positions
     private Vector2 lastPosition;
-    private float swipeCooldownTimer = 0;
-    private float fadeTimer = 0;
+    private TickableTimer fadeTimer;
     private bool isSwiping = false;
     private Gradient lineRendererGradient = new Gradient();
-    private Player player;
-    
 
+
+    public override void Setup(Player player, Color color)
+    {
+        base.Setup(player, color); // setup cooldownTimer n player;
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+        fadeTimer = new CountupTimer(swipeFadeTime);
+    } 
+    protected override void Use()
+    {
+        StartSwipe();
+        Debug.Log("Swipe on");
+        Invoke(nameof(EndSwipe), maxSwipeDuration);
+    }
     public void StartSwipe()
     {
         if (!IsOwner) return;
@@ -38,43 +46,17 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         isSwiping = true;
         UpdateLineRendererAlpha(1);
     }
-
-    public void ModifyCooldownTimer(float amt)
+    protected override void FixedUpdate()
     {
-        swipeCooldownTimer += amt;
-    }
-
-    private void Update()
-    {
-        if (!IsOwner) return;
-        if (Input.GetKeyDown(KeyCode.Q) && swipeCooldownTimer > swipeCooldown)
+        base.FixedUpdate(); //tick cooldown timer
+        fadeTimer.Tick(Time.fixedDeltaTime);
+        if (IsOwner)
         {
-            StartSwipe();
-            Debug.Log("Swipe on");
-            Invoke(nameof(EndSwipe), maxSwipeDuration);
-        }
-    }
-
-    public void Setup(Player player, Color color)
-    {
-        this.player = player;
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
-        swipeCooldownTimer = swipeCooldown;
-    }
-    private void FixedUpdate()
-    {
-        //tick timers
-        fadeTimer += Time.fixedDeltaTime;
-        swipeCooldownTimer += Time.fixedDeltaTime;
-
-        if (IsOwner && swipeCooldownTimer > swipeCooldown)
-        {
-            isAbilityAvailable.Value = true;
+            isAbilityAvailable.Value = cooldownTimer.isTimerComplete;
         }
 
         if (!isSwiping) { //if not currently swiping fade visual
-            UpdateLineRendererAlpha(1 - fadeTimer / swipeFadeTime);
+            UpdateLineRendererAlpha(1 - fadeTimer.GetCompletionFraction());
             return;
         }
 
@@ -83,7 +65,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
 
         if (!IsSwipeStraight())
         {
-            Debug.Log("Swipe off, not straight");
+            Debug.Log("Swipe off, exceeded max angle");
             EndSwipe();
         }
     }
@@ -95,9 +77,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
         isAbilityAvailable.Value = false;
         DamageEnemiesInSwipePath();
         SyncVisualsRPC(swipeTrail.ToArray());
-        fadeTimer = 0;
-        swipeCooldownTimer = 0;
-
+        fadeTimer.Reset();
     }
     private void TrackSwipePath()
     {
@@ -150,7 +130,7 @@ public class PlayerAbilitySwipe : NetworkBehaviour
             lineRenderer.SetPosition(i, trail[i]);
         }
         lineRenderer.widthCurve = swipeVisualCurve;
-        fadeTimer = 0;
+        fadeTimer.Reset();
         UpdateLineRendererAlpha(1);
     }
 
@@ -182,10 +162,8 @@ public class PlayerAbilitySwipe : NetworkBehaviour
             Enemy enemy = collider.GetComponentInParent<Enemy>();
             if (enemy)
             {
-                Debug.Log("FOund enemy");
                 if (IsEnemyInSwipePath(collider))
                 {
-                    Debug.Log("Enemy in path");
                     enemy.TakeDamage(baseSwipeDamage + scalingSwipeDamageMult * player.stats.GetStat(PlayerStatType.SkillPower));
                 }
             }

@@ -276,6 +276,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   isAbilityAvailable:
     m_InternalValue: 0
+  baseCooldown: 5
   swipeSpeedThreshold: 10
   baseSwipeDamage: 50
   scalingSwipeDamageMult: 0.5
@@ -283,7 +284,6 @@ MonoBehaviour:
   maxAngleDeviation: 15
   maxSwipeDuration: 0.5
   swipeFadeTime: 1
-  swipeCooldown: 5
   lineRenderer: {fileID: 4443332243117531601}
   swipeVisualCurve:
     serializedVersion: 2
@@ -749,6 +749,7 @@ MonoBehaviour:
   playerCollider: {fileID: 6319236615281725155}
   reviveCollider: {fileID: 1591838768811514337}
   animator: {fileID: 2992747817964897913}
+  bulletReceiver: {fileID: 3269748608916143590}
 --- !u!114 &157838682542005226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +763,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  activeUpgrades: []
   player: {fileID: 0}
 --- !u!114 &4960089773421021656
 MonoBehaviour:

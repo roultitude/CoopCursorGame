@@ -4,13 +4,19 @@ using UnityEngine;
 
 public abstract class CustomEffectSO : ScriptableObject
 {
-    public virtual void OnHitEnemy(Player player, Enemy enemy, bool isCrit)
+    public bool hasTimer;
+    public virtual HitInfo OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, HitInfo hit)
     {
-        Debug.Log("Base.OnHitEnemy");
+        return hit;
     }
 
-    public virtual void OnAdded()
+    public virtual void OnAdded(TickableTimer timer)
     {
 
+    }
+
+    public virtual void OnRPCTriggerTimer(TickableTimer timer)
+    {
+       //set timer info here
     }
 }

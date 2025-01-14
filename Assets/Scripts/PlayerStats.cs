@@ -36,13 +36,14 @@ public class PlayerStats
         stats[PlayerStatType.SizeMult] = 1;
 
     }
-    public void ApplyStatUpgrades(List<UpgradeSO> upgrades)
+    public void ApplyStatUpgrades(List<Upgrade> upgrades)
     {
         ResetStats();
-        foreach(UpgradeSO upgrade in upgrades)
+        foreach(Upgrade upgrade in upgrades)
         {
-            for (int i = 0; i < upgrade.statChanges.Length; i++) {
-                ModifyStat(upgrade.statChanges[i].type, upgrade.statChanges[i].amt);
+            UpgradeSO upgradeData = upgrade.GetData();
+            for (int i = 0; i < upgradeData.statChanges.Length; i++) {
+                ModifyStat(upgradeData.statChanges[i].type, upgradeData.statChanges[i].amt);
             }
         }
         CalcPrimaryStatEffects();
@@ -91,6 +92,14 @@ public class PlayerStats
         {
             stats[statType] += amount;
             if(fireModifyEvent) OnPlayerStatsChangeEvent?.Invoke();
+        }
+    }
+
+    public void PrintStatsToConsole()
+    {
+        foreach (var key in stats.Keys)
+        {
+            Debug.Log($"{key}: {stats[key]}");
         }
     }
 }

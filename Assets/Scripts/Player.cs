@@ -180,10 +180,13 @@ public class Player : NetworkBehaviour
 
     private void OnHitEnemy(Enemy enemy)
     {
-        bool isCrit = Random.Range(0, 1) > stats.GetStat(PlayerStatType.CriticalChance);
+        bool isCrit = Random.Range(0f, 1f) < stats.GetStat(PlayerStatType.CriticalChance);
         float damage = stats.GetStat(PlayerStatType.MouseDamage) * (isCrit ? stats.GetStat(PlayerStatType.CriticalDamageMult) : 1);
-        enemy.TakeDamage(damage); //affect dmg
-        upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, isCrit);
+        HitInfo hit = new HitInfo(isCrit, damage);
+        hit = upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, hit);
+
+        
+        enemy.TakeDamage(hit.damage); //affect dmg
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -274,4 +277,10 @@ public class Player : NetworkBehaviour
         spriteRenderer.sprite = aliveSprite;
     }
     */
+
+    [ContextMenu("Log Stats")]
+    private void PrintStats()
+    {
+        stats.PrintStatsToConsole();
+    }
 }

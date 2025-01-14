@@ -47,10 +47,10 @@ public class PlayerUI : MonoBehaviour
         {
             Destroy(child.gameObject); // pooling prolly not req here
         }
-        foreach(UpgradeSO upgrade in player.upgrades.GetUpgrades())
+        foreach(Upgrade upgrade in player.upgrades.GetUpgrades())
         {
             Instantiate(upgradeIconPrefab, upgradeIconHolder)
-                .Setup(upgrade, upgradeTooltipObj, upgradeTooltipTitleText, upgradeTooltipDescriptionText);
+                .Setup(upgrade.GetData(), upgradeTooltipObj, upgradeTooltipTitleText, upgradeTooltipDescriptionText);
         }
     }
 

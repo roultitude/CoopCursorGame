@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f045152495c5f4d8b6b206c7b114ce, type: 3}
   m_Name: Effect_NimbleTactics
   m_EditorClassIdentifier: 
-  reductionTime: 1
+  hasTimer: 1
+  reductionTime: 5
+  cooldownBetweenProcs: 5

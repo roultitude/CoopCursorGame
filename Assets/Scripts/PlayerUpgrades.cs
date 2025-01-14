@@ -5,19 +5,22 @@ using UnityEngine;
 public class PlayerUpgrades : NetworkBehaviour
 {
     [SerializeField]
-    List<UpgradeSO> activeUpgrades;
+    List<Upgrade> activeUpgrades;
     [SerializeField]
     Player player;
 
+    int nextId; //for network serialization on upgradeTriggers
     private void Awake()
     {
         player = GetComponent<Player>();
+        activeUpgrades = new List<Upgrade>();
+        nextId = 0;
     }
 
     public void AddUpgrade(UpgradeSO upgrade)
     {
-        activeUpgrades.Add(upgrade);
-        Debug.Log($"Player {OwnerClientId} gets {upgrade.upgradeName}");
+        Debug.Log($"Player {OwnerClientId} gets {upgrade.upgradeName}, {nextId}");
+        activeUpgrades.Add(new Upgrade(upgrade, nextId++));
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
 
@@ -27,18 +30,23 @@ public class PlayerUpgrades : NetworkBehaviour
         player.stats.ApplyStatUpgrades(activeUpgrades);
     }
 
-    public void TriggerUpgradeOnHitEnemyEffects(Enemy enemy, bool isCrit)
+    public void FixedUpdate()
     {
-        foreach (UpgradeSO upgrade in activeUpgrades)
-        {
-            if (upgrade.customEffect)
-            {
-                upgrade.customEffect.OnHitEnemy(player, enemy, isCrit);
-            }
+        foreach (Upgrade upgrade in activeUpgrades) { 
+            upgrade.TickTimer(Time.fixedDeltaTime); //tick all timers
         }
     }
 
-    public List<UpgradeSO> GetUpgrades()
+    public HitInfo TriggerUpgradeOnHitEnemyEffects(Enemy enemy, HitInfo hit)
+    {
+        foreach (Upgrade upgrade in activeUpgrades)
+        {
+            hit = upgrade.OnHitCustomEffect(player, enemy, hit);
+        }
+        return hit;
+    }
+
+    public List<Upgrade> GetUpgrades()
     {
         return activeUpgrades; // might want to format as some kind of dict eventually
     }

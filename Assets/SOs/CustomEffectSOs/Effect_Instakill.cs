@@ -5,9 +5,8 @@ public class Effect_Instakill : CustomEffectSO
 {
     [SerializeField]
     float chance;
-    public override void OnHitEnemy(Player player, Enemy enemy, bool isCrit)
+    public override HitInfo OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, HitInfo hit)
     {
-        base.OnHitEnemy(player,enemy,isCrit);
         if(Random.Range(0f, 1f) < chance)
         {
             if (enemy.GetComponent<BossMinionController>() || enemy is Boss)
@@ -17,10 +16,10 @@ public class Effect_Instakill : CustomEffectSO
             else
             {
                 Debug.Log($"Instakill: {enemy.gameObject.name}");
-                enemy.TakeDamage(9999);
+                hit.MutateDamage((float dmg) => dmg = 9999f);
             }
-            
         }
-        
+
+        return hit;
     }
 }

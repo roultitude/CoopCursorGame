@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891b974f9ab5b0a49b022ff54a6a79a8, type: 3}
   m_Name: Effect_Instakill
   m_EditorClassIdentifier: 
-  chance: 0.01
+  hasTimer: 0
+  chance: 0.5

@@ -5,10 +5,14 @@ public class HitInfo
 {
     public bool isCrit { get; private set;}
     public float damage { get; private set;}
+    public float flatDmgBonus;
+    public float damageMult;
     public HitInfo(bool isCrit, float damage)
     {
         this.isCrit = isCrit;
         this.damage = damage;
+        flatDmgBonus = 0;
+        damageMult = 1;
     }
 
     public HitInfo MutateCrit(Func<bool, bool> func)
@@ -16,13 +20,18 @@ public class HitInfo
         isCrit = func(isCrit);
         return this;
     }
-    public HitInfo MutateDamage(Func<float, float> func)
+    public HitInfo MutateFlatDamageBonus(float amt)
     {
-        damage = func(damage);
+        flatDmgBonus += amt;
         return this;
     }
-    public float GetDamage()
+    public HitInfo MutateDamageMult(float amt)
     {
-        return damage;
+        damageMult += amt;
+        return this;
+    }
+    public float GetFinalDamage()
+    {
+        return damage * damageMult + flatDmgBonus;
     }
 }

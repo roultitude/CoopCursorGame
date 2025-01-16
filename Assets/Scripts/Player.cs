@@ -15,6 +15,8 @@ public class Player : NetworkBehaviour
     public PlayerAbility playerAbility; //create an interface for this??? rmb to assign somehow
     public Color color;
 
+    public float GetHpFraction() => Mathf.Clamp(health.Value / stats.GetStat(PlayerStatType.MaxHealth),0,1);
+
     [SerializeField]
     float hurtInvulnTime, reviveTime, moveSpeed;
     [SerializeField]
@@ -185,8 +187,7 @@ public class Player : NetworkBehaviour
         HitInfo hit = new HitInfo(isCrit, damage);
         hit = upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, hit);
 
-        
-        enemy.TakeDamage(hit.damage); //affect dmg
+        enemy.TakeDamage(hit.GetFinalDamage()); //affect dmg
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -23,4 +23,4 @@ MonoBehaviour:
   statChanges:
   - type: 12
     amt: 0.05
-  customEffect: {fileID: 0}
+  customEffect: {fileID: 11400000, guid: 8990428b0a0f4d5489eeb61a9c7d90ec, type: 2}

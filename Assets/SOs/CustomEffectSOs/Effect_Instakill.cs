@@ -16,7 +16,7 @@ public class Effect_Instakill : CustomEffectSO
             else
             {
                 Debug.Log($"Instakill: {enemy.gameObject.name}");
-                hit.MutateDamage((float dmg) => dmg = 9999f);
+                hit.MutateFlatDamageBonus(9999f);
             }
         }
 

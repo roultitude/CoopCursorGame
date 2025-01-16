@@ -12,6 +12,7 @@ public abstract class CustomEffectSO : ScriptableObject
     public virtual bool OnHitEnemy(TickableTimer timer, Player player, Enemy enemy, ref HitInfo hit)
     {
         return false;
+
     }
 
     public virtual bool OnAdded(TickableTimer timer)

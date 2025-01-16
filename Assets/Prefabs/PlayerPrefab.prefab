@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRoot: {fileID: 7279562733291139687}
   maxRotAngle: 180
-  rotSpeed: 10
+  rotSpeed: 20
 --- !u!1 &7229046620999928091
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 4845625790337791954}
   - component: {fileID: 2838142281059328485}
   - component: {fileID: 6456224423942767243}
+  - component: {fileID: 6362598541160230744}
   - component: {fileID: 157838682542005226}
   - component: {fileID: 4960089773421021656}
   - component: {fileID: 2992747817964897913}
@@ -734,8 +735,11 @@ MonoBehaviour:
   isVulnerable: 1
   isDead:
     m_InternalValue: 0
+  reviveTimer:
+    m_InternalValue: 0
   upgrades: {fileID: 157838682542005226}
   playerAbility: {fileID: 1703900081795872480}
+  playerCombo: {fileID: 6362598541160230744}
   color: {r: 0, g: 0, b: 0, a: 0}
   hurtInvulnTime: 1
   reviveTime: 5
@@ -745,11 +749,29 @@ MonoBehaviour:
   reviveImage: {fileID: 855039777302709214}
   aliveSprite: {fileID: 1173874026, guid: 9a763581082749f4a8926beea13c9af3, type: 3}
   deadSprite: {fileID: 752866939, guid: 9a763581082749f4a8926beea13c9af3, type: 3}
-  invulnSprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
   playerCollider: {fileID: 6319236615281725155}
   reviveCollider: {fileID: 1591838768811514337}
   animator: {fileID: 2992747817964897913}
   bulletReceiver: {fileID: 3269748608916143590}
+--- !u!114 &6362598541160230744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229046620999928091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b800583e293824681696df81920966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  currentCombolevel:
+    m_InternalValue: 0
+  decayRate: 50
+  dmgMultPerLevel: 0.1
+  player: {fileID: 6456224423942767243}
+  timeBeforeDecay: 1
 --- !u!114 &157838682542005226
 MonoBehaviour:
   m_ObjectHideFlags: 0

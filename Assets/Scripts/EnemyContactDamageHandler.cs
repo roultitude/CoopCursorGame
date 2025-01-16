@@ -23,7 +23,6 @@ public class EnemyContactDamageHandler : MonoBehaviour
     {
         if(!isManuallyControlled) StartCoroutine(StartCycle());
         mat = GetComponent<Enemy>().sprite.material;
-        Debug.Log(mat.name);
     }
 
     public void SetContactDamageState(bool isEnabled)

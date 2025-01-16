@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
 using BulletPro;
+using System.Collections;
 
 public class Player : NetworkBehaviour
 {
@@ -10,9 +11,12 @@ public class Player : NetworkBehaviour
     public bool isVulnerable = true;
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false,
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> reviveTimer = new NetworkVariable<float>(0,
+        NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public PlayerStats stats = new PlayerStats();
     public PlayerUpgrades upgrades;
     public PlayerAbility playerAbility; //create an interface for this??? rmb to assign somehow
+    public PlayerComboManager playerCombo;
     public Color color;
 
     public float GetHpFraction() => Mathf.Clamp(health.Value / stats.GetStat(PlayerStatType.MaxHealth),0,1);
@@ -26,7 +30,7 @@ public class Player : NetworkBehaviour
     [SerializeField]
     Image reviveImage;
     [SerializeField]
-    Sprite aliveSprite, deadSprite, invulnSprite;
+    Sprite aliveSprite, deadSprite;
     [SerializeField]
     public Collider2D playerCollider, reviveCollider;
     [SerializeField]
@@ -37,7 +41,6 @@ public class Player : NetworkBehaviour
     
 
     private bool canMove = true;
-    private float reviveTimer = 0;
     private Coroutine InvulnVisualCoroutine;
     private float[] playerBounds = new float[4];
 
@@ -128,7 +131,7 @@ public class Player : NetworkBehaviour
         }
         else if(prev > curr)
         {
-            animator.CrossFade("OnHurtPlayer", 0);
+            TriggerHurtVisual();
             //InvulnVisualCoroutine = StartCoroutine(HitInvulnVisual());
         }
     }
@@ -161,6 +164,7 @@ public class Player : NetworkBehaviour
             reviveCanvas.gameObject.SetActive(false);
             canMove = true;
             bulletReceiver.enabled = true;
+            TriggerInvulnVisual(hurtInvulnTime);
         }
 
     }
@@ -182,38 +186,40 @@ public class Player : NetworkBehaviour
 
     private void OnHitEnemy(Enemy enemy)
     {
+        playerCombo.ModifyCombo(stats.GetStat(PlayerStatType.ComboGainMultiplier) * 10, true); //base combo gain 10?
+
         bool isCrit = Random.Range(0f, 1f) < stats.GetStat(PlayerStatType.CriticalChance);
         float damage = stats.GetStat(PlayerStatType.MouseDamage) * (isCrit ? stats.GetStat(PlayerStatType.CriticalDamageMult) : 1);
         HitInfo hit = new HitInfo(isCrit, damage);
         hit = upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, hit);
 
-        enemy.TakeDamage(hit.GetFinalDamage()); //affect dmg
+        enemy.TakeDamage(hit.GetFinalDamage() * playerCombo.GetComboDmgMult()); //affect dmg
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!isDead.Value || !collision.gameObject.CompareTag("Player") || !collision.GetComponentInParent<NetworkObject>().IsOwner) return;
-        // check death n check player collision. only local player can revive a dead
+        if (!IsOwner || !isDead.Value || !collision.gameObject.CompareTag("Player")) return;
+        // check death n check player collision. only owner checks for this
 
         if (collision.gameObject.GetComponent<Player>().isDead.Value) return; //dead player cannot revive another dead player
 
-        reviveTimer += Time.fixedDeltaTime * 1.5f;
+        reviveTimer.Value += Time.fixedDeltaTime * 1.5f;
 
         Debug.Log($"reviveTime: {reviveTimer}");
-        if (reviveTimer >= reviveTime)
+        if (reviveTimer.Value >= reviveTime)
         {
-            ReviveRPC();
-            reviveTimer = 0;
+            Revive();
+            reviveTimer.Value = 0;
         }
     }
 
     private void FixedUpdate()
     {
-        if (isDead.Value)
+        if (isDead.Value) //only tick if dead
         {
             //Debug.Log($"{OwnerClientId} ReviveTimer: {reviveTimer}");
-            reviveTimer = Mathf.Clamp(reviveTimer - (Time.fixedDeltaTime * 0.5f), 0, reviveTime);
-            reviveImage.fillAmount = reviveTimer / reviveTime;
+            if (IsOwner) reviveTimer.Value = Mathf.Clamp(reviveTimer.Value - (Time.fixedDeltaTime * 0.5f), 0, reviveTime);
+            reviveImage.fillAmount = reviveTimer.Value / reviveTime;
         }
     }
     /*
@@ -235,49 +241,88 @@ public class Player : NetworkBehaviour
         health.Value = Mathf.FloorToInt(Mathf.Clamp(health.Value + amt,0,stats.GetStat(PlayerStatType.MaxHealth)));
     }
 
-    [Rpc(SendTo.Owner)] //send to owner since isDead & health are owner auth
-    public void ReviveRPC(RpcParams rpcParams = default)
+    public void Revive()
     {
         if (!isDead.Value)
         {
             Debug.LogError("Trying to revive alive player??");
             return;
         }
-        //revive player
-        Debug.Log($"Player {rpcParams.Receive.SenderClientId} revived Player {OwnerClientId}");
         isDead.Value = false;
+        
         health.Value = 1; //revive with 1 hp
+        SetInvuln();
+        TriggerInvulnVisual(hurtInvulnTime);
+        Invoke(nameof(SetVuln), hurtInvulnTime);
+    }
+    [Rpc(SendTo.Owner)]
+    public void ReviveRPC() //for host use on wave end
+    {
+        Revive();
     }
 
     public void OnHurt()
     {
         if (!IsOwner || !isVulnerable) return; //clientside hit
         Debug.Log("local player hurt");
-        
-        isVulnerable = false;
 
-        Invoke(nameof(HurtInvuln), hurtInvulnTime);
+        SetInvuln();
+        Invoke(nameof(SetVuln), hurtInvulnTime);
+        //TriggerHurtVisual();
+        
         ModifyHealth(-1);
         if(health.Value == 0)
         {
             isDead.Value = true;
         }
     }
-
-    private void HurtInvuln()
+    private void SetInvuln()
+    {
+        isVulnerable = false;
+    }
+    private void SetVuln()
     {
         isVulnerable = true;
     }
-    /*
-    private IEnumerator HitInvulnVisual()
+
+    private void TriggerHurtVisual()
     {
-        Debug.Log("invulnSprite");
-        spriteRenderer.sprite = invulnSprite;
-        yield return new WaitForSeconds(hitInvulnTime);
-        Debug.Log("invuln over aliveSprite");
-        spriteRenderer.sprite = aliveSprite;
+        if (InvulnVisualCoroutine != null)
+        {
+            StopCoroutine(InvulnVisualCoroutine);
+        }
+        InvulnVisualCoroutine = StartCoroutine(OnHurtVisual());
     }
-    */
+    private void TriggerInvulnVisual(float duration)
+    {
+        if (InvulnVisualCoroutine != null)
+        {
+            StopCoroutine(InvulnVisualCoroutine);
+        }
+        InvulnVisualCoroutine = StartCoroutine(OnInvulnVisual(duration));
+    }
+
+    IEnumerator OnHurtVisual()
+    {
+        float timer = 0;
+        spriteRenderer.material.SetFloat("_FlickerFreq", 3);
+        while (timer < hurtInvulnTime/2)
+        {
+            spriteRenderer.material.SetFloat("_HitEffectBlend", 1 - timer/(hurtInvulnTime/2));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        spriteRenderer.material.SetFloat("_HitEffectBlend", 0);
+        spriteRenderer.material.SetFloat("_FlickerFreq", 0);
+    }
+
+    IEnumerator OnInvulnVisual(float duration)
+    {
+        spriteRenderer.material.SetFloat("_FlickerFreq", 3);
+        spriteRenderer.material.SetFloat("_HitEffectBlend", 0);
+        yield return duration;
+        spriteRenderer.material.SetFloat("_FlickerFreq", 0);
+    }
 
     [ContextMenu("Log Stats")]
     private void PrintStats()

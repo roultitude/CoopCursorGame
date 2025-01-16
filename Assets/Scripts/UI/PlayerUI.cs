@@ -1,23 +1,32 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] TMPro.TextMeshProUGUI playerNameText;
+    [Header("Prefabs")]
     [SerializeField] UpgradeIconUI upgradeIconPrefab;
     [SerializeField] GameObject healthIconPrefab;
 
+    [Header("Health")]
+    [SerializeField] TMPro.TextMeshProUGUI playerNameText;
     [SerializeField] Transform healthIconHolder;
+    [SerializeField] float healthIconFilledAlpha = 0.4f;
+    [SerializeField] float healthIconDepletedAlpha = 0.1f;
+
+    [Header("Abilities")]
+    [SerializeField] GameObject abilityIcon;
+
+    [Header("Upgrades")]
     [SerializeField] Transform upgradeIconHolder;
     [SerializeField] GameObject upgradeTooltipObj;
     [SerializeField] TMPro.TextMeshProUGUI upgradeTooltipTitleText;
     [SerializeField] TMPro.TextMeshProUGUI upgradeTooltipDescriptionText;
 
-    [SerializeField] GameObject abilityIcon;
-
-    [SerializeField] float healthIconFilledAlpha = 0.4f;
-    [SerializeField] float healthIconDepletedAlpha = 0.1f;
+    [Header("Combo")]
+    [SerializeField] TMPro.TextMeshProUGUI comboLetterText;
+    [SerializeField] Image comboValueBar;
 
     private Player player;
     private PlayerAbility playerAbility;
@@ -34,11 +43,21 @@ public class PlayerUI : MonoBehaviour
 
         player.health.OnValueChanged += OnPlayerHealthChanged;
         player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
-        player.stats.OnPlayerStatsChangeEvent += OnStatsChange;
+        player.stats.OnPlayerStatsChangeEvent += OnStatsChanged;
+        player.playerCombo.currentCombolevel.OnValueChanged += OnComboLevelChanged;
+        ShowComboLevel(player.playerCombo.currentCombolevel.Value);
         Color color = player.color;
         color.a = GetComponent<Image>().color.a;
         GetComponent<Image>().color = color;
         PopulateUpgrades();
+    }
+
+
+    public void OnDisable()
+    {
+        player.health.OnValueChanged -= OnPlayerHealthChanged;
+        playerAbility.isAbilityAvailable.OnValueChanged -= OnPlayerAbilityIsAvailable;
+        player.stats.OnPlayerStatsChangeEvent -= OnStatsChanged;
     }
 
     private void PopulateUpgrades()
@@ -54,7 +73,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    private void OnStatsChange()
+    private void OnStatsChanged()
     {
         ShowHP(player.health.Value); //force refresh
         PopulateUpgrades();
@@ -69,15 +88,23 @@ public class PlayerUI : MonoBehaviour
     {
         ShowHP(newValue);
     }
-
-    public void OnDisable()
+    private void OnComboLevelChanged(int previousValue, int newValue)
     {
-        player.health.OnValueChanged -= OnPlayerHealthChanged;
-        playerAbility.isAbilityAvailable.OnValueChanged -= OnPlayerAbilityIsAvailable;
-        player.stats.OnPlayerStatsChangeEvent -= OnStatsChange;
+        ShowComboLevel(newValue);
     }
 
-    public void ShowHP(int hp)
+    private void UpdateComboBar()
+    {
+        if (!player.IsOwner) return;
+        comboValueBar.fillAmount = player.playerCombo.GetComboLevelFrac();
+        
+    }
+    public void Update()
+    {
+        UpdateComboBar();
+    }
+
+    private void ShowHP(int hp)
     {
         //adjust max hp display
         while (currentDisplayHealthMax < player.stats.GetStat(PlayerStatType.MaxHealth))
@@ -102,8 +129,54 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void ShowAbilityIcon(bool isShowing)
+    private void ShowAbilityIcon(bool isShowing)
     {
         abilityIcon.SetActive(isShowing);
+    }
+
+    private void ShowComboLevel(int level)
+    {
+        string ltr;
+        switch (level) //ok to hardcode this prolly
+        {
+            case 0: 
+                ltr = "F";
+                break;
+            case 1: 
+                ltr = "E";
+                break;
+            case 2: 
+                ltr = "D";
+                break;
+            case 3: 
+                ltr = "C";
+                break;
+            case 4: 
+                ltr = "B";
+                break;
+            case 5: 
+                ltr = "A";
+                break;
+            case 6: 
+                ltr = "S";
+                break;
+            case 7: 
+                ltr = "SS";
+                break;
+            case 8: 
+                ltr = "X";
+                break;
+            case 9: 
+                ltr = "XX";
+                break;
+            case 10: 
+                ltr = "XD";
+                break;
+            default: 
+                ltr = "ERR";
+                break;
+        }
+        comboLetterText.text = ltr;
+
     }
 }

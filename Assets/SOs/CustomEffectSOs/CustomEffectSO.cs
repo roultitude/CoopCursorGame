@@ -15,6 +15,11 @@ public abstract class CustomEffectSO : ScriptableObject
 
     }
 
+    public virtual bool OnComboLevelChange(TickableTimer timer, Player player, int prev, int curr)
+    {
+        return false;
+    }
+
     public virtual bool OnAdded(TickableTimer timer)
     {
         return false;

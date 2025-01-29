@@ -89,9 +89,15 @@ public class Enemy : NetworkBehaviour
         }
     }
 
+
     public virtual void TakeDamage(float num)
     {
-        NetworkedDynamicTextManager.Instance.CreateText2DSynced(transform.position, $"{num}");
+        TakeDamage(num,transform.position);
+    }
+
+    public virtual void TakeDamage(float num, Vector2 pos)
+    {
+        NetworkedDynamicTextManager.Instance.CreateText2DSynced(pos, $"{-num}");
         ChangeHealthRPC(-num);
     }
 
@@ -108,6 +114,15 @@ public class Enemy : NetworkBehaviour
         }
         health.Value += amt;
 
+    }
+
+    public void OnHitBullet(Bullet bullet, Vector3 loc)
+    {
+        Debug.Log(bullet.moduleParameters.GetInt("PlayerId"));
+        if(bullet.moduleParameters.GetInt("PlayerId") == (int) NetworkManager.LocalClientId) //local bullet
+        {
+            TakeDamage(bullet.moduleParameters.GetFloat("Damage"), loc);
+        }
     }
 
     public float GetHealthFraction() //change to getStat?

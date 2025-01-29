@@ -19,7 +19,7 @@ public class UpgradeIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void FixedUpdate()
     {
-        if (upg != null) Debug.Log($"{upg.GetData().name}: {upg.GetTimerFraction()}");
+        //if (upg != null) Debug.Log($"{upg.GetData().name}: {upg.GetTimerFraction()}");
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

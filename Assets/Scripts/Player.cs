@@ -17,6 +17,7 @@ public class Player : NetworkBehaviour
     public PlayerUpgrades upgrades;
     public PlayerAbility playerAbility; //create an interface for this??? rmb to assign somehow
     public PlayerComboManager playerCombo;
+    public BulletEmitter bulletEmitter;
     public Color color;
 
     public float GetHpFraction() => Mathf.Clamp(health.Value / stats.GetStat(PlayerStatType.MaxHealth),0,1);
@@ -193,7 +194,7 @@ public class Player : NetworkBehaviour
         HitInfo hit = new HitInfo(isCrit, damage);
         hit = upgrades.TriggerUpgradeOnHitEnemyEffects(enemy, hit);
 
-        enemy.TakeDamage(hit.GetFinalDamage() * playerCombo.GetComboDmgMult()); //affect dmg
+        enemy.TakeDamage(hit.GetFinalDamage() * playerCombo.GetComboDmgMult(),transform.position); //affect dmg
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -235,6 +236,21 @@ public class Player : NetworkBehaviour
         }
     }
     */
+
+    public void PlayBulletEmission(EmitterProfile pattern, float damage = -1)
+    {
+        bulletEmitter.SwitchProfile(pattern, false, PlayOptions.DoNothing);
+        bulletEmitter.Boot();
+        if (IsOwner)
+        {
+            bulletEmitter.bullets[bulletEmitter.bullets.Count - 1].moduleParameters.SetInt("PlayerId", (int)OwnerClientId);
+            if (damage != -1)
+            {
+                bulletEmitter.bullets[bulletEmitter.bullets.Count - 1].moduleParameters.SetFloat("Damage", damage);
+            }
+        }
+        
+    }
 
     public void ModifyHealth(float amt)
     {

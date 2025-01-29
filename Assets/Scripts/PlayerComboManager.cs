@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -37,6 +38,15 @@ public class PlayerComboManager : NetworkBehaviour
     {
         decayTimer = new CountupTimer(timeBeforeDecay);
     }
+    public override void OnNetworkSpawn()
+    {
+        currentCombolevel.OnValueChanged += OnComboLevelChanged;
+    }
+
+    private void OnComboLevelChanged(int previousValue, int newValue)
+    {
+        player.upgrades.TriggerComboLevelChangeEffects(previousValue, newValue);
+    }
 
     public void SetCombo(float amt)
     {
@@ -47,12 +57,11 @@ public class PlayerComboManager : NetworkBehaviour
 
     public void ModifyCombo(float amt, bool resetDecayTimer = false)
     {
+        if (!IsOwner) return;
         if (resetDecayTimer) decayTimer.Reset();
         comboValue = Mathf.Clamp(comboValue + amt, 0, LvlToMaxVal(maxComboLevel));
         UpdateComboLevel();
     }
-
-
 
     private void UpdateComboLevel()
     {

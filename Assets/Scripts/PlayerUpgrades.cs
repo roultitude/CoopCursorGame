@@ -47,6 +47,15 @@ public class PlayerUpgrades : NetworkBehaviour
         return hit;
     }
 
+    public void TriggerComboLevelChangeEffects(int prev, int curr)
+    {
+        foreach (Upgrade upgrade in activeUpgrades)
+        {
+            if (upgrade.OnComboLevelChangeCustomEffect(player, prev, curr))
+                ResetUpgradeTimerRPC(UpgradeToIndex(upgrade)); //sync reset timer
+        }
+    }
+
     [Rpc(SendTo.Everyone)]
     public void ResetUpgradeTimerRPC(int idx)
     {

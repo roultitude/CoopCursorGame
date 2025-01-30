@@ -116,7 +116,7 @@ public class Enemy : NetworkBehaviour
 
     }
 
-    public void OnHitBullet(Bullet bullet, Vector3 loc)
+    public void OnHitBullet(Bullet bullet, Vector3 loc) //called by the bulletreceiver on enemy gameobject
     {
         Debug.Log(bullet.moduleParameters.GetInt("PlayerId"));
         if(bullet.moduleParameters.GetInt("PlayerId") == (int) NetworkManager.LocalClientId) //local bullet

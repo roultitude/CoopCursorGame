@@ -15,6 +15,7 @@ public abstract class PlayerAbility : NetworkBehaviour
 
     private void Update()
     {
+        if (player) { transform.position = player.transform.position; }
         if (!IsOwner) return;
         if (Input.GetKeyDown(KeyCode.Q) && cooldownTimer.isTimerComplete)
         {
@@ -39,6 +40,10 @@ public abstract class PlayerAbility : NetworkBehaviour
 
     protected virtual void FixedUpdate()
     {
-        cooldownTimer.Tick(Time.fixedDeltaTime);
+        if (IsOwner)
+        {
+            cooldownTimer.Tick(Time.fixedDeltaTime);
+            isAbilityAvailable.Value = cooldownTimer.isTimerComplete;
+        }
     }
 }

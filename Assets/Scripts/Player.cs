@@ -3,6 +3,7 @@ using Unity.Netcode;
 using UnityEngine.UI;
 using BulletPro;
 using System.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class Player : NetworkBehaviour
 {
@@ -13,17 +14,22 @@ public class Player : NetworkBehaviour
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> reviveTimer = new NetworkVariable<float>(0,
         NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    [HideInInspector]
+    public NetworkVariable<NetworkBehaviourReference> playerAbilityRef = new NetworkVariable<NetworkBehaviourReference>(); //create an interface for this??? rmb to assign somehow
     public PlayerStats stats = new PlayerStats();
     public PlayerUpgrades upgrades;
-    public PlayerAbility playerAbility; //create an interface for this??? rmb to assign somehow
+    public PlayerAbility playerAbility;
     public PlayerComboManager playerCombo;
     public BulletEmitter bulletEmitter;
     public Color color;
 
     public float GetHpFraction() => Mathf.Clamp(health.Value / stats.GetStat(PlayerStatType.MaxHealth),0,1);
+    public float moveSpeed = 0.25f; //refactor into a stat maybe when more things modify it
 
     [SerializeField]
-    float hurtInvulnTime, reviveTime, moveSpeed;
+    private PlayerAbility playerAbilityPrefab;
+    [SerializeField]
+    float hurtInvulnTime, reviveTime;
     [SerializeField]
     SpriteRenderer spriteRenderer;
     [SerializeField]
@@ -47,9 +53,9 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
         Debug.Log($"OnNetworkSpawn Player {OwnerClientId}");
-
+        base.OnNetworkSpawn();
+        playerAbilityRef.OnValueChanged += OnPlayerAbilityChanged;
         health.OnValueChanged += OnHealthChanged;
         isDead.OnValueChanged += OnDeathStatusChanged;
 
@@ -57,9 +63,23 @@ public class Player : NetworkBehaviour
         Random.InitState((int)OwnerClientId+2);
         color = Random.ColorHSV();
         spriteRenderer.color = color;
-        playerAbility.Setup(this, color);
-        PlayerManager.Instance.AddPlayer(this);
 
+        if (IsServer)
+        {
+            PlayerAbility abl = Instantiate(playerAbilityPrefab, transform.position, Quaternion.identity);
+            abl.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId, false);
+            playerAbilityRef.Value = new NetworkBehaviourReference(abl);
+            PlayerManager.Instance.AddPlayer(this); //done in OnSynchronizeComplete for clientside (UI needs refs to playerability)
+        }
+        else //client init
+        {
+            if (!IsOwner) NetworkManager.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete; // synchronize all existing players (not local)
+            else //complete setup locally if is this local client's player (else synchronize will complete before this OnNetworkSpawn is called!)
+            {
+                OnPlayerAbilityChanged(playerAbility, playerAbilityRef.Value);
+                PlayerManager.Instance.AddPlayer(this);
+            }
+        }
         if (IsOwner)
         {
             Vector2 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
@@ -72,12 +92,39 @@ public class Player : NetworkBehaviour
             Cursor.visible = false; // Hide the real cursor
             targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
+
     }
-    
+
+    private void OnSynchronizeComplete(ulong clientId) // have to ensure that all NOs are loaded in clientside (ability NO esp)
+    {
+        NetworkManager.SceneManager.OnSynchronizeComplete -= OnSynchronizeComplete;
+        OnPlayerAbilityChanged(playerAbility, playerAbilityRef.Value);
+        PlayerManager.Instance.AddPlayer(this);
+    }
+
+    private void OnPlayerAbilityChanged(NetworkBehaviourReference previousValue, NetworkBehaviourReference newValue)
+    {
+        Debug.Log("OnPlayerAblChanged");
+        if(newValue.TryGet(out PlayerAbility abl))
+        {
+            playerAbility = abl;
+            abl.Setup(this, color);
+        } else
+        {
+            Debug.LogError("Invalid Player ability reference!");
+        }
+        
+    }
+
     public override void OnNetworkDespawn()
     {
         health.OnValueChanged -= OnHealthChanged;
         isDead.OnValueChanged -= OnDeathStatusChanged;
+        playerAbilityRef.OnValueChanged -= OnPlayerAbilityChanged;
+        if (IsServer)
+        {
+            playerAbility.GetComponent<NetworkObject>().Despawn();
+        }
         PlayerManager.Instance.RemovePlayer(this);
         Debug.Log($"Cleaning Up Player {OwnerClientId} obj");
         Destroy(gameObject);

@@ -50,10 +50,6 @@ public class PlayerAbilitySwipe : PlayerAbility
     {
         base.FixedUpdate(); //tick cooldown timer
         fadeTimer.Tick(Time.fixedDeltaTime);
-        if (IsOwner)
-        {
-            isAbilityAvailable.Value = cooldownTimer.isTimerComplete;
-        }
 
         if (!isSwiping) { //if not currently swiping fade visual
             UpdateLineRendererAlpha(1 - fadeTimer.GetCompletionFraction());

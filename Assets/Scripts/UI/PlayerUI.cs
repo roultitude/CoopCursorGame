@@ -42,6 +42,7 @@ public class PlayerUI : MonoBehaviour
         ShowAbilityIcon(player.playerAbility.isAbilityAvailable.Value);
 
         player.health.OnValueChanged += OnPlayerHealthChanged;
+        player.playerAbilityRef.OnValueChanged += OnPlayerAbilityChanged;
         player.playerAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
         player.stats.OnPlayerStatsChangeEvent += OnStatsChanged;
         player.playerCombo.currentCombolevel.OnValueChanged += OnComboLevelChanged;
@@ -52,6 +53,21 @@ public class PlayerUI : MonoBehaviour
         PopulateUpgrades();
     }
 
+    private void OnPlayerAbilityChanged(NetworkBehaviourReference previousValue, NetworkBehaviourReference newValue)
+    {
+        Debug.Log($"playerAbilChanged {player.OwnerClientId}");
+        if(newValue.TryGet(out PlayerAbility newAbility)){
+            if(previousValue.TryGet(out PlayerAbility prevAbility)){
+                prevAbility.isAbilityAvailable.OnValueChanged -= OnPlayerAbilityIsAvailable;
+            }
+            newAbility.isAbilityAvailable.OnValueChanged += OnPlayerAbilityIsAvailable;
+            playerAbility = newAbility;
+        } else
+        {
+            Debug.LogError("Player UI: Invalid Player ability reference!");
+        }
+
+    }
 
     public void OnDisable()
     {

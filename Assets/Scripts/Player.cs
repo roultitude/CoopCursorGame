@@ -22,16 +22,16 @@ public class Player : NetworkBehaviour
     public PlayerComboManager playerCombo;
     public BulletEmitter bulletEmitter;
     public Color color;
+    public SpriteRenderer spriteRenderer;
 
     public float GetHpFraction() => Mathf.Clamp(health.Value / stats.GetStat(PlayerStatType.MaxHealth),0,1);
     public float moveSpeed = 0.25f; //refactor into a stat maybe when more things modify it
 
     [SerializeField]
-    private PlayerAbility playerAbilityPrefab;
+    private PlayerAbility playerAbilityPrefab, testPlayerAbilityPrefab;
     [SerializeField]
     float hurtInvulnTime, reviveTime;
-    [SerializeField]
-    SpriteRenderer spriteRenderer;
+    
     [SerializeField]
     Canvas reviveCanvas;
     [SerializeField]
@@ -45,7 +45,6 @@ public class Player : NetworkBehaviour
     [SerializeField]
     BulletReceiver bulletReceiver;
     private Vector2 targetPos;
-    
 
     private bool canMove = true;
     private Coroutine InvulnVisualCoroutine;
@@ -58,6 +57,7 @@ public class Player : NetworkBehaviour
         playerAbilityRef.OnValueChanged += OnPlayerAbilityChanged;
         health.OnValueChanged += OnHealthChanged;
         isDead.OnValueChanged += OnDeathStatusChanged;
+        
 
         //Setup Color
         Random.InitState((int)OwnerClientId+2);
@@ -66,18 +66,28 @@ public class Player : NetworkBehaviour
 
         if (IsServer)
         {
-            PlayerAbility abl = Instantiate(playerAbilityPrefab, transform.position, Quaternion.identity);
+            PlayerAbility abl;
+            if (IsOwner) {
+                abl = Instantiate(playerAbilityPrefab, transform.position, Quaternion.identity);
+            } else
+            {
+                abl = Instantiate(testPlayerAbilityPrefab, transform.position, Quaternion.identity);
+            }
+            
             abl.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId, false);
             playerAbilityRef.Value = new NetworkBehaviourReference(abl);
             PlayerManager.Instance.AddPlayer(this); //done in OnSynchronizeComplete for clientside (UI needs refs to playerability)
         }
         else //client init
         {
-            if (!IsOwner) NetworkManager.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete; // synchronize all existing players (not local)
-            else //complete setup locally if is this local client's player (else synchronize will complete before this OnNetworkSpawn is called!)
+            if(playerAbilityRef.Value.TryGet(out PlayerAbility abl)) // if PlayerAbility is spawned in (ready for setup), complete setup 
             {
                 OnPlayerAbilityChanged(playerAbility, playerAbilityRef.Value);
                 PlayerManager.Instance.AddPlayer(this);
+            }
+            else // wait till all NOs load in
+            {
+                NetworkManager.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete; // synchronize all existing players (not local)
             }
         }
         if (IsOwner)
@@ -120,6 +130,7 @@ public class Player : NetworkBehaviour
     {
         health.OnValueChanged -= OnHealthChanged;
         isDead.OnValueChanged -= OnDeathStatusChanged;
+        NetworkManager.SceneManager.OnSynchronizeComplete -= OnSynchronizeComplete;
         playerAbilityRef.OnValueChanged -= OnPlayerAbilityChanged;
         if (IsServer)
         {

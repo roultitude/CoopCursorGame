@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da8a7c80eab4c474da1e90eb12356b89, type: 3}
-  m_Name: PlayerShockwaveAbility
+  m_Name: PlayerAbilityShockwave
   m_EditorClassIdentifier: 
   rootBullet: {fileID: 114776344989347026}
   subAssets:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: Shot
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 16445530
+  uniqueIndex: 5521736
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: Pattern
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 15229683
+  uniqueIndex: 16089400
   profile: {fileID: 11400000}
   parent: {fileID: 114776344989347026}
   children:
@@ -29650,7 +29650,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 5161960
+  uniqueIndex: 10095277
   profile: {fileID: 11400000}
   parent: {fileID: 114179803937929816}
   children: []
@@ -37858,7 +37858,7 @@ MonoBehaviour:
   m_Name: Turn To Player
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 2081826
+  uniqueIndex: 11844834
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children: []
@@ -92276,7 +92276,7 @@ MonoBehaviour:
   m_Name: Root Emitter
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 14436135
+  uniqueIndex: 5565146
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children:

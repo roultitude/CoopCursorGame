@@ -7,13 +7,13 @@ public abstract class PlayerAbility : NetworkBehaviour
     NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Ability Settings")]
-    [SerializeField] float baseCooldown =5f;
+    [SerializeField] protected float baseCooldown =5f;
 
 
     protected TickableTimer cooldownTimer;
     protected Player player;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (player) { transform.position = player.transform.position; }
         if (!IsOwner) return;
@@ -40,7 +40,7 @@ public abstract class PlayerAbility : NetworkBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (IsOwner)
+        if (IsOwner && cooldownTimer!=null)
         {
             cooldownTimer.Tick(Time.fixedDeltaTime);
             isAbilityAvailable.Value = cooldownTimer.isTimerComplete;

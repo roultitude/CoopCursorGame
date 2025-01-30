@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1189621492
+  GlobalObjectIdHash: 288074966
   InScenePlacedSourceGlobalObjectIdHash: 1189621492
   DeferredDespawnTick: 0
   Ownership: 1
@@ -545,10 +545,11 @@ MonoBehaviour:
   playerCombo: {fileID: 6362598541160230744}
   bulletEmitter: {fileID: 7275050414441909625}
   color: {r: 0, g: 0, b: 0, a: 0}
-  playerAbilityPrefab: {fileID: -7505656189159101302, guid: c636cc26001cb994c8430bc5d7d41469, type: 3}
+  moveSpeed: 0.25
+  playerAbilityPrefab: {fileID: 5683928679174132135, guid: b0f80267eaf4a9d4888fc0463176f96b, type: 3}
+  testPlayerAbilityPrefab: {fileID: 6986894183022837739, guid: 7361e817107efca46a5fde225848a54d, type: 3}
   hurtInvulnTime: 1
   reviveTime: 5
-  moveSpeed: 0.25
   spriteRenderer: {fileID: 5952071219808855151}
   reviveCanvas: {fileID: 4897442949549873064}
   reviveImage: {fileID: 855039777302709214}

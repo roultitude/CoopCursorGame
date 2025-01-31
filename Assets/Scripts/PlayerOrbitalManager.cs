@@ -27,9 +27,14 @@ public class PlayerOrbitalManager : NetworkBehaviour
 
     public void RefreshOrbitalPositions()
     {
+        if(orbitals.Count == 1) { 
+            orbitals[0].Setup(player, 0, orbitRadius, orbitSpeed); //avoid dividebyzero
+            return;                                                                            
+        }
+
         for (int i = 0; i < orbitals.Count; i++)
         {
-            orbitals[i].Setup(player, i / orbitals.Count * 360, orbitRadius, orbitSpeed);
+            orbitals[i].Setup(player, ((float) i / orbitals.Count-1) * 360, orbitRadius, orbitSpeed);
         }
     }
     [ContextMenu("testSpawnOrb")]

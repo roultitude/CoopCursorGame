@@ -20,6 +20,7 @@ public class Player : NetworkBehaviour
     public PlayerUpgrades upgrades;
     public PlayerAbility playerAbility;
     public PlayerComboManager playerCombo;
+    public PlayerOrbitalManager playerOrbitals;
     public BulletEmitter bulletEmitter;
     public Color color;
     public SpriteRenderer spriteRenderer;

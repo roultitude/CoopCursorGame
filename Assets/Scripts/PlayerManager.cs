@@ -70,6 +70,18 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    public Player GetPlayerWithId(ulong id)
+    {
+        foreach(Player player in players)
+        {
+            if (player.OwnerClientId == id) {
+                Debug.Log($"found player {player} with id {id}");
+                return player; }
+        }
+        Debug.LogError($"Tried to find non-existent player with id: {id}");
+        return null;
+    }
+
 
 
 }

@@ -1,4 +1,5 @@
 using BulletPro;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -54,6 +55,7 @@ public class Enemy : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        bulletEmitters = GetComponentsInChildren<BulletEmitter>();
         if (IsServer) health.Value = baseHealth;
         health.OnValueChanged += OnHealthChange;
     }
@@ -150,4 +152,47 @@ public class Enemy : NetworkBehaviour
     {
         isVulnerable = isVuln;
     }
+
+    public void TriggerEmitter(BulletEmitter emitter, bool isOn = true)
+    {
+        TriggerEmitterRPC(emitterToIndex(emitter), isOn);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void TriggerEmitterRPC(int emitterIndex, bool isOn)
+    {
+        BulletEmitter emitter = indexToEmitter(emitterIndex);
+        if (isOn)
+        {
+            emitter.Boot();
+        } else
+        {
+            emitter.Stop();
+        }
+        
+    }
+
+    private BulletEmitter indexToEmitter(int index)
+    {
+        if (bulletEmitters.Length <= index)
+        {
+            Debug.LogError("Boss: Invalid index for bulletEmitter!");
+            return null;
+        }
+        return bulletEmitters[index];
+    }
+
+    private int emitterToIndex(BulletEmitter emitter)
+    {
+        for (int i = 0; i < bulletEmitters.Length; i++)
+        {
+            if (bulletEmitters[i] == emitter)
+            {
+                return i;
+            }
+        }
+        Debug.LogError("Cannot index an emitter not on Boss object!");
+        return -1;
+    }
+
 }

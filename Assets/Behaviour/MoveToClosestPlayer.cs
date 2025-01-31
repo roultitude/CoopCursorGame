@@ -3,8 +3,6 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-using Unity.AppUI.Core;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "MoveToClosestPlayer", story: "Moves [Agent] to closest Player", category: "Action", id: "61e6d54f7ee556b234e2983d9724d08f")]

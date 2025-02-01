@@ -31820,7 +31820,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 7751366
+  uniqueIndex: 13659582
   profile: {fileID: 11400000}
   parent: {fileID: 114179803937929816}
   children:
@@ -39424,7 +39424,7 @@ MonoBehaviour:
   m_Name: Turn To Player
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 6178043
+  uniqueIndex: 7658004
   profile: {fileID: 11400000}
   parent: {fileID: 114300363739621142}
   children: []

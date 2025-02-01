@@ -20,7 +20,7 @@ public abstract class CustomEffectSO : ScriptableObject
         return false;
     }
 
-    public virtual bool OnAdded(TickableTimer timer)
+    public virtual bool OnAdded(TickableTimer timer, Player player)
     {
         return false;
     }

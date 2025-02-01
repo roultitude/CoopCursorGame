@@ -20,8 +20,11 @@ public class PlayerUpgrades : NetworkBehaviour
     public void AddUpgrade(UpgradeSO upgrade)
     {
         Debug.Log($"Player {OwnerClientId} gets {upgrade.upgradeName}, {nextId}");
-        activeUpgrades.Add(new Upgrade(upgrade, nextId++));
+        Upgrade upg = new Upgrade(upgrade, nextId++);
+        activeUpgrades.Add(upg);
+        upg.OnAdded(player);
         player.stats.ApplyStatUpgrades(activeUpgrades);
+        
     }
 
     public void DebugClearUpgrades()

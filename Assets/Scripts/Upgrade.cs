@@ -54,6 +54,18 @@ public class Upgrade
         return false;
     }
 
+    /// <summary>
+    /// Returns bool indicating whether to trigger timer reset (cooldown usually)
+    /// </summary>
+    public bool OnAdded(Player player)
+    {
+        if (HasCustomEffect())
+        {
+            return data.customEffect.OnAdded(timer, player);
+        }
+        return false;
+    }
+
     public void ResetTimer()
     {
         if (HasCustomEffect())

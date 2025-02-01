@@ -550,7 +550,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5952071219808855151}
   moveSpeed: 0.25
   playerAbilityPrefab: {fileID: 5683928679174132135, guid: b0f80267eaf4a9d4888fc0463176f96b, type: 3}
-  testPlayerAbilityPrefab: {fileID: 6986894183022837739, guid: 7361e817107efca46a5fde225848a54d, type: 3}
+  testPlayerAbilityPrefab: {fileID: -7505656189159101302, guid: c636cc26001cb994c8430bc5d7d41469, type: 3}
   hurtInvulnTime: 1
   reviveTime: 5
   reviveCanvas: {fileID: 4897442949549873064}
@@ -607,7 +607,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  orbitalPrefab: {fileID: 1092006900887398411, guid: f7223222d1a7820459a542eca8569dbe, type: 3}
+  orbitalPrefabTriangle: {fileID: 1092006900887398411, guid: f7223222d1a7820459a542eca8569dbe, type: 3}
+  orbitalPrefabSquare: {fileID: 1092006900887398411, guid: d2167a9670b7bb74a836a25214210323, type: 3}
   orbitRadius: 3
   orbitSpeed: 3
   player: {fileID: 6456224423942767243}

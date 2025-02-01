@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerOrbitalManager : NetworkBehaviour
 {
     [SerializeField]
-    PlayerOrbital orbitalPrefab;
+    PlayerOrbital orbitalPrefabTriangle, orbitalPrefabSquare;
     [SerializeField]
     float orbitRadius;
     [SerializeField]
@@ -27,26 +27,31 @@ public class PlayerOrbitalManager : NetworkBehaviour
 
     public void RefreshOrbitalPositions()
     {
-        if(orbitals.Count == 1) { 
-            orbitals[0].Setup(player, 0, orbitRadius, orbitSpeed); //avoid dividebyzero
-            return;                                                                            
-        }
 
         for (int i = 0; i < orbitals.Count; i++)
         {
-            orbitals[i].Setup(player, ((float) i / orbitals.Count-1) * 360, orbitRadius, orbitSpeed);
+            orbitals[i].Setup(player, ((float) i / orbitals.Count) * Mathf.PI*2, orbitRadius, orbitSpeed);
         }
     }
-    [ContextMenu("testSpawnOrb")]
-    private void TestSpawn()
+    [ContextMenu("testSpawnOrb1")]
+    public void TestSpawnTriangleOrb()
     {
-        SpawnOrbitalRPC();
+        SpawnOrbitalRPC(0);
     }
 
-    [Rpc(SendTo.Server)]
-    public void SpawnOrbitalRPC()
+    [ContextMenu("testSpawnOrb2")]
+    public void TestSpawnSquareOrb()
     {
-        PlayerOrbital orb = Instantiate(orbitalPrefab);
+        SpawnOrbitalRPC(1);
+    }
+
+
+    [Rpc(SendTo.Server)]
+    public void SpawnOrbitalRPC(int idx)
+    {
+        PlayerOrbital orb = Instantiate(idx == 0 ? orbitalPrefabTriangle : orbitalPrefabSquare);
         orb.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
     }
+
+
 }

@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - DOODLE_ON
   - GLOWLIGHT_ON
-  - GLOW_ON
   - OUTBASE_ON
   m_InvalidKeywords:
   - _GLOWAFFECTLIGHT_ON

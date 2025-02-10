@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotIndicatorBG
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 13902768
+  uniqueIndex: 1801625
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: ShotIndicator
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 10519282
+  uniqueIndex: 5418856
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -25226,7 +25226,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 5339611
+  uniqueIndex: 1699546
   profile: {fileID: 11400000}
   parent: {fileID: 114179803937929816}
   children: []
@@ -94363,7 +94363,7 @@ MonoBehaviour:
   m_Name: AOEShot
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 10198938
+  uniqueIndex: 5235468
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -94651,7 +94651,7 @@ MonoBehaviour:
   m_Name: Bullet 0
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 2001587
+  uniqueIndex: 2501761
   profile: {fileID: 11400000}
   parent: {fileID: 1452000647277752071}
   children: []

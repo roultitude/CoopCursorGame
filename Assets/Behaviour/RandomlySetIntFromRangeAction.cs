@@ -5,7 +5,7 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Randomly set Int from Range", story: "[Int] is set to a random Integer from Range (INTEGER ONLY)", category: "Action", id: "3618deb815d4eae86994e0ee188b85cb")]
+[NodeDescription(name: "Randomly set Int from Range", story: "[Int] is set to a random Integer from [Range] (INTEGER ONLY)", category: "Action", id: "3618deb815d4eae86994e0ee188b85cb")]
 public partial class RandomlySetIntFromRangeAction : Action
 {
     [SerializeReference] public BlackboardVariable<int> Int;

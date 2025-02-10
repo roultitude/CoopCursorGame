@@ -129,10 +129,10 @@ TextureImporter:
       name: proj_croissant_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 31
-        width: 402
-        height: 266
+        x: 0
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: dfd197d42d97fdb44980cea34208149e
     internalID: 0
     vertices: []
     indices: 

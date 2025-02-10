@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pulse
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 5416331
+  uniqueIndex: 13930955
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children: []
@@ -29794,7 +29794,7 @@ MonoBehaviour:
   m_Name: Shot
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 522702
+  uniqueIndex: 12703057
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -30082,7 +30082,7 @@ MonoBehaviour:
   m_Name: Pattern
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 13092215
+  uniqueIndex: 9454224
   profile: {fileID: 11400000}
   parent: {fileID: 114776344989347026}
   children:
@@ -39987,7 +39987,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 2294344
+  uniqueIndex: 4765053
   profile: {fileID: 11400000}
   parent: {fileID: 114179803937929816}
   children: []
@@ -40899,12 +40899,12 @@ MonoBehaviour:
         indexOfTo: 0
         indexOfBlendedChildren: 
         weight: 0
-        headerTitle: 
+        headerTitle: Sorting Layer Name
         blendColor: {r: 0, g: 0, b: 0, a: 0}
         parameterType: 0
         relativeTo: 0
         parameterName: 
-      defaultValue: 
+      defaultValue: EnemyBullet
   color:
     valueTree:
     - settings:
@@ -42310,7 +42310,7 @@ MonoBehaviour:
   foldoutVFX: 1
   hideSpriteList: 0
   vfxOpened: 0
-  currentlyDisplayedModule: 6
+  currentlyDisplayedModule: 0
   canMove: 1
   canCollide: 1
   isVisible: 1
@@ -42773,7 +42773,7 @@ MonoBehaviour:
     tagList: 1
   colliders:
   - colliderType: 0
-    size: 1.42
+    size: 0.27
     offset: {x: 0, y: 0, z: 0}
     lineStart: {x: 0, y: 0}
     lineEnd: {x: 0, y: 0}
@@ -47590,7 +47590,7 @@ MonoBehaviour:
   m_Name: Turn To Player
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 10667864
+  uniqueIndex: 8241302
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children: []
@@ -87206,7 +87206,7 @@ MonoBehaviour:
   m_Name: Root Emitter
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 8908681
+  uniqueIndex: 755941
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children:

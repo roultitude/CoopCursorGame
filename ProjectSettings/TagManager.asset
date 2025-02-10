@@ -45,8 +45,11 @@ TagManager:
   - name: Player
     uniqueID: 1973377169
     locked: 0
-  - name: Bullet
+  - name: PlayerBullet
     uniqueID: 3878469029
+    locked: 0
+  - name: EnemyBullet
+    uniqueID: 741934955
     locked: 0
   - name: DamageNumbers
     uniqueID: 1675026459

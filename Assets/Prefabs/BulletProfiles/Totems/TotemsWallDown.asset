@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotIndicatorBG
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 13984658
+  uniqueIndex: 5203059
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children:
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: ShotIndicator
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 12004181
+  uniqueIndex: 6360091
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children:
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: Pattern
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 4428005
+  uniqueIndex: 6967875
   profile: {fileID: 11400000}
   parent: {fileID: 114776344989347026}
   children:
@@ -25440,7 +25440,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 9636671
+  uniqueIndex: 869198
   profile: {fileID: 11400000}
   parent: {fileID: 114179803937929816}
   children: []
@@ -33043,7 +33043,7 @@ MonoBehaviour:
   m_Name: Turn To Player
   m_EditorClassIdentifier: 
   parameterType: 2
-  uniqueIndex: 12168800
+  uniqueIndex: 6498593
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children: []
@@ -87461,7 +87461,7 @@ MonoBehaviour:
   m_Name: Root Emitter
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 254431
+  uniqueIndex: 9215536
   profile: {fileID: 11400000}
   parent: {fileID: 0}
   children:
@@ -94577,7 +94577,7 @@ MonoBehaviour:
   m_Name: Shot
   m_EditorClassIdentifier: 
   parameterType: 1
-  uniqueIndex: 465719
+  uniqueIndex: 5738500
   profile: {fileID: 11400000}
   parent: {fileID: 114190031269497074}
   children:
@@ -99353,7 +99353,7 @@ MonoBehaviour:
   m_Name: Bullet 0
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 7838046
+  uniqueIndex: 14352586
   profile: {fileID: 11400000}
   parent: {fileID: 1452000647277752071}
   children: []
@@ -100270,7 +100270,7 @@ MonoBehaviour:
         parameterType: 0
         relativeTo: 0
         parameterName: 
-      defaultValue: 
+      defaultValue: EnemyBullet
   color:
     valueTree:
     - settings:
@@ -101676,7 +101676,7 @@ MonoBehaviour:
   foldoutVFX: 1
   hideSpriteList: 0
   vfxOpened: 0
-  currentlyDisplayedModule: 2
+  currentlyDisplayedModule: 0
   canMove: 1
   canCollide: 1
   isVisible: 1
@@ -106974,7 +106974,7 @@ MonoBehaviour:
   m_Name: Bullet 1
   m_EditorClassIdentifier: 
   parameterType: 0
-  uniqueIndex: 15277190
+  uniqueIndex: 2456602
   profile: {fileID: 11400000}
   parent: {fileID: -2872528043095186196}
   children: []

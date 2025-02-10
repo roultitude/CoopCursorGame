@@ -209,7 +209,6 @@ GameObject:
   - component: {fileID: 642728262733835234}
   - component: {fileID: -5634052555797800419}
   - component: {fileID: 9154950717059518868}
-  - component: {fileID: 4838654388662224516}
   - component: {fileID: 620560943497894892}
   - component: {fileID: 8480468972754706179}
   - component: {fileID: 2141433363739808858}
@@ -249,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1863349842
+  GlobalObjectIdHash: 672123298
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -296,7 +295,7 @@ MonoBehaviour:
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!114 &9154950717059518868
 MonoBehaviour:
@@ -311,68 +310,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  bossParent: {fileID: 0}
+  isVulnerable: 1
+  bulletEmitters: []
   rotationSpeed: 0
   maxRotAngle: 10
   baseHealth: 20
   health:
     m_InternalValue: 5
   animator: {fileID: 8480468972754706179}
+  hurtAnimTime: 0.05
   isFacingPlayer: 0
   sprite: {fileID: 8087729961298417204}
-  bossParent: {fileID: 0}
-  isVulnerable: 1
-  bulletEmitters: []
---- !u!114 &4838654388662224516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9021092716756533808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9d17e3447da2f84daea7006f5ba28a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  num_col: 5
-  speed: 8
-  lifetime: 5
-  size: 0.3
-  baseEmitTimer: 2
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  color: {r: 1, g: 0, b: 0, a: 1}
-  material: {fileID: 2100000, guid: 56f99cab152e474469d31c1b5ef288ad, type: 2}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  usingParticleSystemOverrides: 0
-  usingVelocityCurveOverride: 0
-  psPrefab: {fileID: 6411391967522868542, guid: 61f2ae4a60dd4224c852957393bfc629, type: 3}
-  velocityOverLifetimeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  particleSystems: []
 --- !u!50 &620560943497894892
 Rigidbody2D:
   serializedVersion: 5

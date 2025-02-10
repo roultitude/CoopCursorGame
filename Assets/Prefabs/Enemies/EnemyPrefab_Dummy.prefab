@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 685593786
+      value: 4054994339
       objectReference: {fileID: 0}
     - target: {fileID: 642728262733835234, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
@@ -169,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5f4fdd33ad4fdfd4fb150311d1796a99, type: 3}
+      objectReference: {fileID: -8743765827239942081, guid: 5bf0cec112f34f14ca5e1ccd2f2588cc, type: 3}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -262,7 +262,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 10.87, y: 9.58}
     newSize: {x: 0.9375, y: 0.59375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -308,4 +308,6 @@ MonoBehaviour:
   cooldown: 5
   windupDuration: 3
   damageModeDuration: 2
+  dmgModeColor: {r: 0, g: 0, b: 0, a: 0}
+  windupModeColor: {r: 0, g: 0, b: 0, a: 0}
   enemy: {fileID: 2945273171600960885}

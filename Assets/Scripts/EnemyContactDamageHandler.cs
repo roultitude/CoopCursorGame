@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class EnemyContactDamageHandler : MonoBehaviour 
+public class EnemyContactDamageHandler : NetworkBehaviour 
 {
     [SerializeField]
     Animator animator;
@@ -27,6 +27,12 @@ public class EnemyContactDamageHandler : MonoBehaviour
 
     public void SetContactDamageState(bool isEnabled)
     {
+        SetContactDamageStateRPC(isEnabled);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void SetContactDamageStateRPC(bool isEnabled)
+    {
         if (isEnabled)
         {
             //animator.CrossFade("ContactDamageMode", 0);
@@ -34,7 +40,8 @@ public class EnemyContactDamageHandler : MonoBehaviour
             mat.SetFloat("_HologramBlend", 1f);
             isDamageActive = true;
             if (enemy) enemy.ChangeVulnerable(false);
-        } else
+        }
+        else
         {
             //animator.CrossFade("IdleBase", 0);
             mat.SetFloat("_HologramBlend", 0f);

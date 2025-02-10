@@ -1,10 +1,16 @@
 using BulletPro;
-using System.Linq;
+using System;
+using System.Collections;
+using System.Threading;
 using Unity.Netcode;
 using UnityEngine;
 
 public class Enemy : NetworkBehaviour
 {
+    public Boss bossParent;
+    public bool isVulnerable = true;
+    public BulletEmitter[] bulletEmitters;
+
     [SerializeField]
     protected float rotationSpeed;
     [SerializeField]
@@ -17,7 +23,12 @@ public class Enemy : NetworkBehaviour
     private NetworkVariable<float> health;
 
     [SerializeField]
+    private NetworkVariable<bool> isSpriteYFlipped;
+
+    [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private float hurtAnimTime;
 
     [SerializeField]
     private bool isFacingPlayer;
@@ -27,14 +38,13 @@ public class Enemy : NetworkBehaviour
 
     private Rigidbody2D rb;
     private EnemySpawner spawner;
-    public Boss bossParent;
-    public bool isVulnerable = true;
-    public BulletEmitter[] bulletEmitters;
-  
+    private TickableTimer damagedVisualTimer;
+    private bool isShowingDamagedVisual;
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        damagedVisualTimer = new CountupTimer(hurtAnimTime);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -58,40 +68,61 @@ public class Enemy : NetworkBehaviour
         bulletEmitters = GetComponentsInChildren<BulletEmitter>();
         if (IsServer) health.Value = baseHealth;
         health.OnValueChanged += OnHealthChange;
+        isSpriteYFlipped.OnValueChanged += OnSpriteYFlipped;
     }
+
 
     public override void OnNetworkDespawn()
     {
         health.OnValueChanged -= OnHealthChange;
+        isSpriteYFlipped.OnValueChanged -= OnSpriteYFlipped;
         base.OnNetworkDespawn();
+    }
+
+    protected virtual void Update()
+    {
+        if (isShowingDamagedVisual)
+        {
+            damagedVisualTimer.Tick(Time.deltaTime);
+            if (damagedVisualTimer.isTimerComplete) //is damaged showing
+            {
+                Debug.Log("unShowing dmged visual");
+                sprite.material.SetFloat("_HitEffectBlend", 0);
+                isShowingDamagedVisual = false;
+            }
+        }
     }
     protected virtual void FixedUpdate()
     {
         //MoveAndRotate(); //curently running on both client and server
     }
 
-    public void Rotate(Vector2 faceDir) // MOVE
+    public void Rotate(Vector2 faceDir, float maxRotAngle = 10f, float timeForFullRevolution =0.2f) // MOVE
     {
-        sprite.flipY = faceDir.x < 0;
+        isSpriteYFlipped.Value = faceDir.x < 0;
         float deg = Mathf.Atan2(faceDir.y , faceDir.x) * Mathf.Rad2Deg;
         if (deg >= maxRotAngle && deg <= 90) deg = maxRotAngle;
         else if (deg >= 90 && deg <= 180-maxRotAngle) deg = 180-maxRotAngle;
         else if (deg >= maxRotAngle - 180 && deg <= -90) deg = maxRotAngle - 180;
         else if (deg <= -maxRotAngle && deg >= -90) deg = -maxRotAngle;
-        rb.SetRotation(Mathf.LerpAngle(rb.rotation, deg ,Time.deltaTime * rotationSpeed));
+        rb.SetRotation(Mathf.MoveTowardsAngle(rb.rotation, deg, 360 * 1 / timeForFullRevolution * Time.deltaTime));
     }
-
+    public void SnapRotation(Vector2 faceDir, float maxRotAngle = 10f) { 
+        Rotate(faceDir, maxRotAngle, 0.001f);
+    }
     private void OnHealthChange(float prev, float curr)
     {
         Debug.Log($"{NetworkObjectId} Enemy health: {curr}");
         if(prev > curr)
         {
-            
-            animator.CrossFade("OnHurtEnemy", 0);
+            ShowHurtVisual();
         }
     }
 
-
+    private void OnSpriteYFlipped(bool previousValue, bool newValue)
+    {
+        sprite.flipY = newValue;
+    }
     public virtual void TakeDamage(float num)
     {
         TakeDamage(num,transform.position);
@@ -195,4 +226,36 @@ public class Enemy : NetworkBehaviour
         return -1;
     }
 
+    private void ShowHurtVisual()
+    {
+        Debug.Log("Showing dmged visual");
+        damagedVisualTimer.Reset();
+        sprite.material.SetFloat("_HitEffectBlend", 0.4f);
+        isShowingDamagedVisual = true;
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void PlayWindupAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Windup",0);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void PlayAttackAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Attacking", 0);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void PlayerIdleAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Idle", 0);
+    }
+
+}
+
+public enum EnemyAnimationState { 
+    idle = 0,
+    windup = 1,
+    attack = 2
 }

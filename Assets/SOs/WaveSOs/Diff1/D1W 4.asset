@@ -14,18 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groups:
   - enemies:
-    - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
+    - {fileID: 2945273171600960885, guid: d61ea1f2be15207489d6cf2a19a3f8a9, type: 3}
+  - enemies:
+    - {fileID: 2945273171600960885, guid: c123def70e6b2e24cb0e995edd2d7ed3, type: 3}
     - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
     - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
   - enemies:
-    - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
-    - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
-    - {fileID: 2945273171600960885, guid: f3e865a3db8ec5141b1e14c9b145eecd, type: 3}
-  - enemies:
-    - {fileID: 2891965561861779640, guid: d38087c1a34c23d4489e059c1a850cd8, type: 3}
-  - enemies:
-    - {fileID: 2891965561861779640, guid: d38087c1a34c23d4489e059c1a850cd8, type: 3}
-  - enemies:
-    - {fileID: 2891965561861779640, guid: d38087c1a34c23d4489e059c1a850cd8, type: 3}
-  - enemies:
-    - {fileID: 2891965561861779640, guid: d38087c1a34c23d4489e059c1a850cd8, type: 3}
+    - {fileID: 2945273171600960885, guid: d61ea1f2be15207489d6cf2a19a3f8a9, type: 3}
+    - {fileID: 2945273171600960885, guid: d61ea1f2be15207489d6cf2a19a3f8a9, type: 3}

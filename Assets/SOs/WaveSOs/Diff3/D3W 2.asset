@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b42876edecc0b4290eb889b503446c, type: 3}
+  m_Name: D3W 2
+  m_EditorClassIdentifier: 
+  groups:
+  - enemies:
+    - {fileID: 2945273171600960885, guid: 3fab1b681f2a0a94198ea489a0d54879, type: 3}
+  - enemies:
+    - {fileID: 2945273171600960885, guid: c123def70e6b2e24cb0e995edd2d7ed3, type: 3}
+  - enemies:
+    - {fileID: 2945273171600960885, guid: d61ea1f2be15207489d6cf2a19a3f8a9, type: 3}
+    - {fileID: 2945273171600960885, guid: c123def70e6b2e24cb0e995edd2d7ed3, type: 3}
+    - {fileID: 2945273171600960885, guid: d8e01e27e0c8b0347af0ad0f974d0442, type: 3}

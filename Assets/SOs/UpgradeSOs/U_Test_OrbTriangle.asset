@@ -18,7 +18,7 @@ MonoBehaviour:
     ++Skill Power
 
     -Cooldown Reduction'
-  sprite: {fileID: 8001894037912489551, guid: beb7cbea8c0e5e5438b4dab8de11c2cf, type: 3}
+  sprite: {fileID: 21300030, guid: f85524137d1263e44bdfe94447efb296, type: 3}
   statChanges:
   - type: 9
     amt: 15

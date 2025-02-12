@@ -66,7 +66,7 @@ public class Enemy : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         bulletEmitters = GetComponentsInChildren<BulletEmitter>();
-        if (IsServer) health.Value = baseHealth * NetworkManager.ConnectedClientsList.Count; // TODO: move this somewhere sensible
+        if (IsServer) health.Value = baseHealth + ((NetworkManager.ConnectedClientsList.Count-1)*baseHealth *0.5f); // TODO: move this somewhere sensible
         health.OnValueChanged += OnHealthChange;
         isSpriteYFlipped.OnValueChanged += OnSpriteYFlipped;
     }

@@ -25,6 +25,7 @@ public class PlayerAbilityShockwave : PlayerAbility
     [Rpc(SendTo.Everyone)]
     private void EmitShockwaveRPC()
     {
+        Debug.Log("FireShockwave!");
         bulletEmitter.Kill();
         bulletEmitter.Play();
         if (IsOwner)

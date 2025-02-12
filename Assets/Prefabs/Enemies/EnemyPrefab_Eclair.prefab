@@ -1,5 +1,227 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1355074630286900895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6206679689137911069}
+  - component: {fileID: 1879844618053294435}
+  m_Layer: 0
+  m_Name: BulletReceiver (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6206679689137911069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355074630286900895}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5927543313895788936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879844618053294435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355074630286900895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e756f139e8884f93ef2eca2eef78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 6206679689137911069}
+  colliderType: 0
+  startingChildren: []
+  syncEnable: 1
+  syncDisable: 1
+  syncCollisionTags: 1
+  hitboxSize: 0.49
+  hitboxOffset: {x: 0.02, y: 0}
+  killBulletOnCollision: 1
+  maxSimultaneousCollisionsPerFrame: 1
+  collisionTags:
+    tagList: 0
+  OnHitByBullet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletStay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletExit:
+    m_PersistentCalls:
+      m_Calls: []
+  parentSyncFoldout: 0
+  collisionTagsFoldout: 0
+  advancedEventsFoldout: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  gizmoZOffset: 0
+--- !u!1 &3214224833021519302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2475664327989893455}
+  - component: {fileID: 7367820427369550293}
+  m_Layer: 0
+  m_Name: BulletReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2475664327989893455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214224833021519302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5927543313895788936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7367820427369550293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214224833021519302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e756f139e8884f93ef2eca2eef78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 2475664327989893455}
+  colliderType: 0
+  startingChildren: []
+  syncEnable: 1
+  syncDisable: 1
+  syncCollisionTags: 1
+  hitboxSize: 0.35
+  hitboxOffset: {x: -0.87, y: 0}
+  killBulletOnCollision: 1
+  maxSimultaneousCollisionsPerFrame: 1
+  collisionTags:
+    tagList: 0
+  OnHitByBullet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletStay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletExit:
+    m_PersistentCalls:
+      m_Calls: []
+  parentSyncFoldout: 0
+  collisionTagsFoldout: 0
+  advancedEventsFoldout: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  gizmoZOffset: 0
+--- !u!1 &7131053056072999189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7990651780409606991}
+  - component: {fileID: 7583871574696046207}
+  m_Layer: 0
+  m_Name: BulletReceiver (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7990651780409606991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131053056072999189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5927543313895788936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7583871574696046207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131053056072999189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e756f139e8884f93ef2eca2eef78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 7990651780409606991}
+  colliderType: 0
+  startingChildren: []
+  syncEnable: 1
+  syncDisable: 1
+  syncCollisionTags: 1
+  hitboxSize: 0.34
+  hitboxOffset: {x: 0.89, y: 0}
+  killBulletOnCollision: 1
+  maxSimultaneousCollisionsPerFrame: 1
+  collisionTags:
+    tagList: 0
+  OnHitByBullet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletStay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletExit:
+    m_PersistentCalls:
+      m_Calls: []
+  parentSyncFoldout: 0
+  collisionTagsFoldout: 0
+  advancedEventsFoldout: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  gizmoZOffset: 0
 --- !u!1001 &6328504655614131425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +442,34 @@ PrefabInstance:
       propertyPath: managedReferences[6792565368623989115].GUID.m_Value1
       value: 8313338036759755558
       objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: hitboxSize
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: colliderType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: parentSyncFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: startingChildren.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'startingChildren.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7367820427369550293}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'startingChildren.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1879844618053294435}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'startingChildren.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7583871574696046207}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -280,7 +530,16 @@ PrefabInstance:
     - {fileID: 201495738574744566, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
     - {fileID: 4838654388662224516, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2475664327989893455}
+    - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6206679689137911069}
+    - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7990651780409606991}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9021092716756533808, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       insertIndex: 4
@@ -338,7 +597,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.45, y: 1.41}
+  m_Size: {x: 2.68, y: 0.97}
   m_EdgeRadius: 0
 --- !u!95 &2478089121697702882 stripped
 Animator:
@@ -382,3 +641,8 @@ MonoBehaviour:
   dmgModeColor: {r: 1, g: 0, b: 0, a: 1}
   windupModeColor: {r: 1, g: 0.9282037, b: 0, a: 1}
   enemy: {fileID: 2945273171600960885}
+--- !u!4 &5927543313895788936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+  m_PrefabInstance: {fileID: 6328504655614131425}
+  m_PrefabAsset: {fileID: 0}

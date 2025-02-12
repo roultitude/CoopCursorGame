@@ -9,7 +9,6 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private StageWaves[] stageWaves;
-    [SerializeField] private StageWaves[] bossWaves;
     [SerializeField] private bool isDebugBoss;
 
     public NetworkVariable<int> currentStage = new NetworkVariable<int>(0);
@@ -40,7 +39,12 @@ public class GameManager : NetworkBehaviour
             FindAnyObjectByType<EnemyWaveManager>().SetEnemyWaves(stageWaves[currentStage.Value-1].waves); //currentStage starts at 1
         } else if (sceneName == "BossScene")
         {
-            FindAnyObjectByType<EnemyWaveManager>().SetEnemyWaves(bossWaves[(currentStage.Value)/4 - 1].waves); //currentStage starts at 1
+            if (!stageWaves[currentStage.Value - 1].isBoss)
+            {
+                Debug.LogError("Tried to spawn boss when wave is not boss wave!");
+                return;
+            }
+            FindAnyObjectByType<EnemyWaveManager>().SetEnemyWaves(stageWaves[currentStage.Value - 1].waves); //currentStage starts at 1
         }
     }
 
@@ -69,11 +73,12 @@ public class GameManager : NetworkBehaviour
         
         if (!IsServer) return;
         if (isDebugBoss) {
+            currentStage.Value = currentStage.Value + 1;
             NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
         } else
         {
             currentStage.Value = currentStage.Value + 1;
-            if (currentStage.Value% 4 == 0) {
+            if (stageWaves[currentStage.Value - 1].isBoss) {
                 NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
             } else
             {
@@ -93,5 +98,6 @@ public class GameManager : NetworkBehaviour
 [Serializable]
 public struct StageWaves
 {
+    public bool isBoss;
     public WaveSO[] waves;
 }

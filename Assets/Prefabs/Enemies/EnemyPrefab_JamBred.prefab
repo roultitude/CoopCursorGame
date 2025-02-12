@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: managedReferences[6792565303550935541].GUID.m_Value1
       value: 8313338036759755558
       objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: hitboxSize
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0

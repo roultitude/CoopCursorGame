@@ -354,7 +354,7 @@ MonoBehaviour:
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!50 &7427317344191762157
 Rigidbody2D:
@@ -396,17 +396,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  bossParent: {fileID: 0}
+  isVulnerable: 1
+  bulletEmitters: []
   rotationSpeed: 0
   maxRotAngle: 10
   baseHealth: 300
   health:
     m_InternalValue: 0
+  isSpriteYFlipped:
+    m_InternalValue: 0
   animator: {fileID: 6045048541503459587}
+  hurtAnimTime: 0
   isFacingPlayer: 0
   sprite: {fileID: 5724936161712489731}
-  bossParent: {fileID: 0}
-  isVulnerable: 1
-  bulletEmitters: []
   parts: []
 --- !u!95 &6045048541503459587
 Animator:

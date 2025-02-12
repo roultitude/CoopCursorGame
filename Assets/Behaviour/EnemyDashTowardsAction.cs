@@ -3,7 +3,6 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
-using static UnityEditor.PlayerSettings;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "EnemyDashTowards", story: "[Enemy] Dashes towards [Direction]", category: "Action/Enemy", id: "934b9f6f3e0d22b24f62256ed5be2af1")]

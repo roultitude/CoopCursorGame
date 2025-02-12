@@ -1,5 +1,153 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &659365053065571285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7524061513642902369}
+  - component: {fileID: 3447316880114571490}
+  m_Layer: 0
+  m_Name: BulletReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7524061513642902369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659365053065571285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5927543313895788936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3447316880114571490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659365053065571285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e756f139e8884f93ef2eca2eef78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 7524061513642902369}
+  colliderType: 0
+  startingChildren: []
+  syncEnable: 1
+  syncDisable: 1
+  syncCollisionTags: 1
+  hitboxSize: 0.47
+  hitboxOffset: {x: 0.6, y: 0.11}
+  killBulletOnCollision: 1
+  maxSimultaneousCollisionsPerFrame: 1
+  collisionTags:
+    tagList: 0
+  OnHitByBullet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletStay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletExit:
+    m_PersistentCalls:
+      m_Calls: []
+  parentSyncFoldout: 0
+  collisionTagsFoldout: 0
+  advancedEventsFoldout: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  gizmoZOffset: 0
+--- !u!1 &3053516655577063261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 960159179516575655}
+  - component: {fileID: 7965649241333568380}
+  m_Layer: 0
+  m_Name: BulletReceiver (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &960159179516575655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053516655577063261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5927543313895788936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7965649241333568380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053516655577063261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e756f139e8884f93ef2eca2eef78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 960159179516575655}
+  colliderType: 0
+  startingChildren: []
+  syncEnable: 1
+  syncDisable: 1
+  syncCollisionTags: 1
+  hitboxSize: 0.4
+  hitboxOffset: {x: -0.32, y: 0.11}
+  killBulletOnCollision: 1
+  maxSimultaneousCollisionsPerFrame: 1
+  collisionTags:
+    tagList: 0
+  OnHitByBullet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletStay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitByBulletExit:
+    m_PersistentCalls:
+      m_Calls: []
+  parentSyncFoldout: 0
+  collisionTagsFoldout: 0
+  advancedEventsFoldout: 0
+  useDefaultGizmoColor: 1
+  gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  gizmoZOffset: 0
 --- !u!1 &3901809672920151108
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,9 +420,29 @@ PrefabInstance:
       value: 12259738045229382244
       objectReference: {fileID: 0}
     - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: hitboxSize
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: colliderType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: advancedEventsFoldout
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: startingChildren.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'startingChildren.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3447316880114571490}
+    - target: {fileID: 5137083937097397392, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: 'startingChildren.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7965649241333568380}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -339,6 +507,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2737676311042412698}
+    - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7524061513642902369}
+    - targetCorrespondingSourceObject: {fileID: 401242894356786537, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 960159179516575655}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6149102763708772207, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       insertIndex: -1
@@ -383,7 +557,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.23, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.3890302, y: 0.39173976}
@@ -393,7 +567,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.45, y: 1.41}
+  m_Size: {x: 1.86, y: 1.04}
   m_EdgeRadius: 0
 --- !u!114 &2945273171600960885 stripped
 MonoBehaviour:

@@ -19,7 +19,7 @@ MonoBehaviour:
 
     Chance to inflict bleed
     upon dealing Mouse Damage'
-  sprite: {fileID: 8001894037912489551, guid: beb7cbea8c0e5e5438b4dab8de11c2cf, type: 3}
+  sprite: {fileID: 21300000, guid: bd3249e8aae01e748aaca0c062e2c19c, type: 3}
   statChanges:
   - type: 3
     amt: 15

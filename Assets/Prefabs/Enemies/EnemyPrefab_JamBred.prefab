@@ -179,6 +179,18 @@ PrefabInstance:
       propertyPath: hitboxSize
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843200511041566252, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843200511041566252, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0

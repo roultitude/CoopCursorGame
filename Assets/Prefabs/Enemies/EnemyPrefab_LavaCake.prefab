@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emitterProfile: {fileID: 11400000, guid: af0a09f7f5e0ba947bcf9e78139a86b3, type: 2}
-  patternOrigin: {fileID: 0}
+  patternOrigin: {fileID: 1179130428939465928}
   playAtStart: 0
   useDefaultGizmoColor: 1
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
@@ -299,6 +299,14 @@ PrefabInstance:
       propertyPath: collisionTagsFoldout
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843200511041566252, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.71
+      objectReference: {fileID: 0}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -419,6 +427,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.69, y: 1.41}
   m_EdgeRadius: 0
+--- !u!4 &1179130428939465928 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+  m_PrefabInstance: {fileID: 6328504655614131425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2945273171600960885 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9154950717059518868, guid: 8606de464e3c01944b3cee9d07990274, type: 3}

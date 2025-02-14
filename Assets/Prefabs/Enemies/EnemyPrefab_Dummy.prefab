@@ -154,6 +154,10 @@ PrefabInstance:
       propertyPath: managedReferences[6091660771148955700].GUID.m_Value1
       value: 15618123283185314278
       objectReference: {fileID: 0}
+    - target: {fileID: 5156130731281565737, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.91
+      objectReference: {fileID: 0}
     - target: {fileID: 8087729961298417204, guid: 8606de464e3c01944b3cee9d07990274, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -262,7 +266,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.87, y: 9.58}
+    oldSize: {x: 2.7175, y: 2.395}
     newSize: {x: 0.9375, y: 0.59375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -303,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfa96d5c87dc274bb1ec7d81ba26c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: 2478089121697702882}
   isManuallyControlled: 1
   cooldown: 5

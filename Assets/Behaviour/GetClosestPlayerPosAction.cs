@@ -10,11 +10,14 @@ public partial class GetClosestPlayerPosAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<Vector2> Position;
+    [SerializeReference] public BlackboardVariable<Player> ClosestPlayer;
 
     protected override Status OnStart()
     {
         if (PlayerManager.Instance.players.Count == 0) return Status.Failure;
-        Position.Value = FindClosestPlayer().closestPlayer.transform.position;
+        ClosestPlayer.Value = FindClosestPlayer().closestPlayer;
+        Position.Value = ClosestPlayer.Value.transform.position;
+
         return Status.Success;
     }
 

@@ -24,11 +24,11 @@ public partial class RandomCompleteAllSequence : Composite
         }
         m_CurrentIndex = 0;
         Random random = new Random(DateTime.Now.Millisecond);
-        m_Indexes.OrderBy(x => random.Next()).ToArray();
+        m_Indexes = m_Indexes.OrderBy(x => random.Next()).ToArray();
 
         if (m_CurrentIndex < Children.Count) // incase no children
         {
-            var status = StartNode(Children[m_CurrentIndex]);
+            var status = StartNode(Children[m_Indexes[m_CurrentIndex]]);
             if (status == Status.Success || status == Status.Failure)
             {
                 return Status.Running;
@@ -41,7 +41,7 @@ public partial class RandomCompleteAllSequence : Composite
 
     protected override Status OnUpdate()
     {
-        var status = Children[m_CurrentIndex].CurrentStatus;
+        var status = Children[m_Indexes[m_CurrentIndex]].CurrentStatus;
         if (status == Status.Success || status == Status.Failure)
         {
             m_CurrentIndex++;
@@ -50,7 +50,7 @@ public partial class RandomCompleteAllSequence : Composite
                 return status;
             } else //start next
             {
-                var newStatus = StartNode(Children[m_CurrentIndex]);
+                var newStatus = StartNode(Children[m_Indexes[m_CurrentIndex]]);
                 return Status.Running;
             }
         }

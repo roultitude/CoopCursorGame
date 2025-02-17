@@ -19,7 +19,7 @@ public class PlayerOrbitalManager : NetworkBehaviour
     {
         orbitals = new List<PlayerOrbital>();
     }
-    public void ReigsterOrbital(PlayerOrbital newOrb)
+    public void RegisterOrbital(PlayerOrbital newOrb)
     {
         orbitals.Add(newOrb);
         RefreshOrbitalPositions();

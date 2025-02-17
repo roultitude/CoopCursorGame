@@ -14,6 +14,7 @@ public partial class RandomRoam : Action
     [SerializeReference] public BlackboardVariable<float> Speed;
     [SerializeReference] public BlackboardVariable<float> RoamRadius;
     [SerializeReference] public BlackboardVariable<float> ArrivalThreshold = new BlackboardVariable<float>(0.01f);
+    [SerializeReference] public BlackboardVariable<float> EnemyHeightOffset = new BlackboardVariable<float>(0f);
 
     private Vector2 roamTarget;
     protected override Status OnStart()
@@ -24,7 +25,7 @@ public partial class RandomRoam : Action
             roamTarget = UnityEngine.Random.insideUnitCircle * RoamRadius + (Vector2)Agent.Value.transform.position; //find a way to stop them from roaming off map
         }
         while (roamTarget.x < bottomLeft.x || roamTarget.x > topRight.x
-            || roamTarget.y > topRight.y || roamTarget.y < bottomLeft.y);
+            || roamTarget.y > topRight.y - EnemyHeightOffset || roamTarget.y < bottomLeft.y);
 
         return Status.Running;
     }
@@ -32,8 +33,9 @@ public partial class RandomRoam : Action
     protected override Status OnUpdate()
     {
         Vector2 roamDirection = (roamTarget - (Vector2) Agent.Value.transform.position).normalized;
-        
-        Agent.Value.transform.position += (Vector3) roamDirection * Speed * Time.deltaTime;
+        Vector2 moveDisp = roamDirection * Speed * Time.deltaTime;
+
+        Agent.Value.transform.position += (Vector3) moveDisp;
         if(((Vector2) Agent.Value.transform.position - roamTarget).sqrMagnitude < ArrivalThreshold)
         {
             return Status.Success;

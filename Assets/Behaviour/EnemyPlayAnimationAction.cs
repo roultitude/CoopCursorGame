@@ -15,13 +15,22 @@ public partial class EnemyPlayAnimationAction : Action
         switch (AnimState.Value)
         {
             case EnemyAnimationState.idle:
-                Enemy.Value.PlayerIdleAnimationVisualRPC();
+                Enemy.Value.PlayIdleAnimationVisualRPC();
                 break;
             case EnemyAnimationState.windup:
                 Enemy.Value.PlayWindupAnimationVisualRPC();
                 break;
             case EnemyAnimationState.attack:
                 Enemy.Value.PlayAttackAnimationVisualRPC();
+                break;
+            case EnemyAnimationState.misc1:
+                Enemy.Value.PlayMiscOneAnimationVisualRPC();
+                break;
+            case EnemyAnimationState.misc2:
+                Enemy.Value.PlayMiscTwoAnimationVisualRPC();
+                break;
+            case EnemyAnimationState.jumping:
+                Enemy.Value.PlayJumpingAnimationVisualRPC();
                 break;
             default:
                 return Status.Failure;

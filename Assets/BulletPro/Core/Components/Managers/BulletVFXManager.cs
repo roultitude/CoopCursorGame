@@ -51,15 +51,18 @@ namespace BulletPro
 			}
 
 			for (int i = 0; i < effectPool.Length; i++)
-				if (!effectPool[i].thisParticleSystem.isPlaying)
-				{
-					// Reset parent if applicable
-					if (effectPool[i].thisTransform.parent != self)
-						effectPool[i].thisTransform.SetParent(self);
-					// And reset scale anyways
-					effectPool[i].thisTransform.localScale = Vector3.one;
-					return effectPool[i];
-				}
+			{
+                if (!effectPool[i].thisParticleSystem.isPlaying)
+                {
+                    // Reset parent if applicable
+                    if (effectPool[i].thisTransform.parent != self)
+                        effectPool[i].thisTransform.SetParent(self);
+                    // And reset scale anyways
+                    effectPool[i].thisTransform.localScale = Vector3.one;
+                    return effectPool[i];
+                }
+            }
+				
 
 			Debug.LogWarning(name + " has not enough bullets in pool!");
 			return null;

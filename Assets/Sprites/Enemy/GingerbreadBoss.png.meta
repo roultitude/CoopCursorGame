@@ -1,0 +1,780 @@
+fileFormatVersion: 2
+guid: 9430408a581868c4c86ea8d3cf5ea420
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8023356141591183664
+    second: GingerbreadBoss_0
+  - first:
+      213: 8997162251680816804
+    second: GingerbreadBoss_1
+  - first:
+      213: 4145429280453124673
+    second: GingerbreadBoss_2
+  - first:
+      213: 2931297112853591841
+    second: GingerbreadBoss_3
+  - first:
+      213: 8015942455556430441
+    second: GingerbreadBoss_4
+  - first:
+      213: -7818937129199269318
+    second: GingerbreadBoss_5
+  - first:
+      213: -5057213553733791665
+    second: GingerbreadBoss_6
+  - first:
+      213: 4580473032057234325
+    second: GingerbreadBoss_7
+  - first:
+      213: 347701976357885999
+    second: GingerbreadBoss_8
+  - first:
+      213: -8153880129412209634
+    second: GingerbreadBoss_9
+  - first:
+      213: 5786165895257842928
+    second: GingerbreadBoss_10
+  - first:
+      213: 4657105264120690349
+    second: GingerbreadBoss_11
+  - first:
+      213: 8383327414669196107
+    second: GingerbreadBoss_12
+  - first:
+      213: 5568563449821345878
+    second: GingerbreadBoss_13
+  - first:
+      213: -4666381564252008303
+    second: GingerbreadBoss_14
+  - first:
+      213: -1365789865365908186
+    second: GingerbreadBoss_15
+  - first:
+      213: 2866706468959509204
+    second: GingerbreadBoss_16
+  - first:
+      213: 4834318252798442611
+    second: GingerbreadBoss_17
+  - first:
+      213: -3540571601870331456
+    second: GingerbreadBoss_18
+  - first:
+      213: 3709947851962287839
+    second: GingerbreadBoss_19
+  - first:
+      213: -8863657773412455185
+    second: GingerbreadBoss_20
+  - first:
+      213: 2497924733750187992
+    second: GingerbreadBoss_21
+  - first:
+      213: 955257820028390620
+    second: GingerbreadBoss_22
+  - first:
+      213: -1125726087246758158
+    second: GingerbreadBoss_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 400
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GingerbreadBoss_0
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 6889
+        width: 820
+        height: 1101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031cdf5b6efa85f60800000000000000
+      internalID: 8023356141591183664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_1
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 6891
+        width: 805
+        height: 1101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ae1dfd16675cdc70800000000000000
+      internalID: 8997162251680816804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_2
+      rect:
+        serializedVersion: 2
+        x: 2594
+        y: 6907
+        width: 772
+        height: 1083
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14269e697f5878930800000000000000
+      internalID: 4145429280453124673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_3
+      rect:
+        serializedVersion: 2
+        x: 3786
+        y: 6907
+        width: 772
+        height: 1126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12734c6813f0ea820800000000000000
+      internalID: 2931297112853591841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_4
+      rect:
+        serializedVersion: 2
+        x: 4941
+        y: 6907
+        width: 850
+        height: 1126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ad96b61395e3f60800000000000000
+      internalID: 8015942455556430441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_5
+      rect:
+        serializedVersion: 2
+        x: 6073
+        y: 6907
+        width: 956
+        height: 1198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3a07f48b1e8d7390800000000000000
+      internalID: -7818937129199269318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_6
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 5585
+        width: 956
+        height: 1197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f401860311b21d9b0800000000000000
+      internalID: -5057213553733791665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_7
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 5585
+        width: 956
+        height: 1197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 593270b44fb119f30800000000000000
+      internalID: 4580473032057234325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_8
+      rect:
+        serializedVersion: 2
+        x: 2388
+        y: 5585
+        width: 1190
+        height: 1087
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f285384fa1943d400800000000000000
+      internalID: 347701976357885999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_9
+      rect:
+        serializedVersion: 2
+        x: 3686
+        y: 5585
+        width: 978
+        height: 1195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e14e441393997de80800000000000000
+      internalID: -8153880129412209634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_10
+      rect:
+        serializedVersion: 2
+        x: 4922
+        y: 5585
+        width: 918
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4e25ea9379c4050800000000000000
+      internalID: 5786165895257842928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_11
+      rect:
+        serializedVersion: 2
+        x: 6170
+        y: 5585
+        width: 772
+        height: 1083
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da6f385309c51a040800000000000000
+      internalID: 4657105264120690349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_12
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 4263
+        width: 772
+        height: 1083
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4bb62beddf875470800000000000000
+      internalID: 8383327414669196107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_13
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 4224
+        width: 1090
+        height: 1101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65833df34f2874d40800000000000000
+      internalID: 5568563449821345878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_14
+      rect:
+        serializedVersion: 2
+        x: 2396
+        y: 4344
+        width: 1109
+        height: 1019
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190d35cd0bead3fb0800000000000000
+      internalID: -4666381564252008303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_15
+      rect:
+        serializedVersion: 2
+        x: 3674
+        y: 4263
+        width: 903
+        height: 1122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 625590d8a5dbb0de0800000000000000
+      internalID: -1365789865365908186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_16
+      rect:
+        serializedVersion: 2
+        x: 4865
+        y: 4270
+        width: 1089
+        height: 1066
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4da55a5585698c720800000000000000
+      internalID: 2866706468959509204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_17
+      rect:
+        serializedVersion: 2
+        x: 6008
+        y: 4289
+        width: 1133
+        height: 932
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37cfc3d66d2f61340800000000000000
+      internalID: 4834318252798442611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_18
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 2910
+        width: 824
+        height: 1114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c1eea803ec5ddec0800000000000000
+      internalID: -3540571601870331456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_19
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 2939
+        width: 772
+        height: 1085
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd68f6b4ae16c7330800000000000000
+      internalID: 3709947851962287839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_20
+      rect:
+        serializedVersion: 2
+        x: 2558
+        y: 2939
+        width: 841
+        height: 1037
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fecee1d7736fdf480800000000000000
+      internalID: -8863657773412455185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_21
+      rect:
+        serializedVersion: 2
+        x: 3706
+        y: 2939
+        width: 941
+        height: 1037
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d797de8f496aa220800000000000000
+      internalID: 2497924733750187992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_22
+      rect:
+        serializedVersion: 2
+        x: 4905
+        y: 2908
+        width: 929
+        height: 912
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdcc4b71de1c14d00800000000000000
+      internalID: 955257820028390620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GingerbreadBoss_23
+      rect:
+        serializedVersion: 2
+        x: 6245
+        y: 3042
+        width: 633
+        height: 1179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fe3447861e9060f0800000000000000
+      internalID: -1125726087246758158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GingerbreadBoss_0: 8023356141591183664
+      GingerbreadBoss_1: 8997162251680816804
+      GingerbreadBoss_10: 5786165895257842928
+      GingerbreadBoss_11: 4657105264120690349
+      GingerbreadBoss_12: 8383327414669196107
+      GingerbreadBoss_13: 5568563449821345878
+      GingerbreadBoss_14: -4666381564252008303
+      GingerbreadBoss_15: -1365789865365908186
+      GingerbreadBoss_16: 2866706468959509204
+      GingerbreadBoss_17: 4834318252798442611
+      GingerbreadBoss_18: -3540571601870331456
+      GingerbreadBoss_19: 3709947851962287839
+      GingerbreadBoss_2: 4145429280453124673
+      GingerbreadBoss_20: -8863657773412455185
+      GingerbreadBoss_21: 2497924733750187992
+      GingerbreadBoss_22: 955257820028390620
+      GingerbreadBoss_23: -1125726087246758158
+      GingerbreadBoss_3: 2931297112853591841
+      GingerbreadBoss_4: 8015942455556430441
+      GingerbreadBoss_5: -7818937129199269318
+      GingerbreadBoss_6: -5057213553733791665
+      GingerbreadBoss_7: 4580473032057234325
+      GingerbreadBoss_8: 347701976357885999
+      GingerbreadBoss_9: -8153880129412209634
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

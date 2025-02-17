@@ -14,7 +14,7 @@ public class PlayerOrbital : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        PlayerManager.Instance.GetPlayerWithId(OwnerClientId).playerOrbitals.ReigsterOrbital(this);
+        PlayerManager.Instance.GetPlayerWithId(OwnerClientId).playerOrbitals.RegisterOrbital(this);
     }
 
     public void Setup(Player player, float startAngle, float orbitRadius, float orbitSpeed)

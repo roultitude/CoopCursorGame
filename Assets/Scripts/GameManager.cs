@@ -1,3 +1,4 @@
+using BulletPro;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -63,7 +64,7 @@ public class GameManager : NetworkBehaviour
         
         if (!IsServer) return;
         currentStage.Value = 0;
-        NetworkManager.SceneManager.LoadScene("PreGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        LoadScene("PreGameScene");
 
     }
 
@@ -74,24 +75,34 @@ public class GameManager : NetworkBehaviour
         if (!IsServer) return;
         if (isDebugBoss) {
             currentStage.Value = currentStage.Value + 1;
-            NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            LoadScene("BossScene");
         } else
         {
             currentStage.Value = currentStage.Value + 1;
             if (stageWaves[currentStage.Value - 1].isBoss) {
-                NetworkManager.SceneManager.LoadScene("BossScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+                LoadScene("BossScene");
             } else
             {
-                NetworkManager.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+                LoadScene("GameScene");
             }
             
         }
     }
 
+    private void LoadScene(string sceneName)
+    {
+        foreach(Bullet bul in BulletPoolManager.instance.pool)
+        {
+            bul.Die();
+        }
+        Debug.Log($"Killed {BulletPoolManager.instance.pool.Length} bullets");
+        NetworkManager.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+    }
+
     public void LoadNextInterimScene()
     {
         if (!IsServer) return;
-        NetworkManager.SceneManager.LoadScene("InterimScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        LoadScene("InterimScene");
     }
 }
 

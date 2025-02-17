@@ -247,9 +247,24 @@ public class Enemy : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void PlayerIdleAnimationVisualRPC()
+    public void PlayIdleAnimationVisualRPC()
     {
         animator.CrossFade("Enemy_Idle", 0);
+    }
+    [Rpc(SendTo.Everyone)]
+    public void PlayMiscOneAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Misc_1", 0);
+    }
+    [Rpc(SendTo.Everyone)]
+    public void PlayMiscTwoAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Misc_2", 0);
+    }
+    [Rpc(SendTo.Everyone)]
+    public void PlayJumpingAnimationVisualRPC()
+    {
+        animator.CrossFade("Enemy_Jumping", 0);
     }
 
 }
@@ -257,5 +272,8 @@ public class Enemy : NetworkBehaviour
 public enum EnemyAnimationState { 
     idle = 0,
     windup = 1,
-    attack = 2
+    attack = 2,
+    jumping = 3,
+    misc1 = 4, 
+    misc2 = 5,
 }
